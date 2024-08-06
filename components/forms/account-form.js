@@ -1,7 +1,7 @@
 'use client'
 import { useCallback, useEffect, useState } from 'react'
 import { createClient } from '@/utils/supabase/client'
-import { singOut } from '../../app/account/action'
+import { singOut } from '@/app/dashboard/account/action'
 import Avatar from '@/components/Avatar'
 
 export default function AccountForm({ user }) {

@@ -6,12 +6,46 @@
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
-}
+}  
 
+
+h1{
+  font-family: var(--font-englebert);
+}
 
 
 @layer utilities {
   .text-balance {
     text-wrap: balance;
-  }
-}
+  }  
+}  
+
+.slide-left-enter-active {
+  animation: slide-left-enter 0.5s;
+}  
+
+@keyframes slide-left-enter {
+  from {
+    transform: translateX(-100%);
+  }  
+  to {
+    transform: translateX(0%);
+  }  
+}  
+
+.listing > section > div  {
+  
+  padding: 10px;
+  border: 0.08rem solid rgb(229,231,235);
+  border-radius: 0.8rem;
+  box-shadow: 0 0 1.5rem rgba(0,0,0,0.1);
+}  
+
+.listing > section > div > h2::after , .listing > section > div > h3::after    {
+  content: '';
+  display: block;
+  width: 60px;
+  height: 0.2rem;
+  background: linear-gradient(90deg, #166534, rgb(255, 252, 208));
+}  
+
