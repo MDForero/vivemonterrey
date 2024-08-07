@@ -8,7 +8,7 @@ const BannerImage = ({ path, buckets }) => {
     const [banner, setBanner] = useState(null)
 
     useEffect(() => {
-        async function downloadImage(path) {
+        async function downloadImage(path, buckets) {
             try {
                 const { data, error } = await supabase.storage.from(buckets).download(path)
                 if (error) {
@@ -20,11 +20,11 @@ const BannerImage = ({ path, buckets }) => {
                 console.log('Error downloading image: ', error)
             }
         }
-        if (path) downloadImage(path)
+        if (path) downloadImage(path, buckets)
 
     }, [path])
 
-    return (banner && <Image src={banner} width={0} height={0} className='w-full h-[600px] object-cover' />
+    return (banner && <Image src={banner} width={0} height={0} className='w-full h-[600px] object-cover' alt={banner} />
     )
 }
 

@@ -1,6 +1,7 @@
 import BannerImage from '@/components/BannerImage'
 import BtnCtaWp from '@/components/BtnCtaWp'
 import { createClient } from '@/utils/supabase/server'
+import Image from 'next/image'
 
 export default async function page({ params }) {
     const supabase = createClient()
@@ -10,7 +11,7 @@ export default async function page({ params }) {
         {data?.whatsapp && <BtnCtaWp cta={data?.whatsapp}/>}
         <main className="relative h-[400px] md:h-[600px] overflow-hidden rounded-lg">
             <BannerImage path={data?.banner_url} buckets={'banners'} />
-            <img
+            <Image
                 src="/placeholder.svg"
                 alt="Business Image"
                 width="1200"
@@ -30,7 +31,7 @@ export default async function page({ params }) {
             <div>
                     <h3 className="text-xl font-bold mb-2">Meet the Owner</h3>
                     <div className="flex items-center gap-4">
-                        <img
+                        <Image
                             src="/placeholder.svg"
                             alt="Owner"
                             width="80"

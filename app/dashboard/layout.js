@@ -3,7 +3,7 @@ import { createClient } from "@/utils/supabase/client"
 import { useRouter } from "next/navigation"
 import { useEffect } from "react"
 
-export default function dashboardLayout ({children}) {
+export default function DashboardLayout ({children}) {
     const supabase = createClient()
     const router = useRouter()
     const getUser = async () => {
