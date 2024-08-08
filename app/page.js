@@ -14,7 +14,7 @@ export default async function Home() {
 
   return (
     <>
-      <main className="relative">
+      <main className="relative z-0">
         <Image src='/bannerMonterrey.webp' width={0} height={0} className="h-[400px] lg:h-[600px] w-full object-cover" alt='imagen aerea de Monterrey casanare'/>
         <div className="absolute top-0 left-0 right-0 bottom-0 bg-gradient-to-t from-black/50 to-transparent flex flex-col items-center justify-center text-white  font-bold">
           <Image src='/logo.svg' width={0} height={0} className="w-72" alt="Logo de vive monterrey solo letras" />

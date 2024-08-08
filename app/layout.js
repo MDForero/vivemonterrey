@@ -32,8 +32,8 @@ export default function RootLayout({ children }) {
   const links = [
     { name: 'Inicio', url: '/' },
     { name: 'Nosotros', url: '/nosotros' },
-    { name: 'Restaurantes', url: '/restaurantes' },
-    { name: 'Hoteles', url: '/hoteles' },
+    { name: 'Restaurantes', url: '/Restaurantes' },
+    { name: 'Hoteles', url: '/Hoteles' },
     { name: 'Que hacer?', url: '/turismo' },
     { name: 'Contacto', url: '/contacto' },
   ]

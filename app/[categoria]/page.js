@@ -5,7 +5,6 @@ export default async function page({ params }) {
 
     const supabase = createClient()
     const { data, error } = await supabase.from('categories').select('*, businesses(*)').eq('name', params.categoria)
-    console.log(data)
 
     return (<>
         <main className="relative">

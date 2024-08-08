@@ -7,7 +7,7 @@ import Link from 'next/link'
 const Footer = () => {
     return (
         <footer className='p-8'>
-            <div className='container mx-auto flex flex-wrap justify-evenly'>
+            <div className='container mx-auto flex flex-wrap justify-evenly gap-10 ' >
 
                 <section className='w-96 space-y-4'>
                     <h1 className='text-2xl font-bold '>ViveMonterrey.co</h1>
@@ -15,7 +15,7 @@ const Footer = () => {
 
                 </section>
 
-                <section className='w-96 space-y-4 h-96'>
+                <section className='w-fit min-w-72 space-y-4 '>
                     <h1 className='text-2xl font-bold '>Síguenos</h1>
                     <ul className='list-disc ml-8'>
                         {socialAccounts.map(social => <li key={social.name}> <Link href={social.url} className=''>{social.name}</Link></li>)}
@@ -23,7 +23,7 @@ const Footer = () => {
 
                 </section>
 
-                <section className='w-96 space-y-4 h-96'>
+                <section className='w-fit min-w-72 space-y-4 '>
                     <h1 className='text-2xl font-bold '>Contacto</h1>
                     <ul>
                         <li>Teléfono: <a href='tel:+573108854737'>+57 310 885 4737</a></li>

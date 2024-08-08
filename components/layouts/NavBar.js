@@ -30,9 +30,15 @@ const NavBar = ({ links }) => {
                         {show ? <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M6 18L18 6M6 6l12 12" /> : <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M4 6h16M4 12h16m-7 6h7" />}
                     </svg>
                 </button>
-                <ul className={show ? 'flex flex-col justify-center items-center fixed top-0 bottom-0 w-96 left-0 bg-gray-500 slide-left-enter-active ' : 'hidden '}>
-                    {links.map(link => <li key={link.name} ><Link onClick={() => setShow(!show)} className={path.slice(-1) === link.name ? 'underline ' : ''} href={link.url}>{link.name}</Link></li>)}
-                </ul>
+                <div className={show ? 'flex flex-col justify-between items-stretch fixed top-0 bottom-0 w-fit h-full left-0 bg-gray-500 slide-left-enter-active z-50 py-4 px-4' : 'hidden '}>
+                    <ul>
+                        {links.map(link => <li key={link.name} ><Link onClick={() => setShow(!show)} className={path.slice(-1) === link.name ? 'underline ' : ''} href={link.url}>{link.name}</Link></li>)}
+                    </ul>
+                    <ul className='flex gap-3'>
+                        {socialAccounts.map(social => <li key={social.name}> <Link href={social.url} className='border block p-2 rounded-full'><Image src={social.svg} width={0} height={0} className='w-8 h-8' /></Link>
+                        </li>)}
+                    </ul>
+                </div>
             </nav>
 
         </header>

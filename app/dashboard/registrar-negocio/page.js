@@ -14,29 +14,35 @@ export default async function Page() {
             type: 'text',
             name: "name",
             label: "Nombre del negocio",
+            placeholder: "Restaurante la esquina",
             required: true
         },
         {
             type: 'text',
             name: "address",
             label: "Dirección",
+            placeholder: "Calle 123 12a 81",
             required: true
         },
         {
             type: 'text',
             name: "socials_account",
             label: "Cuenta de redes sociales",
+            placeholder: "https://www.instagram.com/laesquina, https://www.facebook.com/laesquina, https://www.twitter.com/laesquina",
+            multiple: true,
             required: true
         },
         {
             type: 'text',
             name: "phone",
             label: "Teléfono",
+            placeholder: "310 XXXX XXX",
             required: true
         },
         {
             type: 'text',
             name: "website",
+            placeholder: "unsitioincreible.com",
             label: "Sitio web",
             required: true
         },
@@ -46,12 +52,7 @@ export default async function Page() {
             type: 'text',
             name: "description",
             label: "Descripción",
-            required: true
-        },
-        {
-            type: 'text',
-            name: "schedule",
-            label: "Horario",
+            placeholder: "Describe tu negocio",
             required: true
         },
     ]
@@ -78,6 +79,7 @@ export default async function Page() {
                             className='flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50'
                             type={input.type}
                             placeholder={input?.placeholder ?? 'aun no hay un placeholder se debe configurar'}
+                            multiple={input?.multiple ?? false}
 
                         />
                     </div>
@@ -91,9 +93,11 @@ export default async function Page() {
                             </label>
                             <input
                                 className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                                name="gallery"
                                 id="gallery"
                                 multiple
                                 type="file"
+                                accept="image/*"
                             />
                         </div>
                 </div>

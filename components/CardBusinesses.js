@@ -5,7 +5,7 @@ import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { useEffect, useState } from "react"
 
-export default function CardBusinesses(data) {
+export default function  CardBusinesses(data) {
     const path = usePathname()
     const { name, banner_url, address, website, phone } = data?.data
     const supabase = createClient()
@@ -19,10 +19,8 @@ export default function CardBusinesses(data) {
                     throw error
                 }
                 const url = URL.createObjectURL(data)
-                console.log(url, data)
                 setImageUrl(url)
             } catch (error) {
-                console.log('Error downloading image: ', error)
             }
         }
 
