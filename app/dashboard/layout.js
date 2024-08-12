@@ -8,7 +8,7 @@ export default function DashboardLayout ({children}) {
     const router = useRouter()
     const getUser = async () => {
         const { data: user, error } = await supabase.auth.getUser()
-        if (error) {
+        if (!user) {
             router.push('/login')   
         }
     }

@@ -6,29 +6,26 @@ import { createClient } from '@/utils/supabase/server'
 import Image from 'next/image'
 
 export default async function page({ params }) {
-    
+
     const supabase = createClient()
     const { data, error } = await supabase.from('businesses').select().eq('name', decodeURI(params.negocio).split('-').join(' ')).single()
+    const schedule = data?.schedule ? Object.entries(JSON.parse(data.schedule)) : []
+    console.log(data?.socials_account)
+    return <div className='container mx-auto space-y-16'>
 
-    return <div className='container mx-auto'>
         {data?.whatsapp && <BtnCtaWp cta={data?.whatsapp} />}
         <main className="relative h-[400px] md:h-[600px] overflow-hidden rounded-lg">
             <BannerImage path={data?.banner_url} buckets={'banners'} />
-            <Image
-                src="/placeholder.svg"
-                alt="Business Image"
-                width="1200"
-                height="400"
-            // style="aspect-ratio: 1200 / 400; object-fit: cover;"
-            />
+    
             <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent flex items-center justify-center">
-                <div className="text-center text-white">
+                <div className="text-center text-white flex justify-center items-center flex-col">
+                    <ImgGallery path={data?.logo} className='w-32 h-32 rounded-full ' />
                     <h1 className="text-3xl md:text-4xl font-bold">{data?.name}</h1>
                 </div>
             </div>
         </main>
-        <aside className="container mx-auto flex justify-center flex-col md:flex-row  max-w-7xl gap-8 mt-12 listing ">
-            <section className='max-w-4xl w-full space-y-8 p-2'>
+        <aside className="container mx-auto flex justify-center items-start flex-col md:flex-row mt-12 max-w-7xl gap-8  listing ">
+            <section className='max-w-4xl w-full space-y-8'>
 
                 {/* <div>
                     <h3 className="text-xl font-bold mb-2">Meet the Owner</h3>
@@ -47,6 +44,8 @@ export default async function page({ params }) {
                     </div>
                 </div> */}
 
+{/* Descripcion */}
+
                 <div className=''>
                     <h2 className="text-2xl font-bold mb-4">Acerca de  <span className='capitalize'>{data?.name}</span></h2>
                     <p className="text-muted-foreground mb-6">
@@ -54,17 +53,20 @@ export default async function page({ params }) {
                     </p>
                 </div>
 
+{/* Servicios */}
                 <div>
                     <h3 className="text-xl font-bold mb-4">Nuestros Servicios</h3>
-                    <ul className="list-disc pl-6 flex flex-wrap gap-16">
-                        <li>Product Design</li>
-                        <li>Web Development</li>
-                        <li>Digital Marketing</li>
-                        <li>Consulting</li>
+                    <ul className=" md:columns-3 space-y-2">
+                        {data?.amenities?.map((amenity, index) => <li key={index} className="text-muted-foreground flex gap-1">
+                            <svg viewBox="0 0 24 24" width={24} height={24}  className='fill-green-700' xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path fill-rule="evenodd" clip-rule="evenodd" d="M6 3C4.34315 3 3 4.34315 3 6V18C3 19.6569 4.34315 21 6 21H18C19.6569 21 21 19.6569 21 18V6C21 4.34315 19.6569 3 18 3H6ZM17.8 8.6C18.1314 8.15817 18.0418 7.53137 17.6 7.2C17.1582 6.86863 16.5314 6.95817 16.2 7.4L10.8918 14.4776L8.70711 12.2929C8.31658 11.9024 7.68342 11.9024 7.29289 12.2929C6.90237 12.6834 6.90237 13.3166 7.29289 13.7071L10.2929 16.7071C10.4979 16.9121 10.7817 17.018 11.0709 16.9975C11.3601 16.9769 11.6261 16.8319 11.8 16.6L17.8 8.6Z"  ></path> </g></svg>
+                            {amenity}
+                        </li>)}
                     </ul>
                 </div>
 
-                <div className="mt-6">
+{/* Ubicacion */}
+
+                <div>
                     <h3 className="text-xl font-bold mb-4">Ubicacion</h3>
                     <div className="aspect-video rounded-lg overflow-hidden">
                         <iframe src={data?.iframe_maps ?? "https://www.google.com/maps/embed?pb=!1m10!1m8!1m3!1d248.4601111499341!2d-72.89577454192131!3d4.878929036236534!3m2!1i1024!2i768!4f13.1!5e0!3m2!1ses!2sco!4v1722186221373!5m2!1ses!2sco"} width="100%" height="100%" allowFullScreen="" loading="lazy" referrerPolicy="no-referrer-when-downgrade"></iframe>
@@ -74,36 +76,33 @@ export default async function page({ params }) {
             </section>
             <section className='space-y-8 min-w-60'>
 
-                {data?.socials_account &&  <div>
-                                        <h3 className="text-xl font-bold mb-2">Síguenos</h3>
+{/* Redes sociales*/}
+                {data?.socials_account && <div>
+                    <h3 className="text-xl font-bold mb-2">Síguenos</h3>
                     <div className="flex items-center gap-4">
-                        {data?.socials_account?.map((social, index) => <SocialMediaButton url={social} key={index}/>)}
+                        {data?.socials_account?.map((social, index) => <SocialMediaButton url={social} key={index} />)}
                     </div>
                 </div>}
 
-                <div>
-                    <h3 className="text-xl font-bold mb-2">Business Hours</h3>
-                    <div className="grid  gap-2">
-                        <div>
-                            <p className="font-medium">Monday - Friday</p>
-                            <p className="text-muted-foreground">9:00 AM - 6:00 PM</p>
-                        </div>
-                        <div>
-                            <p className="font-medium">Saturday</p>
-                            <p className="text-muted-foreground">10:00 AM - 4:00 PM</p>
-                        </div>
-                        <div>
-                            <p className="font-medium">Sunday</p>
-                            <p className="text-muted-foreground">Closed</p>
-                        </div>
-                    </div>
+{/* Horarios de servicio */}
+                {data?.schedule && <div>
+                    <h3 className="text-xl font-bold mb-2">Horario</h3>
+                    <dl>
+                        {schedule.map(([key, value], index) => <div key={index} className='border-b flex justify-between py-2 text-sm'>
+                            <dt className="text-muted-foreground font-medium capitalize">{key}</dt>
+                            {value.open || value.fourtyFour ? <>
+                                {(value.open) && <dd className="text-muted-foreground">{value.open} - {value.close}</dd>}
+                                {(value.fourtyFour) && <dd className="text-muted-foreground">24 horas</dd>}
+                            </> : <dd className="text-muted-foreground">Cerrado</dd>}
+                        </div>)}
+                    </dl>
                 </div>
-
+                }
 
             </section>
         </aside>
         <section className=' columns-1 md:columns-2 lg:columns-3 space-y-4 max-w-7xl mx-auto '>
-            {data?.gallery.map((image, index) => <ImgGallery path={image} key={index} className=' reveal-in rounded-xl border-4'/>)}
+            {data?.gallery.map((image, index) => <ImgGallery path={image} key={index} className=' w-full object-cover reveal-in rounded-xl border-4' />)}
         </section>
         <BtnCtaWp cta={`https://wa.me/+57${data?.phone}`} />
     </div>
