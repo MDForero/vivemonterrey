@@ -33,7 +33,7 @@ const InputAmenities = () => {
       </div>
       <input type='text' id='amenities' name='amenities' hidden value={amenitiesString} />
       <ul className='columns-3'>
-        {amenitiesString?.split(',').slice(0, -1).map(amenity => <li className='flex gap-1 justify-between w-36'><p>{amenity}</p><button type='button' className='font-bold text-red-500' onClick={deleteAmenity}>x</button></li>)}
+        {amenitiesString?.split(',').slice(0, -1).map(amenity => <li className='flex gap-1 justify-between w-36' key={amenity}><p>{amenity}</p><button type='button' className='font-bold text-red-500' onClick={deleteAmenity}>x</button></li>)}
       </ul>
     </fieldset>
   )
