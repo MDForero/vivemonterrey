@@ -25,7 +25,7 @@ export default async function Home() {
       <div className="space-y-32 max-w-7xl mx-auto">
         <section className="space-y-8 border-2 m-2 sm-p-2 md:p-4 lg:p-14">
           <div className="text-center ">
-            <h1 className="text-4xl font-bold font-englebert">¿Qué hacer en Monterrey?</h1>
+            <h1 className="text-4xl font-bold title">¿Qué hacer en Monterrey?</h1>
             <h3 className="text-xl">Encuentra todo lo que necesitas para tu viaje ¡<span>ViveMonterrey.co</span> es tu punto de partida! </h3>
           </div>
           <div className="flex justify-around gap-8 flex-wrap">

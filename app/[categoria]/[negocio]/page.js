@@ -17,7 +17,7 @@ export default async function page({ params }) {
         <main className="relative h-[400px] md:h-[600px] overflow-hidden rounded-lg">
             <BannerImage path={data?.banner_url} buckets={'banners'} />
     
-            <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent flex items-center justify-center">
+            <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent flex items-end justify-end p-2 lg:p-8">
                 <div className="text-center text-white flex justify-center items-center flex-col">
                     <ImgGallery path={data?.logo} className='w-32 h-32 rounded-full ' />
                     <h1 className="text-3xl md:text-4xl font-bold">{data?.name}</h1>

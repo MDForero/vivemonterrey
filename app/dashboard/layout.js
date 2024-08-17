@@ -1,22 +1,27 @@
 'use client'
 import { createClient } from "@/utils/supabase/client"
 import { useRouter } from "next/navigation"
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 
 export default function DashboardLayout ({children}) {
     const supabase = createClient()
     const router = useRouter()
+    const [user, setUser] = useState()
     const getUser = async () => {
         const { data: user, error } = await supabase.auth.getUser()
-        if (!user) {
+        setUser(user)
+        console.log(user)
+
+        if (user.user === null) {
             router.push('/login')   
         }
     }
     useEffect(() => {
         getUser()
-    }, [])
+    }, [user, supabase])
     return (
         <>
+        Esto es un titulo 
             {children}
         </>
     )

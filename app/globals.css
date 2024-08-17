@@ -12,6 +12,9 @@
 h1{
   font-family: var(--font-englebert);
 }
+.title{
+  color: #b91c1c;
+}
 
 
 @layer utilities {
@@ -71,4 +74,12 @@ section .reveal-in{
     translate: 0 0;
     scale:1;
   }
+}
+
+nav ul li a{
+  font-family: var(--font-englebert);
+}
+
+footer div section h1{
+  color: #b91c1c;
 }
