@@ -23,7 +23,7 @@ const NavBar = ({ links }) => {
                         {socialAccounts.map(social => <li key={social.name}> <Link href={social.url} className='border block p-2 rounded-full'><Image src={social.svg} width={0} height={0} className='w-5 h-5' /></Link>
                         </li>)}
                     </ul>
-                    <button className='lg:hidden relative z-50 text-green-700 md:text-white rounded-full border-2 border-gray-700' onClick={() => setShow(!show)}>
+                    <button className='lg:hidden relative z-50 title lg:text-white rounded-full border-2 border-gray-700' onClick={() => setShow(!show)}>
                         <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8" fill='#15803d' viewBox="0 0 24 24" stroke="currentColor">
                             {show ? <path strokeLinecap="round" fill='#15803d' strokeLinejoin="round" strokeWidth={3} d="M6 18L18 6M6 6l12 12" /> : <path strokeLinecap="round" fill='#15803d' strokeLinejoin="round" strokeWidth={3} d="M4 6h16M4 12h16m-7 6h7" />}
                         </svg>

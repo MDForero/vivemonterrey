@@ -31,10 +31,10 @@ export default function RootLayout({ children }) {
 
   const links = [
     { name: 'Inicio', url: '/' },
+    { name: '¿Que hacer?', url: '/que-hacer' },
+    { name: 'Eventos', url: '/eventos' },
+    { name: 'Vivir en Monterrey', url: '/vivir-en-monterrey' },
     { name: 'Nosotros', url: '/nosotros' },
-    { name: 'Restaurantes', url: '/Restaurantes' },
-    { name: 'Hoteles', url: '/Hoteles' },
-    { name: 'Que hacer?', url: '/turismo' },
     { name: 'Contacto', url: '/contacto' },
   ]
 
