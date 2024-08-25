@@ -34,7 +34,6 @@ export default function RootLayout({ children }) {
     { name: '¿Que hacer?', url: '/que-hacer' },
     { name: 'Eventos', url: '/eventos' },
     { name: 'Vivir en Monterrey', url: '/vivir-en-monterrey' },
-    { name: 'Nosotros', url: '/nosotros' },
     { name: 'Contacto', url: '/contacto' },
   ]
 

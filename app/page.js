@@ -28,7 +28,7 @@ export default async function Home() {
         <section className="space-y-8 border-2 m-2 sm-p-2 md:p-4 lg:p-14">
           <div className="text-center ">
             <h1 className="text-4xl font-bold title">¿Qué hacer en Monterrey?</h1>
-            <h3 className="text-xl">Encuentra todo lo que necesitas para tu viaje ¡<span>ViveMonterrey.co</span> es tu punto de partida! </h3>
+            <h3 className="text-xl">Encuentra todo lo que necesitas para tu viaje ¡<span>ViveMonterrey</span> es tu punto de partida! </h3>
           </div>
           <div className="flex justify-around gap-8 flex-wrap">
             {data.map((category) => <CardCategory key={category.id} {...category} />)}
@@ -54,15 +54,23 @@ export default async function Home() {
               Deleita tus sentidos con nuestra <strong className="font-englebert ">exquisita gastronomía local,</strong> maravíllate con <strong className="font-englebert ">impresionantes shows ecuestres,</strong> y conecta con la tierra a través de fascinantes <strong className="font-englebert ">experiencias agrarias.</strong> Asciende a nuestros <strong className="font-englebert ">miradores panorámicos</strong> para contemplar la imponente extensión de las llanuras, un espectáculo que te dejará sin aliento. Ya sea cabalgando por nuestros senderos o presenciando <strong className="font-englebert ">vibrantes muestras culturales</strong>, en Monterrey cada momento es una aventura que te acerca más a la esencia del llano colombiano y su extraordinaria biodiversidad.</p>
           </article>
         </section>
-
+        
         {/* Cta para seguir a vive monterrey */}
         <section>
           <h1 className="sm:text-xl md:text-3xl lg:text-5xl  text-center"> Siguenos como @vivemonterrey</h1>
-          <div className='columns-2 md:columns-3'>
-
+          <div className='columns-2 md:columns-3 space-y-4'>
+            {galleryInstagram.map((img, index) => <Image key={index} src={img} width={0} height={0} className="w-full h-full object-cover" alt='imagen de instagram de vive monterrey' />)} 
           </div>
         </section>
       </div>
     </>
   );
 }
+
+const galleryInstagram = ['/assets/siguenos/Cascadas-algarrobos.jpg', 
+  '/assets/siguenos/Imagen de WhatsApp 2024-06-02 a las 17.48.20_dfbb70d2.jpg', 
+  '/assets/siguenos/Imagen de WhatsApp 2024-06-02 a las 17.48.20_314cc5b1.jpg', 
+  '/assets/siguenos/Imagen de WhatsApp 2024-06-02 a las 17.55.33_1cd5e501.jpg',
+'/assets/siguenos/Imagen de WhatsApp 2024-06-02 a las 17.48.20_9278bcb5.jpg', 
+'/assets/siguenos/Imagen de WhatsApp 2024-06-02 a las 17.50.44_1b134760.jpg', 
+]
