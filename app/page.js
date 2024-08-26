@@ -1,4 +1,5 @@
 import CardCategory from "@/components/CardCategory";
+import Slider from "@/components/Slider";
 import { createClient } from "@/utils/supabase/server";
 import Image from "next/image";
 
@@ -40,7 +41,7 @@ export default async function Home() {
           <h1 className="text-3xl md:text-5xl lg:text-7xl text-balance text-center title  ">Explora la esencia del llano en Monterrey, Casanare</h1>
           <article className="w-fit mx-auto max-w-5xl" >
           <div className="md:float-right relative md:ml-20 mb-20 w-fit mx-auto">
-            <video src='/lv_0_20240818221651.mp4' loop autoPlay muted  className="h-[400px] lg:h-[550px] w-fit aspect-[9/16] object-cover border-2 mx-auto rounded-3xl" alt='imagen aerea de Monterrey casanare' />
+        <iframe className='h-[400px] lg:h-[550px] w-fit aspect-[9/16] object-cover border-2 mx-auto rounded-3xl' src="https://www.youtube.com/embed/t4MNuPljys0?playlist=t4MNuPljys0&autoplay=1&mute=1&loop=1&controls=0&fs=0" frameborder="0" allow="autoplay" encrypted-media allowfullscreen></iframe>
             {/* <div className="absolute -bottom-4 -left-4 w-3/5 h-3/5 bg-gray-600 z-50 "></div> */}
           </div>
             <h2 className="text-xl md:text-3xl lg:text-4xl font-englebert ml-14 mb-3">¡Bienvenido a ViveMonterrey!</h2>
@@ -56,6 +57,10 @@ export default async function Home() {
         </section>
         
         {/* Cta para seguir a vive monterrey */}
+        <section>
+          <h1>Actividades</h1>
+          <Slider/>
+        </section>
         <section>
           <h1 className="sm:text-xl md:text-3xl lg:text-5xl  text-center"> Siguenos como @vivemonterrey</h1>
           <div className='columns-2 md:columns-3 space-y-4'>
