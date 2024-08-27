@@ -7,6 +7,10 @@ module.exports = {
   ],
   theme: {
     extend: {
+      colors:{
+        primary: '#b91c1c',
+        
+      },
       fontFamily: {
         asap: ['var(--font-asap)'],
         englebert: ['var(--font-englebert)'],
