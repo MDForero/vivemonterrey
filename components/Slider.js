@@ -22,7 +22,7 @@ export default function Slider() {
     return <div className="relative">
         <div className="overflow-hidden overflow-x-scroll bg-scroll flex w-full h-[600px]  items-center" id="slider">
             <div className="flex flex-nowrap gap-10 p-2" id="content-slider" >
-                {actividades.map(actividad => <figure className=" aspect-[9/16] h-[440px] w-fit object-cover"><Image key={actividad.name.split().join('-')} src={actividad.src} alt={actividad.name} width={0} height={0} className=' aspect-[9/16] h-[440px] w-fit object-cover' />
+                {actividades.map(actividad => <figure className=" aspect-[9/16] h-[440px] w-fit object-cover"  key={actividad.name.split().join('-')} ><Image src={actividad.src} alt={actividad.name} width={0} height={0} className=' aspect-[9/16] h-[440px] w-fit object-cover' />
                 <figcaption className="title font-englebert font-bold text-xl text-center">{actividad.name}</figcaption>
                 </figure>)}
             </div>
