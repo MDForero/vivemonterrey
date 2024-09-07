@@ -61,7 +61,7 @@ export default function Banner({ uid, url, size, onUpload }) {
                     src={bannerUrl}
                     alt="Avatar"
                     className="avatar image w-56 h-56 object-cover rounded-full border-4 border-blue-900"
-
+                    loading='lazy'
                 />
             ) : (
                 <div className="avatar no-image" style={{ height: size, width: size }} />

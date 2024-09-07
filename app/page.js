@@ -16,9 +16,9 @@ export default async function Home() {
   return (
     <>
       <main className="relative z-0">
-        <Image src='/bannerMonterrey.webp' width={0} height={0} className="h-[400px] lg:h-[600px] w-full object-cover" alt='imagen aerea de Monterrey casanare' />
+        <Image src='/bannerMonterrey.webp' loading="lazy" width={0} height={0} className="h-[400px] lg:h-[600px] w-full object-cover" alt='imagen aerea de Monterrey casanare' />
         <div className="absolute top-0 left-0 right-0 bottom-0 bg-gradient-to-t from-black/50 to-transparent flex flex-col items-center justify-center text-white  font-bold">
-          <Image src='/logo.svg' width={0} height={0} className="w-72" alt="Logo de vive monterrey solo letras" />
+          <Image src='/logo.svg' loading="lazy" width={0} height={0} className="w-72" alt="Logo de vive monterrey solo letras" />
           <h1 className="text-3xl capitalize">Encuentra todo lo que Monterrey te puede ofrecer</h1>
           <h2 className="text-xl font-medium">Atractivos turísticos, Restaurantes, Hoteles y Tiendas</h2>
         </div>

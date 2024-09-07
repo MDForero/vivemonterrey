@@ -26,7 +26,7 @@ const InputImg = ({className,  name, label}) => {
         <fieldset className="">
             <legend className="text-md font-semibold">{label}</legend>
             <label htmlFor={name} className='cursor-pointer ' >
-                <Image src={image} alt="imagen principal " className={className} width={0} height={0} />
+                <Image loading='lazy' src={image} alt="imagen principal " className={className} width={0} height={0} />
             </label>
             <input type='file' id={name} name={name} onChange={showImage} hidden/>
         </fieldset>
