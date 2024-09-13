@@ -47,9 +47,9 @@ export default async function page({ params }) {
 {/* Descripcion */}
 
                 <div className=''>
-                    <h2 className="text-2xl font-bold mb-4">Acerca de  <span className='capitalize'>{data?.name}</span></h2>
+                    <h2 className="text-2xl font-bold mb-4">Acerca de  <span className='capitalize font-englebert'>{data?.name}</span></h2>
                     <p className="text-muted-foreground mb-6">
-                        {data?.description}
+                        {data?.description.split('\n').map((paragraph, index) => <span key={index}>{paragraph}<br /></span>)}
                     </p>
                 </div>
 

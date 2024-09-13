@@ -28,9 +28,9 @@ export default function CardBusinesses(data) {
     }, [banner_url, supabase])
     console.log(data)
     return (
-        <article className="sm:w-96 h-96 flex flex-col shadow-2xl p-1 rounded-2xl ">
+        <article className="w-96 h-96 flex flex-col shadow-2xl p-1 rounded-2xl ">
             <div className="relative max-h-80 group overflow-hidden rounded-xl">
-                <Link href={path + name.split(' ').join('-')} className="md:block hidden">
+                <Link href={path + name.split(' ').join('-')} className="">
                 <div className="absolute top-0 left-0 right-0 bottom-0 bg-slate-950/30 z-40"></div>
                 {imageUrl ? <Image src={imageUrl} loading="lazy" alt={name} width={0} height={0} className="w-96 h-72  object-cover group-hover:scale-125 duration-200 " /> : null}
                 <h1 className="absolute  top-1 left-1 title bg-white z-50 p-1 rounded-xl font-extrabold">{name}</h1>

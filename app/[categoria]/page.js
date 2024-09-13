@@ -13,7 +13,7 @@ export default async function page({ params }) {
                 <h1 className="text-center">{params.categoria}</h1>
             </div>
         </main>
-        <div className="flex flex-col justify-center items-center space-y-8">
+        <div className="flex flex-row justify-center items-center space-y-8">
             {data[0]?.businesses.map((category) => <CardBusinesses key={category.id} data={category} />)}
         </div>
     </>)

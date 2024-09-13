@@ -69,10 +69,10 @@ export async function registerBusiness(formData) {
   const jpegBuffer = await jpeg.arrayBuffer()
   const jpegLogo = await sharp(jpegBuffer)
     .keepExif()
-    .jpeg({ quality: 40 })
+    .png({ quality: 40 })
     .toBuffer()
-  const logoPath = `${formData.get("name").split(' ').join('').length}-logo-${Date.now()}.svg`
-  const { data: dataLogo, error: errorLogo } = await supabase.storage.from('banners').upload(logoPath, jpegLogo, { contentType: 'image/jpeg' })
+  const logoPath = `${formData.get("name").split(' ').join('').length}-logo-${Date.now()}.png`
+  const { data: dataLogo, error: errorLogo } = await supabase.storage.from('banners').upload(logoPath, jpegLogo, { contentType: 'image/png' })
   if (errorLogo) {
     console.log(errorLogo)
     return // Salir si hay error al subir el banner
@@ -111,6 +111,7 @@ export async function registerBusiness(formData) {
     profile_id: formData.get('profile_id'),
     name: formData.get('name'),
     description: formData.get('description'),
+    amenities: formData.get('amenities').split(',').map(amenity => amenity.trim()),
     address: formData.get('address'),
     phone: formData.get('phone'),
     website: formData.get('website'),
