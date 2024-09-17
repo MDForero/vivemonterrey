@@ -142,8 +142,7 @@ export default async function Page() {
     return (
         <div className="rounded-lg border bg-card text-card-foreground shadow-sm w-full  p-6  max-w-4xl mx-auto ">
             <div className="flex flex-col space-y-1.5 p-6">
-                <h3 className="whitespace-nowrap text-2xl font-semibold leading-none tracking-tight">Create a New Business</h3>
-                <p className="text-sm text-muted-foreground">Fill out the form to add a new business to our directory.</p>
+                <h3 className="whitespace-nowrap text-2xl font-semibold leading-none tracking-tight">Crea un nuevo establecimiento</h3>
             </div>
             <form action="#" method="POST" className="space-y-6">
                 <div className="grid grid-cols-2 gap-4">

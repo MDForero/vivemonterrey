@@ -3,6 +3,7 @@ import { createClient } from "@/utils/supabase/server"
 import sharp from "sharp"
 
 export async function registerBusiness(formData) {
+
   const shcedule = {
     lunes: {
       open: formData.get('lunes-open'),
@@ -107,11 +108,11 @@ export async function registerBusiness(formData) {
   }
 
   // Insertar datos del negocio
-  const dates = {
+  const datas = {
     profile_id: formData.get('profile_id'),
     name: formData.get('name'),
     description: formData.get('description'),
-    amenities: formData.get('amenities').split(',').map(amenity => amenity.trim()),
+    amenities: formData.get('amenities').split(','),
     address: formData.get('address'),
     phone: formData.get('phone'),
     website: formData.get('website'),
@@ -122,7 +123,9 @@ export async function registerBusiness(formData) {
     schedule: JSON.stringify(shcedule),
   }
 
-  const { data, error } = await supabase.from('businesses').insert(dates).select()
+  console.log(datas)
+
+  const { data, error } = await supabase.from('businesses').insert(datas).select()
   if (error) {
     console.log('Error al registrar negocio:', error)
     return

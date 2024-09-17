@@ -19,7 +19,7 @@ export default async function page({ params }) {
     
             <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent flex items-end justify-end p-2 lg:p-8">
                 <div className="text-center text-white flex justify-center items-center flex-col">
-                    <ImgGallery path={data?.logo} className='w-32 h-32 rounded-full ' />
+                    <ImgGallery path={data?.logo} className='w-44 lg:w-60 h-full  ' />
                     <h1 className="text-3xl md:text-4xl font-bold">{data?.name}</h1>
                 </div>
             </div>

@@ -21,7 +21,6 @@ export default function DashboardLayout ({children}) {
     }, [user, supabase])
     return (
         <>
-        Esto es un titulo 
             {children}
         </>
     )
