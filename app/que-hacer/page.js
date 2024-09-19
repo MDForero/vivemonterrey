@@ -15,7 +15,7 @@ export default async function page() {
         <main>
             <Image loading="lazy" src='/assets/portada-que-hacer.webp' width={0} height={0} className="w-full" />
         </main>
-        <section className="flex justify-evenly w-full flex-wrap ">
+        <section className="flex justify-evenly w-full flex-wrap py-8 gap-8">
             {data.map((business) => <CardBusinesses key={business.id} data={business} />)}
         </section>
     </div>

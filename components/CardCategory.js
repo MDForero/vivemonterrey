@@ -48,7 +48,7 @@ const CardCategory = (data) => {
   console.log(data)
 
   return (
-    <Link href={name} className=" group w-52 h-52 border-2 relative overflow-hidden rounded-xl ">
+    <Link href={name.split(' ').join('-')} className=" group w-52 h-52 border-2 relative overflow-hidden rounded-xl ">
       <div className="absolute top-0 left-0 right-0 bottom-0 flex flex-col justify-center group-hover:justify-end items-center group-hover:bg-slate-950/30 bg-white duration-1000 z-10 text-black group-hover:text-white">
       {iconUrl ? <Image loading='lazy' src={iconUrl} width={0} height={0} className="group-hover:hidden w-20 h-20"/>  : null}
         <h1 className="font-bold capitalize">{name} </h1>
