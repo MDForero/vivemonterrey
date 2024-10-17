@@ -9,26 +9,23 @@ export default async function Home() {
     *,
     businesses (name)
     )
-  `)
+    `)
 
 
 
   return (
     <>
-      <main className="relative z-0">
-        <Image src='/bannerMonterrey.webp' loading="lazy" width={0} height={0} className="h-[400px] lg:h-[600px] w-full object-cover" alt='imagen aerea de Monterrey casanare' />
-        <div className="absolute top-0 left-0 right-0 bottom-0 bg-gradient-to-t from-black/80 to-transparent flex flex-col items-center justify-center text-white  font-bold">
-          <Image src='/logo.svg' loading="lazy" width={0} height={0} className="w-72" alt="Logo de vive monterrey solo letras" />
-          <h1 className="text-3xl ">El punto de información turístico de Monterrey Casanare</h1>
-          <h2 className="text-xl font-medium max-w-2xl text-center text-balance ">El destino que te encanta. Aquí encontraras toda lo necesario para vivir al máximo este bello municipio <span className="font-englebert text-2xl font-bold text-primary">!Monterrey lo tiene todo!</span> </h2>
-        </div>
+      <main className="relative z-0 container mx-auto">
+<video autoPlay  className="object-cover aspect-square lg:aspect-auto w-full lg:h-[540px] xl:h-[680px] " muted loop     >
+        <source src="/assets/presentacion-viveMonterrey.mp4" type="video/mp4" />
+</video>
       </main>
       <div className="space-y-32 max-w-7xl mx-auto">
 
         {/* categorias de negocios */}
         <section className="space-y-8 border-2 m-2 sm-p-2 md:p-4 lg:p-14">
           <div className="text-center ">
-            <h1 className="text-4xl font-bold title">¿Qué hacer en Monterrey?</h1>
+            <h1 className="text-4xl font-bold title">¿Qué hacer en Monterrey Casanare?</h1>
             <h3 className="text-xl">Encuentra todo lo que necesitas para tu viaje ¡<span>ViveMonterrey</span> es tu punto de partida! </h3>
           </div>
           <div className="flex justify-around gap-8 flex-wrap">
@@ -42,6 +39,8 @@ export default async function Home() {
           <article className="w-fit mx-auto max-w-5xl" >
             <div className="md:float-right relative md:ml-20 mb-20 w-fit mx-auto">
               <iframe className='h-[400px] lg:h-[550px] w-fit aspect-[9/16] object-cover border-2 mx-auto rounded-3xl' src="https://www.youtube.com/embed/t4MNuPljys0?playlist=t4MNuPljys0&autoplay=1&mute=1&loop=1&controls=0&fs=0" frameborder="0" allow="autoplay" encrypted-media allowfullscreen></iframe>
+
+
               {/* <div className="absolute -bottom-4 -left-4 w-3/5 h-3/5 bg-gray-600 z-50 "></div> */}
             </div>
             <h2 className="text-xl md:text-3xl lg:text-4xl font-englebert ml-14 mb-3">¡Bienvenido a ViveMonterrey!</h2>
@@ -60,11 +59,11 @@ export default async function Home() {
         <section>
           <div className="flex items-center">
 
-            <div className="w-2 h-14 bg-primary rounded-fulll">
+            <div className="w-2 h-14 bg-[#b91c1c] rounded-fulll">
             </div>
             <div className="">
-              <p className="font-englebert font-bold text-xl leading-3">ELIGE<br/>
-              <span className="font-englebert font-bold text-4xl">Lo que te emociona</span></p>
+              <p className="font-englebert font-bold text-xl leading-3">ELIGE<br />
+                <span className="font-englebert font-bold text-4xl">Lo que te emociona</span></p>
             </div>
           </div>
           <Slider />

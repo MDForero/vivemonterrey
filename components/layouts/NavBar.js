@@ -41,7 +41,7 @@ const NavBar = ({ links }) => {
                             {show ? <path strokeLinecap="round" fill='#15803d' strokeLinejoin="round" strokeWidth={3} d="M6 18L18 6M6 6l12 12" /> : <path strokeLinecap="round" fill='#15803d' strokeLinejoin="round" strokeWidth={3} d="M4 6h16M4 12h16m-7 6h7" />}
                         </svg>
                     </button>
-                    <div id='navbar-mobile' className={show ? 'flex flex-col justify-between items-stretch fixed  bottom-0 w-full left-0 right-0 bg-white border-primary border-t-2 rounded-t-3xl text-lg slide-left-enter-active z-50 py-4 px-4' : 'hidden '}>
+                    <div id='navbar-mobile' className={show ? 'flex flex-col justify-between items-stretch fixed  bottom-0 w-full left-0 right-0 bg-white border-[#b91c1c] border-t-2 rounded-t-3xl text-lg slide-left-enter-active z-50 py-4 px-4' : 'hidden '}>
                         <ul>
                             {links.map(link => <li key={link.name} ><Link onClick={() => setShow(!show)} className={path.slice(-1) === link.name ? 'underline ' : ''} href={link.url}>{link.name}</Link></li>)}
                         </ul>

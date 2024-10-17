@@ -68,7 +68,7 @@ export default function Avatar({ uid, url, size, onUpload }) {
         <div className="avatar no-image" style={{ height: size, width: size }} />
       )}
       <div style={{ width: size }}>
-        <label className="button primary block" htmlFor="single">
+        <label className="button [#b91c1c] block" htmlFor="single">
           {uploading ? 'Actualizando ...' : 'Actualizar'}
         </label>
         <input

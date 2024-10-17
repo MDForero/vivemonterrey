@@ -27,7 +27,7 @@ export default function Slider() {
             <div className="flex flex-nowrap gap-14 " id="content-slider" >
                 {actividades.map(actividad => <figure className="group relative aspect-square h-96 w-fit object-cover"  key={actividad.name.split().join('-')} >
                 <Image loading="lazy" src={actividad.src} alt={actividad.name} width={0} height={0} className=' aspect-square h-96 w-fit object-cover' />
-                <figcaption className="font-englebert font-bold text-xl text-center absolute left-0 right-0 bottom-0 group-hover:text-2xl group-hover:top-0 flex items-end justify-center group-hover:bg-primary/30 bg-primary duration-500 ease-in-out text-white p-2">{actividad.name}</figcaption>
+                <figcaption className="font-englebert font-bold text-xl text-center absolute left-0 right-0 bottom-0 group-hover:text-2xl group-hover:top-0 flex items-end justify-center group-hover:bg-[#b91c1c]/30 bg-[#b91c1c] duration-500 ease-in-out text-white p-2">{actividad.name}</figcaption>
                 </figure>)}
             </div>
         </div>
