@@ -14,7 +14,7 @@ export default async function action(formData) {
                 'g-recaptcha-response': '6LdohWQqAAAAAEgx2NgQO-AqevtV0dZwPSVt4Av2',
             },
             {
-                publicKey: 'YOUR_PUBLIC_KEY',
+                publicKey: 'eBXA-8jwUxc33exZ9',
             },
         );
         console.log('SUCCESS!');
