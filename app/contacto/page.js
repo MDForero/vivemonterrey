@@ -46,8 +46,8 @@ export default function page() {
         <main className="container mx-auto">
             <Image src='/assets/AdobeStock_233702538.jpg' width={0} height={0} className="w-full h-[440px] md:h-[480px] lg:h-[540px] xl:h-[680px] object-cover" />
         </main>
-        <section className="md:space-y-36 grid-contact max-w-7xl mx-auto place-items-center">
-            <div className="col-span-2 w-full">
+        <section className=" grid-contact max-w-7xl mx-auto place-items-center gap-20">
+            <div className="md:col-span-2 max-w-7xl w-full">
                 <div className="grid grid-cards-contact ">
                     {contact.map((item, index) => <CardContact key={index} data={item} />)}
                 </div>
