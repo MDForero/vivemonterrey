@@ -34,6 +34,7 @@ export function FormContact() {
             <CardContent>
                 <form action="#" method="POST" className="grid gap-4">
                     <div className="grid grid-cols-2 gap-4">
+                        <Input type="hidden" name="recaptcha" value={recaptcha} id='recaptcha' />
                         <div className="grid gap-2 col-span-2">
                             <Label htmlFor="name">Nombre</Label>
                             <Input id="name" name='name' placeholder="Juan Perez" required />
@@ -58,7 +59,7 @@ export function FormContact() {
                         <Textarea name='message' placeholder="Aquí puedes dejar tus sugerencias, inquietudes y demás." id="message" className='h-1/2' />
                     </div>
                     <ReCAPTCHA
-                        sitekey="6LdohWQqAAAAAEgx2NgQO-AqevtV0dZwPSVt4Av2"
+                        sitekey="6Lcp1WQqAAAAAHvQQevlOqsNSUfuVzaySlrPU2Dx"
                         onChange={handleReCaptchaChange}
                         className="mx-auto"
                     />

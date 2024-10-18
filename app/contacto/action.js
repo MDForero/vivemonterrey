@@ -1,7 +1,7 @@
-'use server'
 import emailjs, { EmailJSResponseStatus } from '@emailjs/browser';
 
 export default async function action(formData) {
+    console.log('formData', formData.get('recaptcha'));
     try {
         await emailjs.send(
             'service_4549nts',
