@@ -10,20 +10,22 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Textarea } from "./ui/textarea"
 import action from "@/app/contacto/action"
-import { useEffect } from "react"
+import { useState } from "react"
+import ReCAPTCHA from "react-google-recaptcha"
 
 export const description =
     "A sign up form with first name, last name, email and password inside a card. There's an option to sign up with GitHub and a link to login if you already have an account"
 
 export function FormContact() {
-    useEffect(() => {
-        const script = document.createElement('script');
-        script.src = 'https://www.google.com/recaptcha/api.js';
-        script.async = true;
-        document.body.appendChild(script);
-    }, [])
 
+    const [recaptcha, setRecaptcha] = useState(null)
+
+    const handleReCaptchaChange = (token) => {
+        setRecaptcha(token)
+        console.log(token)
+    }
     return (
+
         <Card className="mx-auto max-w-2xl w-full">
             <CardHeader>
                 <CardTitle className="text-xl">Contáctenos  </CardTitle>
@@ -55,12 +57,17 @@ export function FormContact() {
                         <Label htmlFor="message">Mensaje</Label>
                         <Textarea name='message' placeholder="Aquí puedes dejar tus sugerencias, inquietudes y demás." id="message" className='h-1/2' />
                     </div>
-                    <div className="g-recaptcha mx-auto" data-sitekey='6LdohWQqAAAAAEgx2NgQO-AqevtV0dZwPSVt4Av2'></div>
+                    <ReCAPTCHA
+                        sitekey="6LdohWQqAAAAAEgx2NgQO-AqevtV0dZwPSVt4Av2"
+                        onChange={handleReCaptchaChange}
+                        className="mx-auto"
+                    />
                     <Button formAction={action} className="w-full bg-[#b91c1c]">
                         Contactar
                     </Button>
                 </form>
             </CardContent>
         </Card>
+
     )
 }
