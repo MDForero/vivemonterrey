@@ -29,7 +29,7 @@ export default async function Home() {
             <h3 className="text-xl">Encuentra todo lo que necesitas para tu viaje ¡<span>ViveMonterrey</span> es tu punto de partida! </h3>
           </div>
           <div className="flex justify-around gap-8 flex-wrap">
-            {data.map((category) => <CardCategory key={category.id} {...category} />)}
+            {data?.map((category) => <CardCategory key={category.id} {...category} />)}
           </div>
         </section>
 
