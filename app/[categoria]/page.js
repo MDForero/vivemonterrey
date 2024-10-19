@@ -15,7 +15,7 @@ export default async function page({ params }) {
                 <p className="text-center text-lg md:text-xl  max-w-5xl p-2">{data[0]?.description}</p>
             </div>
         </main>
-        <div className="flex flex-row flex-wrap justify-center items-center gap-12">
+        <div className="flex flex-row flex-wrap justify-center  gap-12">
             {data[0]?.businesses.map((category) => <CardBusinesses key={category.id} data={category} />)}
         </div>
     </>)
