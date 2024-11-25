@@ -42,7 +42,7 @@ export default function RootLayout({ children }) {
       <body >
         <NavBar links={links} />
         <BackTopButton/>
-        <div className=" mx-auto space-y-32">
+        <div className="container mx-auto space-y-32">
           {children}
         </div>
         <Footer/>

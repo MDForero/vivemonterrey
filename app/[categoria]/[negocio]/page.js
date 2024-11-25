@@ -2,25 +2,31 @@ import BannerImage from '@/components/BannerImage'
 import BtnCtaWp from '@/components/BtnCtaWp'
 import ImgGallery from '@/components/ImgGallery'
 import SocialMediaButton from '@/components/SocialMediaButton'
+import { Button } from '@/components/ui/button'
 import { createClient } from '@/utils/supabase/server'
 import Image from 'next/image'
 
 export default async function page({ params }) {
 
     const supabase = createClient()
-    const { data, error } = await supabase.from('businesses').select().eq('name', decodeURI(params.negocio).split('-').join(' ')).single()
+    const { data, error } = await supabase.from('businesses').select('*, categories(name)').eq('name', decodeURI(params.negocio).split('-').join(' ')).single()
+
     const schedule = data?.schedule ? Object.entries(JSON.parse(data.schedule)) : []
-    console.log(data?.socials_account)
+    const categories = data?.categories?.map(category => category.name)
+
+    console.log(data, categories)
+    
     return <div className='container mx-auto space-y-16'>
 
         {data?.whatsapp && <BtnCtaWp cta={data?.whatsapp} />}
         <main className="relative h-[400px] md:h-[600px] overflow-hidden rounded-lg">
             <BannerImage path={data?.banner_url} buckets={'banners'} />
-    
         </main>
+
                 <div className="text-center  flex justify-center items-center flex-col">
                     <ImgGallery path={data?.logo} className='w-44 lg:w-60 h-full  bg-black/70 p-2' />
                 </div>
+                {categories.includes('Restaurantes') ? <a href='menu'  className='mx-auto text-2xl font-bold font-englebert'>Menu</a> : null}
         <aside className="container mx-auto flex justify-center items-start flex-col md:flex-row mt-12 max-w-7xl gap-8  listing ">
             <section className='max-w-4xl w-full space-y-8'>
 
@@ -87,9 +93,9 @@ export default async function page({ params }) {
                     <dl>
                         {schedule.map(([key, value], index) => <div key={index} className='border-b flex justify-between py-2 text-sm'>
                             <dt className="text-muted-foreground font-medium capitalize">{key}</dt>
-                            {value.open || value.fourtyFour ? <>
+                            {value.open || value.twentyFour ? <>
                                 {(value.open) && <dd className="text-muted-foreground">{value.open} - {value.close}</dd>}
-                                {(value.fourtyFour) && <dd className="text-muted-foreground">24 horas</dd>}
+                                {(value.twentyFour) && <dd className="text-muted-foreground">24 horas</dd>}
                             </> : <dd className="text-muted-foreground">Cerrado</dd>}
                         </div>)}
                     </dl>
