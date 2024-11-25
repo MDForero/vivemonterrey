@@ -2,17 +2,10 @@
 import { useState, useEffect } from 'react'
 import { createClient } from '@/utils/supabase/client'
 import { Button } from "@/components/ui/button"
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
 import { Input } from "@/components/ui/input"
-import { Textarea } from "@/components/ui/textarea"
-import { BtnCtaWp } from '@/components/BtnCtaWp'
-import { BannerImage } from '@/components/BannerImage'
-import { ImgGallery } from '@/components/ImgGallery'
-import { SocialMediaButton } from '@/components/SocialMediaButton'
 import ImageSupabase from '@/components/ImageSupabase'
 import ImageDelete from '@/components/layouts/dashboard/ImageDelete'
 import UploadImage from '@/components/forms/UploadImage'
-import UpdateData from '@/components/forms/UpdateData'
 import InputAmenities from '@/components/inputs/InputAmenities'
 import { Label } from '@/components/ui/label'
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'

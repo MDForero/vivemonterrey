@@ -60,10 +60,7 @@ const DialogUpdateProduct = ({ product }) => {
           <Label htmlFor=''>Nombre</Label>
         <form action='#' method='POST'>
           <DialogHeader>
-            <DialogTitle>Edit profile</DialogTitle>
-            <DialogDescription>
-              Make changes to your profile here. Click save when you're done.
-            </DialogDescription>
+            <DialogTitle>Actualizar Producto</DialogTitle>
           </DialogHeader>
           <Card className='max-w-2xl'>
             <CardHeader>
@@ -107,7 +104,7 @@ const DialogUpdateProduct = ({ product }) => {
             </CardContent>
           </Card>
           <DialogFooter>
-            <Button type='submit' formAction={updateProduct} >Guardar</Button>
+            <Button type='submit' formAction={updateProduct}>Guardar</Button>
           </DialogFooter>
         </form>
       </DialogContent>

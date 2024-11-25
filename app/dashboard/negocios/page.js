@@ -27,7 +27,7 @@ export default function Page() {
             <h1>Page negocios</h1>
 
             <section className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 w-full place-content-center content-center place-items-center">
-                {businesses.map((business) => <CardBusinesses business={business}/>)}
+                {businesses.map((business) => <CardBusinesses business={business} key={business.id}/>)}
             </section>
         </div>
     )

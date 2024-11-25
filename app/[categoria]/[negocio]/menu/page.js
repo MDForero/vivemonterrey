@@ -4,7 +4,7 @@ import { createClient } from "@/utils/supabase/client"
 import { useEffect, useState } from "react"
 import CardProducts from "@/components/CardProducts"
 
-export default function page() {
+export default function Page() {
     const path = usePathname()
     const businessName = decodeURI(path.split('/')[2]).split('-').join(' ')
     const [products, setProducts] = useState()

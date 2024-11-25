@@ -13,7 +13,7 @@ import { object } from "zod";
 import { PlusCircle, PlusCircleIcon } from "lucide-react";
 import { PlusCircledIcon } from "@radix-ui/react-icons";
 
-export default function page() {
+export default function Page() {
 
     const { data, user } = useUserCurrent()
     const businesses = data?.businesses
