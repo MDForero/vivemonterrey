@@ -35,17 +35,19 @@ const CardProducts = ({ product }) => {
 
     }, [product, supabase])
 
-    return (
-        <div className='md:max-w-96 flex flex-col md:block border rounded-2xl pl-2 space-y-2 relative w-44 md:w-full'>
-            {urlImage ? <Image src={urlImage} alt={product.name} width={0} height={0} className='float float-right w-full md:w-1/3 aspect-square rounded-2xl ' /> : <div className='w-20 h-20 bg-gray-200'>No Image</div>}
-                <h1 className='text-xl font-bold px-1 leading-4 title'>{product.name}</h1>
-                <p className='text-sm font-light line-clamp-1 md:line-clamp-3 px-1'>{product.description}</p>
-                <div className='flex md:block font-bold justify-between items-center px-1 pb-1'>
-                    {product.price}
-                    <PlusCircleIcon className='md:hidden' />
-                </div>
-                <a href='#' className='hidden absolute bottom-0 right-0 rounded-2xl rounded-tl-3xl w-1/6 h-1/2 md:flex justify-center items-center bg-white '><PlusCircleIcon className=' w-8 h-8' /></a>
+    return (<div className='border rounded-2xl flex justify-between w-full max-w-96 relative'>
+
+        {urlImage ? <Image src={urlImage} alt={product.name} width={0} height={0} className='w-1/3 aspect-square rounded-2xl md:order-2' /> : <div className='w-20 h-20 bg-gray-200'>No Image</div>}
+        <div className='md:max-w-96 flex flex-col justify-between p-2'>
+            <h1 className='text-xl font-bold px-1 leading-4 title capitalize'>{product.name}</h1>
+            <p className='text-sm font-light line-clamp-1 md:line-clamp-3 px-1'>{product.description}</p>
+            <div className='flex md:block font-bold justify-between items-center px-1 pb-1'>
+                {product.price}
+                <PlusCircleIcon className='md:hidden' />
+            </div>
+            <a href='#' className='hidden absolute bottom-0 right-0 rounded-2xl rounded-tl-3xl w-1/6 h-1/2 md:flex justify-center items-center bg-white '><PlusCircleIcon className=' w-8 h-8' /></a>
         </div>
+    </div>
     )
 }
 
