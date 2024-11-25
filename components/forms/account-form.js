@@ -11,6 +11,7 @@ export default function AccountForm({ user }) {
   const [username, setUsername] = useState(null)
   const [website, setWebsite] = useState(null)
   const [avatar_url, setAvatarUrl] = useState(null)
+  const [properties, setProperties] = useState(null)
 
   const getProfile = useCallback(async () => {
     try {
@@ -18,19 +19,20 @@ export default function AccountForm({ user }) {
 
       const { data, error, status } = await supabase
         .from('profiles')
-        .select(`full_name, username, website, avatar_url`)
+        .select(`full_name, username, website, avatar_url, businesses(count)`)
         .eq('id', user?.id)
         .single()
 
       if (error && status !== 406) {
         throw error
       }
-
+      console.log(data)
       if (data) {
         setFullname(data.full_name)
         setUsername(data.username)
         setWebsite(data.website)
         setAvatarUrl(data.avatar_url)
+
       }
     } catch (error) {
       alert('Error loading user data!')
@@ -135,6 +137,7 @@ export default function AccountForm({ user }) {
             </button>
           </form>
         </div>
+{}
       </div>
     </div>
   )
