@@ -14,7 +14,7 @@ export async function insertCategory(formData) {
         .toBuffer()
 
     const fileExt = file.name.split('.').pop()
-    const filePath = `${formData.get('name').split(' ').join('')}-${Date.now()}.webp`
+    const filePath = `prueba/${formData.get('name').split(' ').join('')}-${Date.now()}.webp`
     const { error: uploadError } = await supabase.storage.from('categories_image').upload(filePath, buffer, {contentType: 'image/webp'})
 
     // Subir iconos de las categorias

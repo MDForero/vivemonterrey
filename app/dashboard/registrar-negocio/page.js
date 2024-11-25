@@ -1,7 +1,7 @@
 
 import { createClient } from "@/utils/supabase/server";
 import { registerBusiness } from "./action";
-import ClosedOrFourtyFour from "@/components/ClosedOrFourtyFour";
+import ClosedOrTwentyFour from "@/components/ClosedOrTwentyFour";
 import InputAmenities from "@/components/inputs/InputAmenities";
 import InputImg from "@/components/inputs/InputImg";
 
@@ -140,7 +140,7 @@ export default async function Page() {
     const categories = await supabase.from('categories').select('*')
 
     return (
-        <div className="rounded-lg border bg-card text-card-foreground shadow-sm w-full  p-6  max-w-4xl mx-auto ">
+        <div className="rounded-lg border bg-card text-card-foreground shadow-sm w-full  p-6  max-w-4xl mx-auto h-fit">
             <div className="flex flex-col space-y-1.5 p-6">
                 <h3 className="whitespace-nowrap text-2xl font-semibold leading-none tracking-tight">Crea un nuevo establecimiento</h3>
             </div>
@@ -223,7 +223,7 @@ export default async function Page() {
                                             className='flex h-10 w-full rounded-md border border-input bg-background px-2 py-1 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50'
                                             type={hour.type}
                                             placeholder={hour?.placeholder ?? 'aun no hay un placeholder se debe configurar'}
-
+                                            
                                         />
                                     </div>
                                     <div>
@@ -237,7 +237,7 @@ export default async function Page() {
                                         />
                                     </div>
                                 </div>
-                                <ClosedOrFourtyFour hour={hour} />
+                                <ClosedOrTwentyFour hour={hour} />
                             </div>
                         </div>
                     </fieldset>)}

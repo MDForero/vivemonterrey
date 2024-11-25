@@ -9,47 +9,53 @@ export async function registerBusiness(formData) {
       open: formData.get('lunes-open'),
       close: formData.get('lunes-close'),
       closed: formData.get('lunes-closed'),
-      fourtyFour: formData.get('lunes-fourty-four')
+      twentyFour: formData.get('lunes-fourty-four')
     },
     martes: {
       open: formData.get('martes-open'),
       close: formData.get('martes-close'),
       closed: formData.get('martes-closed'),
-      fourtyFour: formData.get('martes-fourty-four')
+      twentyFour: formData.get('martes-fourty-four')
     },
     miercoles: {
       open: formData.get('miercoles-open'),
       close: formData.get('miercoles-close'),
       closed: formData.get('miercoles-closed'),
-      fourtyFour: formData.get('miercoles-fourty-four')
+      twentyFour: formData.get('miercoles-fourty-four')
     },
     jueves: {
       open: formData.get('jueves-open'),
       close: formData.get('jueves-close'),
       closed: formData.get('jueves-closed'),
-      fourtyFour: formData.get('jueves-fourty-four')
+      twentyFour: formData.get('jueves-fourty-four')
     },
     viernes: {
       open: formData.get('viernes-open'),
       close: formData.get('viernes-close'),
       closed: formData.get('viernes-closed'),
-      fourtyFour: formData.get('viernes-fourty-four')
+      twentyFour: formData.get('viernes-fourty-four')
     },
     sabado: {
       open: formData.get('sabado-open'),
       close: formData.get('sabado-close'),
       closed: formData.get('sabado-closed'),
-      fourtyFour: formData.get('sabado-fourty-four')
+      twentyFour: formData.get('sabado-fourty-four')
     },
     domingo: {
       open: formData.get('domingo-open'),
       close: formData.get('domingo-close'),
       closed: formData.get('domingo-closed'),
-      fourtyFour: formData.get('domingo-fourty-four')
+      twentyFour: formData.get('domingo-fourty-four')
     }
   }
 
   const supabase = createClient()
+
+  const folder = formData.get("name").split(' ').join('-')
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/ñ/g, "n")
+    .replace(/Ñ/g, "N");
 
   // Subir imagen de banner
   const file = formData.get('banner_url')
@@ -58,7 +64,7 @@ export async function registerBusiness(formData) {
     .keepExif()
     .jpeg({ quality: 40 })
     .toBuffer()
-  const filePath = `${formData.get("name").split(' ').join('').length}-banner-${Date.now()}.jpeg`
+  const filePath = `${folder}/banner-${Date.now()}.jpeg`
   const { data: dataImage, error: errorImage } = await supabase.storage.from('banners').upload(filePath, image, { contentType: 'image/jpeg' })
   if (errorImage) {
     console.log(errorImage, dataImage)
@@ -72,7 +78,7 @@ export async function registerBusiness(formData) {
     .keepExif()
     .png({ quality: 40 })
     .toBuffer()
-  const logoPath = `${formData.get("name").split(' ').join('').length}-logo-${Date.now()}.png`
+  const logoPath = `${folder}/logo-${Date.now()}.png`
   const { data: dataLogo, error: errorLogo } = await supabase.storage.from('banners').upload(logoPath, jpegLogo, { contentType: 'image/png' })
   if (errorLogo) {
     console.log(errorLogo)
@@ -92,7 +98,7 @@ export async function registerBusiness(formData) {
         .keepExif()
         .jpeg({ quality: 40, })
         .toBuffer()
-      const filePath = `${formData.get("name").split(' ').join('').length}-gallery-${Date.now()}.jpeg`
+      const filePath = `${folder}/gallery-${Date.now()}.jpeg`
       const { data: dataImage, error: errorImage } = await supabase.storage.from('banners').upload(filePath, image, { contentType: 'image/jpeg' })
 
       if (errorImage) {
