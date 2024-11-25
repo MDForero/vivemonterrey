@@ -4,18 +4,25 @@ import { createClient } from '@/utils/supabase/server'
 
 export default async function Account() {
   const supabase = createClient()
+
   const {
     data: { user },
   } = await supabase.auth.getUser()
-  const businesses = await supabase.from('businesses').select('*')
-  console.log(businesses)
+
+  console.log(user)
+
+
+  const { data, error } = await supabase
+    .from('profiles')
+    .select('*, properties(count)')
+    .eq('user_id', user?.id)
+
+  console.log(data)
+
   return <div className=''>
     <AccountForm user={user} />
     <div className='grid grid-cols-3 max-w-5xl'>
-      {businesses.data.map((business, index) => <div key={index}>
-        <h1>{business.name}</h1>
-        <Link href={`/dashboard/account/${business.id}`}>Editar</Link>
-      </div>)}
+      {data?.name}
     </div>
   </div>
 }
