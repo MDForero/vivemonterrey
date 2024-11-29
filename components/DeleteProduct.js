@@ -36,7 +36,7 @@ export default function DeleteProduct({ name, id }) {
                     <DialogHeader>
                         <DialogTitle>Share link</DialogTitle>
                         <DialogDescription>
-                            Para eliminar el siguiente producto, escribe el nombre <stron>{name}</stron> y presiona el botón de eliminar.
+                            Para eliminar el siguiente producto, escribe el nombre <strong>{name}</strong> y presiona el botón de eliminar.
                         </DialogDescription>
                     </DialogHeader>
                     <div className="flex items-center space-x-2">

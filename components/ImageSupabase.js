@@ -7,7 +7,7 @@ import Image from 'next/image'
 export default function  ImageSupabase({buckets, url, className}) {
     const [imageUrl, setImageUrl] = useState(null)
     const supabase = createClient()
-    
+    console.log(url)
     useEffect(() => {
        async function downloadImage (){
             try {

@@ -25,7 +25,7 @@ const NavBar = ({ links }) => {
 
 
     return (
-        <header className={['dashboard', 'login'].find(element => path.split('/').includes(element))? 'hidden' : ''}>
+        <header className={['dashboard', 'login', 'ordenar'].find(element => path.split('/').includes(element))? 'hidden' : ''}>
             <div className='container mx-auto p-2'>
                 <nav className="flex justify-between items-center h-20  font-semibold relative shadow-sm font-mono">
                     <Image src='/logo.svg' width={0} height={0} className='w-36' />
