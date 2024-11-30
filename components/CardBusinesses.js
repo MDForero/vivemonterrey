@@ -26,7 +26,7 @@ export default function CardBusinesses(data) {
 
         if (banner_url) downloadImage(banner_url)
     }, [banner_url, supabase])
-    console.log(data)
+
     return (
         <article className="w-96 flex flex-col shadow-2xl p-1  ">
             <div className="relative max-h-80 group overflow-hidden ">

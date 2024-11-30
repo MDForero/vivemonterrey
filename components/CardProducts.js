@@ -43,7 +43,7 @@ const CardProducts = ({ product, dispatch, action }) => {
             <p className='text-sm font-light line-clamp-1 md:line-clamp-3 px-1'>{product.description}</p>
             <div className='flex md:block font-bold justify-between items-center px-1 pb-1'>
                 {product.price}
-                <PlusCircleIcon className='md:hidden' />
+                <button onClick={() => dispatch({type: action, payload:{id:product.id, name:product.name, price: product.price, image:urlImage}})}><PlusCircleIcon className='md:hidden' /></button>
             </div>
             {dispatch ?
                 <button onClick={() => dispatch({type: action, payload:{id:product.id, name:product.name, price: product.price, image:urlImage}})} className=' hidden absolute bottom-0 right-0 rounded-2xl rounded-tl-3xl w-1/6 h-1/2 md:flex justify-center items-center bg-white '><PlusCircleIcon className=' w-8 h-8' /></button> :

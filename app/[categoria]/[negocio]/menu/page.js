@@ -48,9 +48,9 @@ export default function Page() {
         <SidebarInset>
             <div className="flex flex-1 flex-col gap-4 p-4"> 
 
-                {business && <ImageSupabase buckets='banners' url={business?.image_restaurant} className='w-full h-[400px] aspect-video object-cover ' />}
+                {business && <ImageSupabase buckets='banners' url={business?.image_restaurant} className='w-full  lg:h-[400px]  aspect-video object-cover ' />}
                 <h1 className="text-3xl font-bold text-center mt-12">{businessName}</h1>
-                <section className="flex mx-auto justify-center items-center gap-12" >{
+                <section className="flex flex-wrap mx-auto md:justify-center md:items-center gap-12" >{
                     products?.map(product => <CardProducts key={product.id} product={product} dispatch={dispatch} action={actions.add} />)
                 }</section>
             </div>
@@ -64,9 +64,7 @@ const AppSidebar = () => {
     const { state } = useSidebar()
     const dispatch = useCartDispatch()
     const cart = useCart()
-    useEffect(() => {
-
-    }, [cart])
+   
     return <Sidebar side='right' collapsible='offcanvas' variant='icon' className={(state === 'collapsed' ? 'h-0 w-0 ' : 'h-fit ') + 'absolute'} >
         <SidebarHeader>
             {!(cart.length === 0) ? <SidebarGroup className='font-bold'>Subtotal: {cart.map(item => item.quantity * item.price).reduce((acc, value) => acc + value, 0)} COP</SidebarGroup> : <></>}
