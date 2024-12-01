@@ -16,13 +16,13 @@ export default function Page({ params }) {
 
     const cart = useCart()
     const dispatch = useCartDispatch()
-    const messageCart = cart.map(item => `%0A ${item.name} x ${item.quantity}`).join(', ')
+    const messageCart = cart.map(item => `%0A *${item.name.trim()}* x ${item.quantity}`).join(', ')
     const supabase = createClient()
     const [business, setBusiness] = useState()
 
     const handleSend = (formData) => {
         const send = document.getElementById('send')
-        const message = `Hola, soy ${encodeURIComponent(formData.get('name'))}, quiero ordenar: ${messageCart} %0AMétodo de pago: ${formData.get('payment')}  %0AMi dirección es: ${encodeURIComponent(formData.get('address'))} %0AMi teléfono es: ${formData.get('tel')}`
+        const message = `Hola, soy *${encodeURIComponent(formData.get('name')).trim()}*, quiero ordenar: ${messageCart} %0AMétodo de pago: *${formData.get('payment')}*  %0AMi dirección es: *${encodeURIComponent(formData.get('address')).trim()}* %0AMi teléfono es: *${formData.get('tel')}*`
         send.setAttribute('href', `https://api.whatsapp.com/send?phone=573108854737&text=${message}`)
         send.click()
     }

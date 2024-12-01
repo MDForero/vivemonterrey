@@ -12,9 +12,10 @@ import { Button } from "@/components/ui/button"
 import { ShoppingCart, Trash2Icon } from "lucide-react"
 import Link from "next/link"
 import Image from "next/image"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 
 
-export default function Page() {
+export default function Page({ params }) {
 
     const supabase = createClient()
 
@@ -39,21 +40,23 @@ export default function Page() {
             }
             setProducts(data.products)
             setBusiness(data)
-            console.log(data)
+            console.log(products, data.categories_restaurant)
         })
-    }, [])
+    }, [params])
+
 
     return <>
         <TriggerShopping />
         <SidebarInset>
-            <div className="flex flex-1 flex-col gap-4 p-4"> 
-
-                {business && <ImageSupabase buckets='banners' url={business?.image_restaurant} className='w-full  lg:h-[400px]  aspect-video object-cover ' />}
-                <h1 className="text-3xl font-bold text-center mt-12">{businessName}</h1>
-                <section className="flex flex-wrap mx-auto md:justify-center md:items-center gap-12" >{
-                    products?.map(product => <CardProducts key={product.id} product={product} dispatch={dispatch} action={actions.add} />)
-                }</section>
-            </div>
+            {business && <ImageSupabase buckets={'banners'} url={business.logo} className='w-44 h-44 aspect-video object-cover rounded-full'/> }
+            {business?.categories_restaurant && <Tabs defaultValue={business?.categories_restaurant[0]}>
+                <TabsList className=' gap-2 bg-white z-0'>
+                    {business?.categories_restaurant.map(category => <TabsTrigger className='data-[state=active]:text-white data-[state=active]:bg-[#b91c1c] border bg-blue-100' key={category} value={category}>{category}</TabsTrigger>)}
+                </TabsList>
+                {business?.categories_restaurant.map(category => <TabsContent className='grid grid-cols-1 md:grid-cols-2 mx-auto w-fit lg:gap-12' key={category} value={category}>
+                    {products?.filter(product => product.category === category).map(product => <CardProducts key={product.id} product={product} dispatch={dispatch} action={actions.add} />)}
+                </TabsContent>)}
+            </Tabs>}
         </SidebarInset>
         <AppSidebar />
 
@@ -64,7 +67,6 @@ const AppSidebar = () => {
     const { state } = useSidebar()
     const dispatch = useCartDispatch()
     const cart = useCart()
-   
     return <Sidebar side='right' collapsible='offcanvas' variant='icon' className={(state === 'collapsed' ? 'h-0 w-0 ' : 'h-fit ') + 'absolute'} >
         <SidebarHeader>
             {!(cart.length === 0) ? <SidebarGroup className='font-bold'>Subtotal: {cart.map(item => item.quantity * item.price).reduce((acc, value) => acc + value, 0)} COP</SidebarGroup> : <></>}
@@ -80,7 +82,7 @@ const AppSidebar = () => {
                                     <TableRow className='font-bold'>
                                         <TableCell>Imagen</TableCell>
                                         <TableCell>Productos</TableCell>
-                                            <TableCell>Precio</TableCell>
+                                        <TableCell>Precio</TableCell>
                                     </TableRow>
                                 </TableHeader>
                                 <TableBody>
@@ -113,6 +115,17 @@ const AppSidebar = () => {
 }
 
 const TriggerShopping = () => {
+    const cart = useCart()
     const { toggleSidebar } = useSidebar()
-    return <Button onClick={toggleSidebar} className='absolute right-0 z-50'> <ShoppingCart /> Carrito</Button>
+    const [animate, setAnimate] = useState(false)
+
+    useEffect(() => {
+        if (cart.length > 0) {
+            setAnimate(true)
+            setTimeout(() => {
+                setAnimate(false)
+            }, 1000)
+        }
+    }, [cart])
+    return <Button onClick={toggleSidebar} className='absolute right-0 z-50'><div className="relative"> <ShoppingCart /><div className={(animate ? 'animate-ping text-2xl duration-1000' : ' ') + " absolute -top-3 -left-3 font-bold "}>{cart.reduce((acc, value) => acc + value.quantity, 0)}</div></div></Button>
 }

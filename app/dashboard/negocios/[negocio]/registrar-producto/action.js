@@ -8,8 +8,8 @@ export async function productRegister(formData) {
     try {
         const data = {}
 
-        const { data: businessName } = await supabase.from('businesses').select('name').eq('id', formData.get('business_id')).single()
-
+        const { data: businessName } = await supabase.from('businesses').select('name, id, categories_restaurant').eq('name', decodeURI(formData.get('negocio'))).single()
+        data['business_id'] = businessName.id
         const folder = businessName.name.split(' ').join('-')
             .normalize("NFD")
             .replace(/[\u0300-\u036f]/g, "")
@@ -23,15 +23,23 @@ export async function productRegister(formData) {
             .replace(/Ñ/g, "N");
 
         const fileExt = formData.get('image').name.split('.').pop()
-
         const pathImage = `${folder}/productos/${name}-${Date.now()}.${fileExt}`
-
         const image = formData.get('image')
 
-        // const image = await sharp(await formData.get('image').arrayBuffer())
-        //     .keepExif()
-        //     .jpeg({ quality: 40 })
-        //     .toBuffer()
+        const other_category = formData.get('other_category')
+        if (!businessName.categories_restaurant.includes(other_category)) {
+            data['category'] = other_category
+
+            const { data: updateBusinesses, error: errorBusinesses } = await supabase.from('businesses').update({ categories_restaurant: [...businessName.categories_restaurant, other_category] }).eq('id', businessName.id)
+            if (errorBusinesses) {
+                console.error(errorBusinesses)
+                return
+            } else {
+                console.log(updateBusinesses)
+            }
+        }else{
+            data['category'] = other_category
+        }
 
 
         const { data: dataImage, error } = await supabase.storage.from('banners').upload(pathImage, image, { contentType: `image/${fileExt}` })
@@ -39,8 +47,11 @@ export async function productRegister(formData) {
             formData.delete('image')
             formData.set('image', pathImage)
         }
-        formData.entries().forEach(([key, value]) => data[key] = value)
+
+        formData.entries().forEach(([key, value]) => !['negocio', 'other_category'].includes(key) ? data[key] = value : null)
+
         const { data: dataProduct, error: errorProduct } = await supabase.from('products').insert(data).select()
+
         if (dataProduct) {
             console.log(dataProduct)
             toast('Producto registrado', {
@@ -54,7 +65,7 @@ export async function productRegister(formData) {
         }
     }
     catch (error) {
-        return error
+        console.error(error)    
         // formData.delete('image')
 
         // formData.forEach((value, key) => data[key] = value)

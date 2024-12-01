@@ -7,33 +7,51 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Separator } from "@/components/ui/separator";
 import { object } from "zod";
 import { PlusCircle, PlusCircleIcon } from "lucide-react";
 import { PlusCircledIcon } from "@radix-ui/react-icons";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { createClient } from "@/utils/supabase/client";
 
-export default function Page() {
+export default function Page({ params }) {
 
-    const { data, user } = useUserCurrent()
-    const businesses = data?.businesses
-
-    const [dataNegocio, setData] = useState()
+    const supabase = createClient()
+    const {user} = useUserCurrent()
+    const [dataProduct, setDataProduct ] = useState()
+    const [dataBusiness, setDataBusiness] = useState()
 
     const handleChange = (e) => {
         const { name, value } = e.target
         if (name === 'image') {
             const file = e.target.files[0]
             const url = URL.createObjectURL(file)
-            setData((prevData) => ({ ...prevData, [name]: url }))
+            setDataProduct((prevData) => ({ ...prevData, [name]: url }))
             return
         }
 
-        setData((prevData) => ({ ...prevData, [name]: value }))
+        setDataProduct((prevData) => ({ ...prevData, [name]: value }))
     }
+
+
+    useEffect(() => {
+        async function getData() {
+            const { data, error } = await supabase.from('businesses').select('*').eq('name', decodeURI(params.negocio).split('-').join(' ')).single()
+            if (error) {
+                console.error(error)
+                return
+            }
+            setDataBusiness(data)
+        }
+        if (params) {
+            getData()
+        }
+    },[params.negocio])
 
     return <section className="flex">
         <form action='#' method="POST">
+            {dataBusiness && <input type="hidden" name="negocio" value={dataBusiness.name} />}
             <Card className='max-w-2xl'>
                 <CardHeader>
                     <CardTitle>Registrar Producto</CardTitle>
@@ -70,20 +88,22 @@ export default function Page() {
                             <Label htmlFor='isDrink'>Bebida</Label>
                         </div>
                     </div>
+                    {dataBusiness?.categories_restaurant && <fieldset className="border p-2 ">
+                        <legend className="font-bold">Categoría</legend>
+                        <RadioGroup id='category' name='category' >
+                            {dataBusiness.categories_restaurant.map(category => <div key={category} className="flex items-center space-x-2 ">
+                                <RadioGroupItem id={category.split(' ').join('-')} value={category} />
+                                <Label htmlFor={category.split(' ').join('-')} className='capitalize'>{category}</Label>
+                            </div>)}
+                        </RadioGroup>
+                        <Label htmlFor='other_category'>Otra</Label>
+                        <Input name='other_category' id='other_category' placeholder='' />
+                    </fieldset>}
                     <div>
                         <Label htmlFor='image'>Imagen</Label>
                         <Input name='image' id='image' type='file' onChange={handleChange} />
                     </div>
-
                     <Input name='profile_id' id='profile_id' value={user?.id} className='hidden' />
-                    <Select name="business_id">
-                        <SelectTrigger className="w-[180px]">
-                            <SelectValue placeholder="Negocio" />
-                        </SelectTrigger>
-                        <SelectContent>
-                            {businesses?.map((business) => <SelectItem key={business.id} value={business.id}>{business.name}</SelectItem>)}
-                        </SelectContent>
-                    </Select>
                 </CardContent>
                 <CardFooter>
                     <Button formAction={productRegister}>
@@ -105,23 +125,23 @@ export default function Page() {
 
                             <CardHeader className='py-0'>
 
-                                <CardTitle className='line-clamp-1 hover:line-clamp-none'>{dataNegocio?.name ?? 'Hamburguesa Mexicana 500g'} </CardTitle>
+                                <CardTitle className='line-clamp-1 hover:line-clamp-none'>{dataProduct?.name ?? 'Hamburguesa Mexicana 500g'} </CardTitle>
                             </CardHeader>
                             <CardContent className='py-0'>
 
-                                <p className=" tracking-tighter  text-pretty text-sm font-light line-clamp-2">{dataNegocio?.description ?? 'La hamburguesa mexicana es una deliciosa fusión de sabores que combina la suculencia de la carne con ingredientes típicos de la gastronomía nacional. Desde el uso de tortillas en lugar de pan, hasta la incorporación de guacamole, jalapeños y salsas picantes, cada bocado es una explosión de tradición y creatividad.'} </p>
+                                <p className=" tracking-tighter  text-pretty text-sm font-light line-clamp-2">{dataProduct?.description ?? 'La hamburguesa mexicana es una deliciosa fusión de sabores que combina la suculencia de la carne con ingredientes típicos de la gastronomía nacional. Desde el uso de tortillas en lugar de pan, hasta la incorporación de guacamole, jalapeños y salsas picantes, cada bocado es una explosión de tradición y creatividad.'} </p>
                                 {/* <div className="flex">
-                                    {dataNegocio?.isoutstanding && <p>{dataNegocio.isoutstanding} </p>}
-                                    {dataNegocio?.isvegetarian && <p>{dataNegocio.isvegetarian} </p>}
-                                    {dataNegocio?.isdrink && <p>{dataNegocio.isdrink} </p>}
+                                    {dataProduct?.isoutstanding && <p>{dataProduct.isoutstanding} </p>}
+                                    {dataProduct?.isvegetarian && <p>{dataProduct.isvegetarian} </p>}
+                                    {dataProduct?.isdrink && <p>{dataProduct.isdrink} </p>}
                                 </div> */}
                             </CardContent>
                             <CardFooter className='py-0'>
-                                <CardTitle>{dataNegocio?.price ?? 50000} </CardTitle>
+                                <CardTitle>{dataProduct?.price ?? 50000} </CardTitle>
                             </CardFooter>
                         </div>
                         <div className="w-2/5 relative">
-                            <img src={dataNegocio?.image ?? '/assets/AdobeStock_233702538.jpg'} width={0} height={0} className="w-full h-full object-cover aspect-square rounded-xl" />
+                            <img src={dataProduct?.image ?? '/assets/AdobeStock_233702538.jpg'} width={0} height={0} className="w-full h-full object-cover aspect-square rounded-xl" />
                             <div className="absolute bottom-0 right-0 h-16 w-16 bg-white/90 flex justify-center items-center rounded-tl-3xl rounded-br-xl"><PlusCircleIcon className="fill-black w-8 h-8 stroke-white" /></div>
                         </div>
                     </Card>
@@ -136,10 +156,10 @@ export default function Page() {
                         </CardHeader>
                         <CardContent>
                             <div className="w-32 border-2 p-1 place-items-center rounded-xl shadow-xl">
-                                <img src={dataNegocio?.image ?? '/assets/AdobeStock_233702538.jpg'} className="w-full aspect-square object-cover rounded-xl" />
-                                <p className="font-bold font-englebert tracking-wider text-sm text-center">{dataNegocio?.name ?? 'Hamburguesa Mexicana 500g'} </p>
+                                <img src={dataProduct?.image ?? '/assets/AdobeStock_233702538.jpg'} className="w-full aspect-square object-cover rounded-xl" />
+                                <p className="font-bold font-englebert tracking-wider text-sm text-center">{dataProduct?.name ?? 'Hamburguesa Mexicana 500g'} </p>
                                 <div className=" bg-white/90 flex justify-between w-full items-center rounded-tl-3xl rounded-br-xl">
-                                <p>{dataNegocio?.price ?? 25000} </p>
+                                    <p>{dataProduct?.price ?? 25000} </p>
                                     <PlusCircleIcon className="fill-black w-8 h-8 stroke-white" />
                                 </div>
                             </div>
