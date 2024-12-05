@@ -25,7 +25,7 @@ const BannerImage = ({ path, buckets }) => {
 
     }, [path])
     
-    return (banner && <Image src={banner} width={0} height={0} loading="lazy" className={'w-full h-[600px] object-cover hidden md:block'} alt={banner} />
+    return (banner && <Image src={banner} width={0} height={0} loading="lazy" className={'w-full h-[600px] object-cover '} alt={banner} />
     )
 }
 
