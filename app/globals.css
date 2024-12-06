@@ -48,6 +48,17 @@ h1{
   animation-range: entry 20% cover 30% ;
 
 }  
+.listing-menu > section > div  {
+  
+  padding: 2px;
+  border: 0.08rem solid rgb(229,231,235);
+  border-radius: 0.8rem;
+  box-shadow: 0 0 1.5rem rgba(0,0,0,0.1);
+  animation: reveal  ;
+  animation-timeline: view();
+  animation-range: entry 20% cover 30% ;
+
+}  
 
 .listing > section > div > h2::after , .listing > section > div > h3::after    {
   content: '';

@@ -56,8 +56,10 @@ export default function Page({ params }) {
                     </TabsList>
                     <ScrollBar orientation='horizontal' />
                 </ScrollArea>
-                {business?.categories_restaurant.map(category => <TabsContent className='grid grid-cols-1 md:grid-cols-2 mx-auto w-fit md:gap-12' key={category} value={category}>
+                {business?.categories_restaurant.map(category => <TabsContent key={category} value={category}>
+                    <div className="grid grid-cols-1  md:grid-cols-2 gap-4 mx-auto w-fit md:gap-12 pb-16">
                     {products?.filter(product => product.category === category).map(product => <CardProducts key={product.id} product={product} dispatch={dispatch} action={actions.add} />)}
+                    </div>
                 </TabsContent>)}
             </Tabs>}
         </div>
@@ -78,30 +80,31 @@ const AppSheet = () => {
             </SheetHeader>
             <SheetDescription>
                 <div >
-                    <div className="space-y-2">
-                        {!(cart.length === 0) ? <></> : <SheetTitle className='font-bold'>El carrito esta vacio</SheetTitle>}
-                        <Table>
-                            <TableHeader>
-                                <TableRow className='font-bold'>
-                                    <TableCell>Imagen</TableCell>
-                                    <TableCell>Productos</TableCell>
-                                    <TableCell>Precio</TableCell>
-                                </TableRow>
-                            </TableHeader>
-                            <TableBody>
+                    <div className="space-y-2" >
+                        {!(cart.length === 0) ? <>
+                            <Table>
+                                <TableHeader>
+                                    <TableRow className='font-bold'>
+                                        <TableCell>Imagen</TableCell>
+                                        <TableCell>Productos</TableCell>
+                                        <TableCell>Precio</TableCell>
+                                    </TableRow>
+                                </TableHeader>
+                                <TableBody>
 
-                                {cart?.map(item => <TableRow key={item.id} >
-                                    <TableCell><Image src={item.image} alt={item.name} width={50} height={50} className="rounded-full aspect-square object-cover" /></TableCell>
-                                    <TableCell className=" h-fit text-sm text-left w-36"><strong>{item.name.split(' ')[0].slice(0, 1) + ' ' + item.name.split(' ').slice(1, -1).join(' ')}</strong> x{item.quantity}</TableCell>
-                                    <TableCell className="text-left font-bold">{item.price * item.quantity}</TableCell>
-                                    <TableCell className="text-left font-bold w-4"><Button className='p-1' onClick={() => {
-                                        dispatch({
-                                            type: actions.remove, payload: { id: item.id }
-                                        })
-                                    }}><Trash2Icon /></Button></TableCell>
-                                </TableRow>)}
-                            </TableBody>
-                        </Table>
+                                    {cart?.map(item => <TableRow key={item.id} >
+                                        <TableCell><Image src={item.image} alt={item.name} width={50} height={50} className="rounded-full aspect-square object-cover" /></TableCell>
+                                        <TableCell className=" h-fit text-sm text-left w-36"><strong>{item.name.split(' ')[0].slice(0, 1) + ' ' + item.name.split(' ').slice(1, -1).join(' ')}</strong> x{item.quantity}</TableCell>
+                                        <TableCell className="text-left font-bold">{item.price * item.quantity}</TableCell>
+                                        <TableCell className="text-left font-bold w-4"><Button className='p-1' onClick={() => {
+                                            dispatch({
+                                                type: actions.remove, payload: { id: item.id }
+                                            })
+                                        }}><Trash2Icon /></Button></TableCell>
+                                    </TableRow>)}
+                                </TableBody>
+                            </Table>
+                        </> : <SheetTitle className=' w-full h-screen flex justify-center items-center font-bold'>El carrito esta vacio</SheetTitle>}
                     </div>
                 </div>
             </SheetDescription>
@@ -129,22 +132,21 @@ const TriggerShopping = () => {
     }, [cart])
     return <>
         <SheetTrigger asChild>
-            <Button  className='hidden md:block md:absolute top-0  right-0 z-50 '>
+            <Button className='hidden md:block md:absolute top-0  right-0 z-50 '>
                 <p className="relative ">  <ShoppingCart className="hidden md:block" />
                     <span className={(animate ? 'animate-ping text-2xl duration-1000' : ' ') + " md:absolute md:-top-3 md:-left-3 font-bold  "}>{cart.reduce((acc, value) => acc + value.quantity, 0)}</span>
-                    <strong className='md:hidden'> Ordenar </strong>
-                    <span className="md:hidden">{cart.reduce((acc, value) => acc + (value.quantity * value.price), 0)}</span>
                 </p>
-                </Button>
+            </Button>
         </SheetTrigger>
         <SheetTrigger asChild>
-            <Button  className='fixed bottom-3  left-1 right-1  md:hidden md:top-0 md:left-[96%] md:right-0 z-50 '>
-                <p className="md:relative ">  <ShoppingCart className="hidden md:block" />
+            <div className='fixed bottom-3 w-full   md:hidden md:top-0 md:left-[96%] md:right-0 z-50 '>
+                <p className="md:relative m-2 rounded-md bg-blue-200 p-2 text-center text-lg">
                     <span className={(animate ? 'animate-ping text-2xl duration-1000' : ' ') + " md:absolute md:-top-3 md:-left-3 font-bold  "}>{cart.reduce((acc, value) => acc + value.quantity, 0)}</span>
+
                     <strong className='md:hidden'> Ordenar </strong>
-                    <span className="md:hidden">{cart.reduce((acc, value) => acc + (value.quantity * value.price), 0)}</span>
+                    <span className="md:hidden font-bold">{cart.reduce((acc, value) => acc + (value.quantity * value.price), 0)}</span>
                 </p>
-                </Button>
+            </div>
         </SheetTrigger>
     </>
 }
