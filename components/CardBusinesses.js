@@ -4,15 +4,19 @@ import Image from "next/image"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { useEffect, useState } from "react"
+import { Skeleton } from "./ui/skeleton"
 
 export default function CardBusinesses(data) {
     const path = usePathname()
     const { name, banner_url, address, website, phone, } = data?.data
+    const [loading, setLoading] = useState(true)
     const supabase = createClient()
     const [imageUrl, setImageUrl] = useState(null)
 
     useEffect(() => {
+        
         async function downloadImage(path) {
+            setLoading(true)
             try {
                 const { data, error } = await supabase.storage.from('banners').download(path)
                 if (error) {
@@ -21,11 +25,24 @@ export default function CardBusinesses(data) {
                 const url = URL.createObjectURL(data)
                 setImageUrl(url)
             } catch (error) {
+                console.log('Error downloading image: ', error)
             }
+            setLoading(false)
         }
 
         if (banner_url) downloadImage(banner_url)
     }, [banner_url, supabase])
+
+    if (loading) return(
+        <div className="flex flex-col  space-y-2">
+          <Skeleton className="w-96 h-60" />
+          <div className="space-y-2">
+            <Skeleton className="h-4 w-[250px]" />
+            <Skeleton className="h-4 w-[250px]" />
+            <Skeleton className="h-4 w-[200px]" />
+          </div>
+        </div>
+      )
 
     return (
         <article className="w-96 flex flex-col shadow-2xl p-1  ">

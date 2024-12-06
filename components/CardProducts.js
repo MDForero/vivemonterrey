@@ -5,6 +5,7 @@ import Image from 'next/image'
 import React, { useEffect, useState } from 'react'
 import { set } from 'react-hook-form'
 import { Button } from './ui/button'
+import { Skeleton } from './ui/skeleton'
 
 const CardProducts = ({ product, dispatch, action }) => {
     const supabase = createClient()
@@ -34,6 +35,17 @@ const CardProducts = ({ product, dispatch, action }) => {
         if (product?.image) downloadImage(product.image)
 
     }, [product, supabase])
+
+    if (loading) return  (
+        <div className="border rounded-2xl flex flex-row justify-between max-w-lg w-full relative">
+          <div className="space-y-8 md:max-w-96 w-full" >
+            <Skeleton className="h-6 w-[300] md:w-[320px]" />
+            <Skeleton className="h-10 w-[300] md:w-[320px]" />
+            <Skeleton className="h-6 w-[300] md:w-[320px]" />
+          </div>
+          <Skeleton className="w-1/3 h-full aspect-square rounded-2xl order-2" />
+        </div>
+      )
 
     return (<div className='border rounded-2xl flex flex-row justify-between max-w-lg w-full relative'>
 
