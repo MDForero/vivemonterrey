@@ -36,29 +36,22 @@ const CardProducts = ({ product, dispatch, action }) => {
 
     }, [product, supabase])
 
-    if (loading) return  (
-        <div className="border rounded-2xl flex flex-row justify-between max-w-lg w-full relative">
-          <div className="space-y-8 md:max-w-96 w-full" >
-            <Skeleton className="h-6 w-[300] md:w-[320px]" />
-            <Skeleton className="h-10 w-[300] md:w-[320px]" />
-            <Skeleton className="h-6 w-[300] md:w-[320px]" />
-          </div>
-          <Skeleton className="w-1/3 h-full aspect-square rounded-2xl order-2" />
+
+
+    return (<div className='border rounded-2xl grid grid-cols-3 min-w-96 justify-between max-w-lg w-full relative '>
+
+        <div className='order-2 '>
+            {loading ? <Skeleton className='w-full h-full' /> : urlImage ? <Image src={urlImage} alt={product.name} width={0} height={0} className=' w-full aspect-square rounded-2xl ' /> : 'no image'}
         </div>
-      )
-
-    return (<div className='border rounded-2xl flex flex-row justify-between max-w-lg w-full relative'>
-
-        {urlImage ? <Image src={urlImage} alt={product.name} width={0} height={0} className=' w-1/3 aspect-square rounded-2xl order-2' /> : <div className='w-20 h-20 bg-gray-200'>No Image</div>}
-        <div className='md:max-w-96 flex flex-col justify-between p-2'>
+        <div className='col-span-2 flex flex-col justify-between p-2'>
             <h1 className='text-xl font-bold px-1 leading-4 title capitalize'>{product.name}</h1>
             <p className='text-sm font-light line-clamp-3 px-1'>{product.description}</p>
             <div className='flex md:block font-bold justify-between items-center px-1 pb-1'>
                 {product.price}
             </div>
             {dispatch ?
-                <button onClick={() => dispatch({type: action, payload:{id:product.id, name:product.name, price: product.price, image:urlImage}})} className=' absolute bottom-0 right-0 rounded-2xl rounded-tl-3xl w-1/6 h-1/2 flex justify-center items-center bg-white '><PlusCircleIcon className=' w-8 h-8' /></button> :
-                <button  className=' hidden absolute bottom-0 right-0 rounded-2xl rounded-tl-3xl w-1/6 h-1/2 md:flex justify-center items-center bg-white '><PlusCircleIcon className=' w-8 h-8' /></button>
+                <button onClick={() => dispatch({ type: action, payload: { id: product.id, name: product.name, price: product.price, image: urlImage } })} className=' absolute bottom-0 right-0 rounded-2xl rounded-tl-3xl w-1/6 h-1/2 flex justify-center items-center bg-white '><PlusCircleIcon className=' w-8 h-8' /></button> :
+                <button className=' hidden absolute bottom-0 right-0 rounded-2xl rounded-tl-3xl w-1/6 h-1/2 md:flex justify-center items-center bg-white '><PlusCircleIcon className=' w-8 h-8' /></button>
             }
         </div>
     </div>
