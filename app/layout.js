@@ -38,7 +38,7 @@ export default function RootLayout({ children }) {
   ]
 
   return (
-    <html lang="en" className={`${asap.variable} ${englebert.variable}`}>
+    <html lang="es" className={`${asap.variable} ${englebert.variable}`}>
       <body >
         <NavBar links={links} />
         <BackTopButton/>

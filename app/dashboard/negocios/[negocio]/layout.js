@@ -46,6 +46,18 @@ export default async function layout({ children, params }) {
                     </NavigationMenuContent>
 
                 </NavigationMenuItem> : null}
+                {business.categories.map(element => element.name).includes('Alojamientos') ? <NavigationMenuItem >
+                    <NavigationMenuTrigger>Habitaciones</NavigationMenuTrigger>
+                    <NavigationMenuContent>
+                        <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
+                            <ListItem href={`/dashboard/negocios/${params.negocio}/habitaciones`} title='Habitaciones'>Encuentra cada uno de tus productos</ListItem>
+                            <ListItem href={`/dashboard/negocios/${params.negocio}/registrar-habitacion`} title='Agregar Habitación'>
+                                Agregar Habitación
+                            </ListItem>
+                        </ul>
+                    </NavigationMenuContent>
+
+                </NavigationMenuItem> : null}
                 <NavigationMenuItem>
                     <Link href="/docs" legacyBehavior passHref>
                         <NavigationMenuLink className={navigationMenuTriggerStyle()}>
