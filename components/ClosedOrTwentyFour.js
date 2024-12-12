@@ -5,8 +5,8 @@ const ClosedOrTwentyFour = (props) => {
 
     const {schedule, hour} = props
 
-    const[twentyFour, setTwentyFour] = useState(schedule[hour.name].twentyFour ? true : false)
-    const[closed, setClosed] = useState(schedule[hour.name].closed ? true : false)
+    const[twentyFour, setTwentyFour] = useState(schedule[hour.name]?.twentyFour ? true : false)
+    const[closed, setClosed] = useState(schedule[hour.name]?.closed ? true : false)
 
     return (
          <div className="flex flex-row justify-center w-fit items-start gap-3">

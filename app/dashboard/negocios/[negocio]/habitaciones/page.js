@@ -18,7 +18,7 @@ export default async function page({ params }) {
             <a href={`/dashboard/negocios/${params.negocio}/registrar-habitacion`} className="md:max-w-96 flex justify-center items-center border rounded-2xl  w-44 md:w-full h-full bg-gray-200">
                 <PlusCircledIcon className="w-20 h-20  " />
             </a>
-            {data.rooms.map((product, index) => <div key={index} className="border p-2 w-fit ">
+            {data.rooms.map((product, index) => <div key={index} className="p-2 w-fit space-y-4">
                 <CardRooms product={product} />
                 <div className="flex justify-between">
                     <DialogUpdateProduct product={product} />

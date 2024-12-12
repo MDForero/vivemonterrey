@@ -4,6 +4,7 @@ import { PlusCircleIcon } from 'lucide-react'
 import Image from 'next/image'
 import { useEffect, useState } from 'react'
 import { Skeleton } from './ui/skeleton'
+import { Separator } from './ui/separator'
 
 const CardRooms = ({ product, dispatch, action }) => {
     console.log(product)
@@ -38,21 +39,22 @@ const CardRooms = ({ product, dispatch, action }) => {
 
 
 
-    return (<div className='border rounded-2xl grid grid-cols-3 min-w-96 justify-between max-w-lg w-full relative '>
+    return (<div className='  aspect-square max-w-96 space-y-2 border-2 rounded-xl p-2'>
 
+        <h1 className='text-xl font-bold  leading-4 title p-3 rounded-sm  mx-auto w-fit bg-gray-200  capitalize'>{product.name}</h1>
+        <Separator />
         <div className='order-2 '>
-            {loading ? <Skeleton className='w-full h-full' /> : urlImage ? <Image src={urlImage} alt={product.name} width={0} height={0} className=' w-full aspect-square rounded-2xl ' /> : 'no image'}
+            {loading ? <Skeleton className='w-full h-full aspect-square' /> : urlImage ? <Image src={urlImage} alt={product.name} width={0} height={0} className=' w-full aspect-square object-cover rounded-2xl ' /> : 'no image'}
         </div>
-        <div className='col-span-2 flex flex-col justify-between p-2'>
-            <h1 className='text-xl font-bold px-1 leading-4 title capitalize'>{product.name}</h1>
-            <p className='text-sm font-light line-clamp-3 px-1'>{product.description}</p>
-            <div className='flex md:block font-bold justify-between items-center px-1 pb-1'>
-                {product.price}
+        <div className=''>
+            <div className='flex'>
+                <dl className='grid grid-cols-2 w-full place-items-end'>
+                    <dt className='place-self-start'>Min. Ocupación</dt>
+                    <dd>{product.min_occupancy}</dd>
+                    <dt className='place-self-start'>Ocupación</dt>
+                    <dd>{product.occupancy}</dd>
+                </dl>
             </div>
-            {dispatch ?
-                <button onClick={() => dispatch({ type: action, payload: { id: product.id, name: product.name, price: product.price, image: urlImage } })} className=' absolute bottom-0 right-0 rounded-2xl rounded-tl-3xl w-1/6 h-1/2 flex justify-center items-center bg-white '><PlusCircleIcon className=' w-8 h-8' /></button> :
-                <button className=' hidden absolute bottom-0 right-0 rounded-2xl rounded-tl-3xl w-1/6 h-1/2 md:flex justify-center items-center bg-white '><PlusCircleIcon className=' w-8 h-8' /></button>
-            }
         </div>
     </div>
     )

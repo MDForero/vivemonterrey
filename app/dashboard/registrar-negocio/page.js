@@ -237,7 +237,7 @@ export default async function Page() {
                                         />
                                     </div>
                                 </div>
-                                <ClosedOrTwentyFour hour={hour} />
+                                <ClosedOrTwentyFour hour={hour} schedule={''} />
                             </div>
                         </div>
                     </fieldset>)}
