@@ -9,7 +9,6 @@ export default function Slider() {
     useEffect(() => {
         const slider = document.getElementById('slider')
         const container = document.getElementsByClassName('container')[0]
-        console.log(slider.scrollWidth, ((direction * 440) + container.scrollWidth))
         slider.scrollWidth <= ((direction * 440) + container.scrollWidth - 440) && setDirection(0)
         
         // console.log(contentSlider.scrollWidth <= (direction * 440 ) + window.window.screen.width )

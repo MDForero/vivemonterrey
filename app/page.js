@@ -15,15 +15,15 @@ export default async function Home() {
 
   return (
     <>
-      <main className="relative z-0 container mx-auto">
+      <main className="relative z-0 container mx-auto h-fit">
 <video autoPlay  className="object-cover aspect-square lg:aspect-auto w-full lg:h-[540px] xl:h-[680px] " muted loop     >
         <source src="/assets/presentacion-viveMonterrey.mp4" type="video/mp4" />
 </video>
       </main>
-      <div className="space-y-32 max-w-7xl mx-auto">
+      <div className="lg:space-y-32 md:space-y-24  space-y-16 max-w-7xl mx-auto">
 
         {/* categorias de negocios */}
-        <section className="space-y-8 border-2 m-2 sm-p-2 md:p-4 lg:p-14">
+        <section className="space-y-8 border-2 m-2 p-3 py-8 lg:p-14">
           <div className="text-center ">
             <h1 className="text-4xl font-bold title">¿Qué hacer en Monterrey Casanare?</h1>
             <h3 className="text-xl">Encuentra todo lo que necesitas para tu viaje ¡<span>ViveMonterrey</span> es tu punto de partida! </h3>
@@ -34,7 +34,7 @@ export default async function Home() {
         </section>
 
         {/* hero */}
-        <section className="space-y-10 border-2 px-2 lg:pb-32 m-1">
+        <section className="space-y-10 border-2 px-2 lg:pb-32 m-2 p-3 py-8 lg:p-14">
           <h1 className="text-3xl md:text-5xl lg:text-7xl text-balance text-center title  ">Explora la esencia del llano en Monterrey, Casanare</h1>
           <article className="w-fit mx-auto max-w-5xl" >
             <div className="md:float-right relative md:ml-20 mb-20 w-fit mx-auto">

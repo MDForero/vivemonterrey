@@ -19,7 +19,7 @@ export default async function page() {
             <h1 className="text-center text-[#b91c1c] text-pretty text-3xl md:text-4xl lg:text-5xl font-semibold ">¿Qué hacer en Monterrey Casanare?</h1>
             <p className="text-center text-lg md:text-xl  max-w-5xl p-2">Encuentra todo lo que Monterrey Casanare tiene para ofrecerte. En Vive Monterrey podras encontrar toda la información necesaria para disfrutar de Monterrey Casanare, desde los mejores restaurantes, hoteles, sitios turisticos y mucho más</p>
         </div>
-        <section className="flex justify-evenly w-full flex-wrap py-8 gap-8">
+        <section className="flex justify-evenly w-full flex-wrap py-8 gap-8 px-2 mx-1">
             {data.map((business) => <CardBusinesses key={business.id} data={business} />)}
         </section>
     </div>
