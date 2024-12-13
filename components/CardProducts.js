@@ -38,7 +38,7 @@ const CardProducts = ({ product, dispatch, action }) => {
 
 
 
-    return (<div className='border rounded-2xl grid grid-cols-3 min-w-96 justify-between max-w-lg w-full relative '>
+    return (<div className='border rounded-2xl grid grid-cols-3 justify-between max-w-lg w-full relative '>
 
         <div className='order-2 '>
             {loading ? <Skeleton className='w-full h-full' /> : urlImage ? <Image src={urlImage} alt={product.name} width={0} height={0} className=' w-full aspect-square rounded-2xl ' /> : 'no image'}

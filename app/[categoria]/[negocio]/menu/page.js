@@ -46,11 +46,11 @@ export default function Page({ params }) {
 
 
     return <><div>
-        {business && <ImageSupabase buckets={'banners'} url={business.logo} className='w-44 h-44 aspect-video object-cover rounded-full' />}
+        {business && <ImageSupabase buckets={'banners'} url={business.logo} className='w-20 h-20 lg:w-44 lg:h-44  aspect-video object-cover rounded-full' />}
         <div className="container">
 
             {business?.categories_restaurant && <Tabs defaultValue={business?.categories_restaurant[0]}>
-                <ScrollArea className='w-screen py-3'>
+                <ScrollArea className='w-full py-3'>
                     <TabsList className=' gap-2 bg-white z-0'>
                         {business?.categories_restaurant.map(category => <TabsTrigger className='data-[state=active]:text-white data-[state=active]:bg-[#b91c1c] border bg-blue-100' key={category} value={category}>{category}</TabsTrigger>)}
                     </TabsList>
@@ -139,7 +139,7 @@ const TriggerShopping = () => {
             </Button>
         </SheetTrigger>
         <SheetTrigger asChild>
-            <div className='fixed bottom-3 w-full   md:hidden md:top-0 md:left-[96%] md:right-0 z-50 '>
+            <div className='fixed bottom-0 w-full   md:hidden z-50 '>
                 <p className="md:relative m-2 rounded-md bg-blue-200 p-2 text-center text-lg">
                     <span className={(animate ? 'animate-ping text-2xl duration-1000' : ' ') + " md:absolute md:-top-3 md:-left-3 font-bold  "}>{cart.reduce((acc, value) => acc + value.quantity, 0)}</span>
 
