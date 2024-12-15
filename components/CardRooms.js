@@ -1,16 +1,20 @@
 'use client'
 import { createClient } from '@/utils/supabase/client'
-import { PlusCircleIcon } from 'lucide-react'
 import Image from 'next/image'
 import { useEffect, useState } from 'react'
 import { Skeleton } from './ui/skeleton'
 import { Separator } from './ui/separator'
+import Link from 'next/link'
 
 const CardRooms = ({ product, dispatch, action }) => {
     console.log(product)
     const supabase = createClient()
     const [urlImage, setUrlImage] = useState()
     const [loading, setLoading] = useState()
+    const [selected, setSelected] = useState(new Date())
+    const [hosts, setHosts] = useState()
+
+    console.log(selected)
 
     useEffect(() => {
         async function downloadImage(path) {
@@ -39,7 +43,7 @@ const CardRooms = ({ product, dispatch, action }) => {
 
 
 
-    return (<div className='  aspect-square max-w-96 space-y-2 border-2 rounded-xl p-2'>
+    return (<div className='  aspect-square max-w-96 w-[320px] space-y-2 border-2 rounded-xl p-2'>
 
         <h1 className='text-xl font-bold  leading-4 title p-3 rounded-sm  mx-auto w-fit bg-gray-200  capitalize'>{product.name}</h1>
         <Separator />
@@ -56,6 +60,35 @@ const CardRooms = ({ product, dispatch, action }) => {
                 </dl>
             </div>
         </div>
+        <Link href={product.id} className='w-full block p-1 font-bold rounded-sm text-center bg-[#b91c1c] text-white '>Reservar</Link>
+        {/* <div >
+            <Popover>
+                <PopoverTrigger>
+                    Huéspedes { }
+                </PopoverTrigger>
+                <PopoverContent>
+                    <div className='flex justify-around items-center'>
+                        <Label htmlFor='adult' >Adultos</Label>
+                        <Input type='number' className='w-16 text-center' defaultValue={0} id='adult' name='adult' />
+                    </div>
+                    <div className='flex justify-around items-center'>
+                        <Label htmlFor='children' >Adultos</Label>
+                        <Input type='number' className='w-16 text-center' defaultValue={0} id='children' name='children' />
+                    </div>
+                </PopoverContent>
+            </Popover>
+            <Popover>
+                <PopoverTrigger>Check In - Check Out</PopoverTrigger>
+                <PopoverContent>
+                    <Calendar
+                        selected={selected}
+                        onSelect={setSelected}
+                        mode='range'
+                    />
+                </PopoverContent>
+            </Popover>
+            <a href='#'>Reservar</a>
+        </div> */}
     </div>
     )
 }
