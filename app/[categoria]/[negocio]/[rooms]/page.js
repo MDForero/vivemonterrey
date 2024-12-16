@@ -12,7 +12,7 @@ import Autoplay from "embla-carousel-autoplay"
 import Fade from "embla-carousel-fade"
 import { useEffect, useState } from "react"
 
-export default async function page({ params }) {
+export default  function Page({ params }) {
 
     const supabase = createClient()
     const [data, setData] = useState(null)
@@ -40,7 +40,7 @@ export default async function page({ params }) {
 
         ]}>
             <CarouselContent>
-                {data?.images.map(img => <CarouselItem className='basis-full md:basis-1/2 lg:basis-1/3 '>
+                {data?.images.map(img => <CarouselItem key={img} className='basis-full md:basis-1/2 lg:basis-1/3 '>
                     <Card className={'w-full h-96'} >
                         <ImageSupabase key={img} url={img} buckets={'banners'} className={'w-full h-full object-cover'} />
                     </Card>
