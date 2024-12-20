@@ -15,7 +15,8 @@ import { PlusCircledIcon } from "@radix-ui/react-icons";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { createClient } from "@/utils/supabase/client";
 
-export default function Page({ params }) {
+export default function Page(props) {
+    const params = use(props.params);
 
     const supabase = createClient()
     const { user } = useUserCurrent()

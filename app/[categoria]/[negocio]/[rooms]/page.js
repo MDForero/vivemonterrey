@@ -10,9 +10,10 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 import { createClient } from "@/utils/supabase/client"
 import Autoplay from "embla-carousel-autoplay"
 import Fade from "embla-carousel-fade"
-import { useEffect, useState } from "react"
+import { useEffect, useState, use } from "react";
 
-export default  function Page({ params }) {
+export default function Page(props) {
+    const params = use(props.params);
 
     const supabase = createClient()
     const [data, setData] = useState(null)

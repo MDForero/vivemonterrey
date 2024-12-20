@@ -1,7 +1,8 @@
 import BannerImage from "@/components/BannerImage"
 import CardBusinesses from "@/components/CardBusinesses"
 import { createClient } from "@/utils/supabase/server"
-export default async function page({ params }) {
+export default async function page(props) {
+    const params = await props.params;
 
     const categoria = params.categoria.split('-').join(' ')
 

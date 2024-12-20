@@ -8,7 +8,7 @@ import { usePathname } from 'next/navigation'
 const Footer = () => {
     const path = usePathname()
     return (<>
-        <footer className={(['dashboard', 'login', 'ordenar'].find(element => path.split('/').includes(element)) ? 'hidden' : '') + '  lg:p-8'}>
+        <footer>
             <div className='container mx-auto flex flex-wrap justify-evenly gap-10 ' >
 
                 <section className='w-96 space-y-4'>

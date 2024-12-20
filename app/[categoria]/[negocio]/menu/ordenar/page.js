@@ -8,11 +8,12 @@ import { Label } from "@/components/ui/label"
 import { Input } from "@/components/ui/input"
 import ImageSupabase from "@/components/ImageSupabase"
 import { createClient } from "@/utils/supabase/client"
-import { useEffect, useState } from "react"
+import { useEffect, useState, use } from "react";
 import { Card, CardContent } from "@/components/ui/card"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 
-export default function Page({ params }) {
+export default function Page(props) {
+    const params = use(props.params);
 
     const cart = useCart()
     const dispatch = useCartDispatch()

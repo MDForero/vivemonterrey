@@ -1,5 +1,5 @@
 'use client'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, use } from 'react';
 import { createClient } from '@/utils/supabase/client'
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -14,7 +14,8 @@ import ClosedOrTwentyFour from '@/components/ClosedOrTwentyFour'
 import { Separator } from '@/components/ui/separator'
 
 
-export default function Page({ params }) {
+export default function Page(props) {
+    const params = use(props.params);
     const [businessData, setBusinessData] = useState(null)
     const [isLoading, setIsLoading] = useState(true)
     const [categories, setCategories] = useState(null)

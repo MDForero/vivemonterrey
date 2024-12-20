@@ -13,7 +13,7 @@ export default async function page() {
     console.log(data[0].categories)
     return <div className=" container mx-auto flex flex-col justify-center space-y-16 items-center bg-gray-50 ">
         <main>
-            <Image loading="lazy" src='/assets/portada-que-hacer.webp' width={0} height={0} className="w-full" />
+            <Image loading="lazy" src='/assets/portada-que-hacer.webp' alt="Imagen de portada que hacer en monterrey" width={0} height={0} className="w-full" />
         </main>
         <div className=" md:flex flex-col justify-center items-center  font-light">
             <h1 className="text-center text-[#b91c1c] text-pretty text-3xl md:text-4xl lg:text-5xl font-semibold ">¿Qué hacer en Monterrey Casanare?</h1>
