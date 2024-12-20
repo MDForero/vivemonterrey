@@ -59,6 +59,7 @@ import {
 } from "@/components/ui/sidebar"
 import { useEffect, useState } from "react"
 import { useUserCurrent } from "@/app/dashboard/layout"
+import Link from "next/link"
 
 
 
@@ -176,9 +177,9 @@ const SideBarDashboard = () => {
                     {businesses?.map((item) => (
                       <SidebarMenuSubItem key={item?.name}>
                         <SidebarMenuSubButton asChild>
-                          <a href={'/dashboard/negocios/'+item?.name}>
+                          <Link href={'/dashboard/negocios/'+item?.name}>
                             <span>{item?.name}</span>
-                          </a>
+                          </Link>
                         </SidebarMenuSubButton>
                       </SidebarMenuSubItem>
                     ))}
@@ -190,9 +191,9 @@ const SideBarDashboard = () => {
             <SidebarMenuItem>
               <SidebarMenuButton className="text-sidebar-foreground/70">
                 <MoreHorizontal className="text-sidebar-foreground/70" />
-                <a href="/dashboard/negocios">
+                <Link href="/dashboard/negocios">
                   <span>Mas ...</span>
-                </a>
+                </Link>
               </SidebarMenuButton>
             </SidebarMenuItem>
           </SidebarMenu>
@@ -218,10 +219,10 @@ const SideBarDashboard = () => {
                       <SidebarMenuSubItem key={item?.location_name
                       }>
                         <SidebarMenuSubButton asChild>
-                          <a href={item?.location_name}>
+                          <Link href={item?.location_name}>
                             <span>{item?.location_name
                             }</span>
-                          </a>
+                          </Link>
                         </SidebarMenuSubButton>
                       </SidebarMenuSubItem>
                     ))}
