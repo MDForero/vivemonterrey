@@ -7,6 +7,15 @@ import { PhoneCallIcon, WifiIcon } from "lucide-react"
 import Link from "next/link"
 
 
+export async function generateMetadata({ params }) {
+    const supabase = createClient()
+    const { data: business, error } = await supabase.from('businesses').select('*, products(count), rooms(count), categories(name) ').eq('name', decodeURI(params.negocio).split('-').join(' ')).single()
+    return {
+        title: business.name,
+        description: business.description,
+    }
+}
+
 
 
 export default async function Page(props) {
@@ -24,10 +33,10 @@ export default async function Page(props) {
     return <section className="max-w-xl space-y-20 mx-auto">
         <main className="space-y-16">
             <div className="relative">
-                <ImageSupabase url={business.banner_url} buckets={'banners'} className={'w-full aspect-video object-cover rounded-md'} alt={`imagen principal de ${business.name}`} />
+                <ImageSupabase url={business.banner_url} buckets={'banners'} className={'w-full aspect-video object-cover rounded-md'} alt={`imagen principal de ${business.name} `} />
 
                 <div className="absolute -bottom-1/4 inset-x-0 flex justify-center items-center p-4">
-                    <ImageSupabase url={business.logo} buckets={'banners'} className={'w-32 h-32 md:w-44 md:h-44 object-contain rounded-full '} alt={`logo de ${business.name}`} />
+                    <ImageSupabase url={business.logo} buckets={'banners'} className={'w-32 h-32 md:w-44 md:h-44 object-contain rounded-full '} alt={`logo de ${business.name} `} />
                 </div>
             </div>
             <h2 className="text-center">{business.name}</h2>
@@ -38,8 +47,8 @@ export default async function Page(props) {
                 {business?.socials_account?.map((social, index) => <SocialMediaButton url={social} key={index} style='sticker' />)}
                 <SocialMediaButton url={`https://wa.me/+57${business?.phone}`} style={'sticker'} />
                 <a href={`tel:+57${business?.phone}`} className="bg-blue-700 text-white flex justify-center items-center w-12 h-12 rounded-full"><PhoneCallIcon /> </a>
-                {business?.wifi_name !== null && <a href={`WIFI:S:${business?.wifi_name};T:WPA;P:${business?.wifi_password};H:${false};`} className="bg-blue-700 text-white flex justify-center items-center w-12 h-12 rounded-full"><WifiIcon/> </a>}
-            </div>
+                {business?.wifi_name !== null && <a href={`WIFI:S:${business?.wifi_name};T:WPA;P:${business?.wifi_password};H:${false};`} className="bg-blue-700 text-white flex justify-center items-center w-12 h-12 rounded-full"><WifiIcon /> </a>}
+            </div >
 
             {
                 rooms !== 0 &&
@@ -64,10 +73,11 @@ export default async function Page(props) {
                 </div>
             }
 
-            {business?.iframe_maps !== null && business.location !== null && <a href={business?.location} className="block">
+            {
+                business?.iframe_maps !== null && business.location !== null && <a href={business?.location} className="block">
 
-                <iframe src={business?.iframe_maps ?? "https://www.google.com/maps/embed?pb=!1m10!1m8!1m3!1d248.4601111499341!2d-72.89577454192131!3d4.878929036236534!3m2!1i1024!2i768!4f13.1!5e0!3m2!1ses!2sco!4v1722186221373!5m2!1ses!2sco"} className='max-w-md mx-auto w-full  aspect-video rounded-xl' allowFullScreen="" loading="lazy" referrerPolicy="no-referrer-when-downgrade"></iframe>
-            </a>
+                    <iframe src={business?.iframe_maps ?? "https://www.google.com/maps/embed?pb=!1m10!1m8!1m3!1d248.4601111499341!2d-72.89577454192131!3d4.878929036236534!3m2!1i1024!2i768!4f13.1!5e0!3m2!1ses!2sco!4v1722186221373!5m2!1ses!2sco"} className='max-w-md mx-auto w-full  aspect-video rounded-xl' allowFullScreen="" loading="lazy" referrerPolicy="no-referrer-when-downgrade"></iframe>
+                </a>
             }
             <ScrollArea className="max-w-md w-full h-60 mx-auto" orientation="horizontal">
                 <div className="flex w-max space-x-4 p-4">
@@ -78,6 +88,6 @@ export default async function Page(props) {
                 <ScrollBar orientation={'horizontal'} />
             </ScrollArea>
             {/* {Object.keys(business).map((key, index) => <div key={index}>{key} <br /></div>)} */}
-        </aside>
-    </section>
+        </aside >
+    </section >
 }

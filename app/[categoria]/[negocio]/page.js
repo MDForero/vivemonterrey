@@ -9,6 +9,16 @@ import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area'
 import { createClient } from '@/utils/supabase/server'
 import Image from 'next/image'
 
+export async function generateMetadata({ params }) {
+    const supabase = createClient()
+    const { data, error } = await supabase.from('businesses').select('*, categories(name), rooms(*)').eq('name', decodeURI(params.negocio).split('-').join(' ')).single()
+    return {
+        title: data.name,
+        description: data.description,
+    }
+}
+
+
 export default async function page(props) {
     const params = await props.params;
 

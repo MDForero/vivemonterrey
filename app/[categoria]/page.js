@@ -1,6 +1,17 @@
 import BannerImage from "@/components/BannerImage"
 import CardBusinesses from "@/components/CardBusinesses"
 import { createClient } from "@/utils/supabase/server"
+
+export async function generateMetadata({ params }) { 
+    const supabase = createClient()
+    const { data, error } = await supabase.from('categories').select('*, businesses(*)').eq('name', params.categoria.split('-').join(' ')).single()
+    return {
+        title: `${data?.name} en Monterrey Casanare`,
+        description: `${data?.name} en Monterrey Casanare`,
+    }
+}
+
+
 export default async function page(props) {
     const params = await props.params;
 
