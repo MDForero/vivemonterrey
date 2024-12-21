@@ -1,7 +1,7 @@
 'use client'
 import { usePathname } from "next/navigation"
 import { createClient } from "@/utils/supabase/client"
-import { useEffect, useState } from "react"
+import { useEffect, useState, use } from "react";
 import CardProducts from "@/components/CardProducts"
 import ImageSupabase from "@/components/ImageSupabase"
 import { actions, useCart, useCartDispatch } from "./CartContext"
@@ -15,7 +15,8 @@ import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area"
 import { Sheet, SheetContent, SheetDescription, SheetFooter, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet"
 
 
-export default function Page({ params }) {
+export default function Page(props) {
+    const params = use(props.params);
 
     const supabase = createClient()
 

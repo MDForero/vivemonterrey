@@ -4,7 +4,7 @@ import { createClient } from '@/utils/supabase/client'
 import Image from 'next/image'
 
 
-export default function  ImageSupabase({buckets, url, className}) {
+export default function  ImageSupabase({buckets, url, className, alt}) {
     const [imageUrl, setImageUrl] = useState(null)
     const supabase = createClient()
     console.log(url)
@@ -25,7 +25,7 @@ export default function  ImageSupabase({buckets, url, className}) {
     }, [supabase])
 
     return (<>
-        <Image src={imageUrl ?? url} width={0} height={0} className={className} />
+        <Image src={imageUrl ?? url} width={0} alt={alt ?? 'Imagen de vive monterrey'} height={0} className={className} />
     </>
     )
 }

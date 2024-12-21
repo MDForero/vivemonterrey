@@ -25,15 +25,15 @@ const NavBar = ({ links }) => {
 
 
     return (
-        <header className={['dashboard', 'login', 'ordenar', 'menu'].find(element => path.split('/').includes(element))? 'hidden' : ''}>
+        <header >
             <div className='container mx-auto p-2'>
                 <nav className="flex justify-between items-center h-20  font-semibold relative shadow-sm font-mono">
-                    <Image src='/logo.svg' width={0} height={0} className='w-36' />
+                    <Image src='/logo.svg' width={0} height={0} className='w-36' alt='Logo vive monterrey' />
                     <ul className='hidden lg:flex justify-evenly items-center text-lg gap-6 title'>
                         {links.map(link => <li key={link.name} ><Link className={(path.slice(-1) === link.name ? 'underline ' : '' + ' capitalize')} href={link.url}>{link.name}</Link></li>)}
                     </ul>
                     <ul className='hidden lg:flex gap-3 '>
-                        {socialAccounts.map(social => <li key={social.name}> <Link href={social.url} className='border block p-2 rounded-full'><Image src={social.svg} width={0} height={0} className='w-5 h-5' /></Link>
+                        {socialAccounts.map(social => <li key={social.name}> <Link href={social.url} className='border block p-2 rounded-full'><Image alt={`icono de red social ${social.name}`} src={social.svg} width={0} height={0} className='w-5 h-5' /></Link>
                         </li>)}
                     </ul>
                     <button className='lg:hidden relative z-50 title lg:text-white rounded-full border-2 border-gray-700' onClick={() => setShow(!show)}>
@@ -46,7 +46,7 @@ const NavBar = ({ links }) => {
                             {links.map(link => <li key={link.name} ><Link onClick={() => setShow(!show)} className={path.slice(-1) === link.name ? 'underline ' : ''} href={link.url}>{link.name}</Link></li>)}
                         </ul>
                         <ul className='flex gap-3 justify-center'>
-                            {socialAccounts.map(social => <li key={social.name}> <Link href={social.url} className='border block p-2 rounded-full'><Image src={social.svg} width={0} height={0} className='w-8 h-8' /></Link>
+                            {socialAccounts.map(social => <li key={social.name}> <Link href={social.url} className='border block p-2 rounded-full'><Image src={social.svg} width={0} height={0} className='w-8 h-8' alt={`icono de red social ${social.name}`} /></Link>
                             </li>)}
                         </ul>
                     </div>

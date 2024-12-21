@@ -5,7 +5,13 @@ import { createClient } from "@/utils/supabase/server";
 import { Separator } from "@/components/ui/separator";
 import { cn } from "@/lib/utils";
 
-export default async function layout({ children, params }) {
+export default async function layout(props) {
+    const params = await props.params;
+
+    const {
+        children
+    } = props;
+
     const supabase = createClient()
     const { data: business, error } = await supabase.from('businesses').select('*, categories(name)').eq('name', decodeURI(params.negocio).split('-').join(' ')).single()
 

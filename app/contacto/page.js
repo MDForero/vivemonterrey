@@ -44,7 +44,7 @@ export default function page() {
 
     return <>
         <main className="container mx-auto">
-            <Image src='/assets/AdobeStock_233702538.jpg' width={0} height={0} className="w-full h-[440px] md:h-[480px] lg:h-[540px] xl:h-[680px] object-cover" />
+            <Image src='/assets/AdobeStock_233702538.jpg' alt="Imagen de seccion contacto" width={0} height={0} className="w-full h-[440px] md:h-[480px] lg:h-[540px] xl:h-[680px] object-cover" />
         </main>
         <section className=" grid-contact max-w-7xl mx-auto place-items-center gap-20">
             <div className="md:col-span-2 max-w-7xl w-full">

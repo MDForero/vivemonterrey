@@ -9,13 +9,14 @@ import { Delete } from "lucide-react"
 import DeleteProduct from "@/components/DeleteProduct"
 
 
-export default async function page({ params }) {
+export default async function page(props) {
+    const params = await props.params;
     const supabase = createClient()
     const { data, error } = await supabase.from('businesses')
         .select('image_restaurant, products(*)')
         .eq('name', decodeURI(params.negocio)
             .split('-').join(' ')).single()
-            
+
 
     return <div>
         <ImageMainMenu name='image_restaurant' data={data.image_restaurant} params={params}/>

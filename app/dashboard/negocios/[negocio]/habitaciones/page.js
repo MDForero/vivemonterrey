@@ -5,13 +5,14 @@ import CardRooms from "@/components/CardRooms"
 import DeleteRoom from "@/components/DeleteRoom"
 
 
-export default async function page({ params }) {
+export default async function page(props) {
+    const params = await props.params;
     const supabase = createClient()
     const { data, error } = await supabase.from('businesses')
         .select('image_restaurant, rooms(*)')
         .eq('name', decodeURI(params.negocio)
             .split('-').join(' ')).single()
-            
+
 
     return <div>
         <div className="grid grid-cols-2 gap-3 md:grid-cols-2 lg:grid-cols-3">
