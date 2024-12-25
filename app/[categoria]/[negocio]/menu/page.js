@@ -76,7 +76,7 @@ const AppSheet = () => {
     const cart = useCart()
     return <Sheet >
         <TriggerShopping />
-        <SheetContent className="w-[400px] sm:w-[90%] md:w-[540px]">
+        <SheetContent className="w-[90%] md:w-[540px]">
             <SheetHeader>
                 {!(cart.length === 0) ? <SheetTitle className='font-bold'>Subtotal: {cart.map(item => item.quantity * item.price).reduce((acc, value) => acc + value, 0)} COP</SheetTitle> : <></>}
             </SheetHeader>
