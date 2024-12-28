@@ -1,5 +1,6 @@
 import CardContact from "@/components/CardContact";
 import { FormContact } from "@/components/FormContact";
+import { DotIcon, Mail, MapPin, PhoneCall } from "lucide-react";
 import Image from "next/image";
 
 export default function page() {
@@ -7,7 +8,7 @@ export default function page() {
     const contact = [
         {
             title: 'Contacto',
-            icon: '/phone-svgrepo-com.svg',
+            icon: <PhoneCall className="w-8 h-8"/>,
             links: [
                 {
                     name: '+57 310 343 3298',
@@ -21,7 +22,7 @@ export default function page() {
         },
         {
             title: 'Correo',
-            icon: '/mail-alt-svgrepo-com.svg',
+            icon: <Mail className="w-8 h-8"/>,
             links: [
                 {
                     name: 'info@vivemonterrey.com.co',
@@ -32,7 +33,7 @@ export default function page() {
 
         {
             title: 'Dirección',
-            icon: '/map-marker-5-svgrepo-com.svg',
+            icon: <MapPin className="w-8 h-8"/>,
             links: [
                 {
                     name: 'Cl. 19 #8 - 181, Monterrey, Casanare',
@@ -55,7 +56,7 @@ export default function page() {
             <div>
                 <FormContact />
             </div>
-            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3975.3616486724263!2d-72.89842292401671!3d4.87895094008447!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e6ad33c51110f4d%3A0x3da6e7b3ba7ebaf7!2sD%26D%20Tech!5e0!3m2!1ses-419!2sco!4v1729173256754!5m2!1ses-419!2sco" className='w-[440px] h-[440px]' allowFullScreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3975.3616486724263!2d-72.89842292401671!3d4.87895094008447!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e6ad33c51110f4d%3A0x3da6e7b3ba7ebaf7!2sD%26D%20Tech!5e0!3m2!1ses-419!2sco!4v1729173256754!5m2!1ses-419!2sco" className='w-[440px] h-[440px]' allowFullScreen="" loading="lazy" referrerPolicy="no-referrer-when-downgrade"></iframe>
         </section>
     </>
 }
