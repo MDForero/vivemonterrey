@@ -2,6 +2,8 @@
 import QRCodeStyling, { TypeNumber, Mode, ErrorCorrectionLevel, Options, } from "qr-code-styling";
 import { useEffect, useState, useRef } from "react";
 import { createClient } from "@/utils/supabase/client";
+import { Button } from "./ui/button";
+import { DownloadIcon } from "lucide-react";
 
 export default function QrCode({ value, logo }) {
 
@@ -13,32 +15,40 @@ export default function QrCode({ value, logo }) {
     useEffect(() => {
         if (!qrCodeImage) return
         setQrCode(new QRCodeStyling({
-            width: 250,
-            height: 250,
+            width: 350,
+            height: 350,
             type: 'svg',
             data: value,
             image: qrCodeImage,
-            margin: 10,
+            margin: 0,
             qrOptions: {
                 typeNumber: 0,
                 mode: 'Byte',
-                errorCorrectionLevel: 'Q'
+                errorCorrectionLevel: 'H'
+            },
+            backgroundOptions: {
+                color: 'transparent',
             },
             imageOptions: {
                 hideBackgroundDots: true,
                 imageSize: 0.4,
                 margin: 0,
-            
+
                 crossOrigin: 'anonymous',
                 saveAsBlob: true,
             },
             dotsOptions: {
                 color: '#222222',
-                type: 'rounded' // square, rounded
+                type: 'extra-rounded' // square, rounded
             },
-            backgroundOptions: {
-                color: '#ffffff',
+            cornersSquareOptions: {
+                type: 'dot', // square, rounded
+                color: '#b91c1c'
             },
+            cornersDotOptions: {
+                type: 'dot',
+                color:'#b91c1c' // square, rounded
+            }
         })
         )
     }, [qrCodeImage])
@@ -64,8 +74,16 @@ export default function QrCode({ value, logo }) {
     }, [qrCode, ref]);
 
 
+    const downloadQr = () => {
+        qrCode?.download({
+            name: 'qr-code',
+            extension: 'png'
+        })
+    }
 
-    return (
-        <div ref={ref} className="mx-auto w-fit" /> // This is the div where the QR code will be rendered
+    return (<>
+        <div ref={ref} className="mx-auto w-fit" /> 
+        <Button type='button' onClick={downloadQr}><DownloadIcon/> Descargar QR </Button>
+    </>
     )
 }
