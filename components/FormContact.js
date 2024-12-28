@@ -18,7 +18,7 @@ export const description =
 
 export function FormContact() {
 
-    const [recaptcha, setRecaptcha] = useState(null)
+    const [recaptcha, setRecaptcha] = useState('')
 
     const handleReCaptchaChange = (token) => {
         setRecaptcha(token)

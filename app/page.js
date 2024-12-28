@@ -3,6 +3,12 @@ import Slider from "@/components/Slider";
 import { createClient } from "@/utils/supabase/server";
 import Image from "next/image";
 
+export const metadata = {
+  title: "Vive Monterrey",
+  description: "Descubre la esencia del llano en Monterrey, Casanare. Un destino que fusiona aventura, naturaleza y tradición en el corazón de Casanare. ¡Vive Monterrey es tu punto de partida!",
+  keywords: "Monterrey, Casanare, Vive Monterrey, Llanos Orientales, Colombia, Turismo, Naturaleza, Aventura, Cultura Llanera, Gastronomía, Tradición, Ríos, Cascadas, Lagunas, Piscinas Naturales, Paratrike, Vuelos, Ecuestres, Miradores, Experiencias Agrarias, Senderos, Muestras Culturales, Biodiversidad, Llanuras, Llanero, ViveMonterrey, Vive Monterrey, ViveMonterrey.com, Vive Monterrey.com, ViveMonterrey.co, Vive Monterrey.co",
+}
+
 export default async function Home() {
   const supabase = createClient()
   const { data, error } = await supabase.from('categories').select(`
@@ -16,9 +22,9 @@ export default async function Home() {
   return (
     <>
       <main className="relative z-0 container mx-auto h-fit">
-<video autoPlay  className="object-cover aspect-square lg:aspect-auto w-full lg:h-[540px] xl:h-[680px] " muted loop     >
-        <source src="/assets/presentacion-viveMonterrey.mp4" type="video/mp4" />
-</video>
+        <video autoPlay className="object-cover aspect-square lg:aspect-auto w-full lg:h-[540px] xl:h-[680px] " muted loop     >
+          <source src="/assets/presentacion-viveMonterrey.mp4" type="video/mp4" />
+        </video>
       </main>
       <div className="lg:space-y-32 md:space-y-24  space-y-16 max-w-7xl mx-auto">
 
@@ -71,7 +77,7 @@ export default async function Home() {
         <section>
           <h1 className="sm:text-xl md:text-3xl lg:text-5xl  text-center"> Siguenos como @vivemonterrey</h1>
           <div className='columns-2 md:columns-3 space-y-4'>
-            {galleryInstagram.map((img, index) => <Image key={index} src={img}  width={0} height={0} className="w-full h-full object-cover" alt='imagen de instagram de vive monterrey' />)}
+            {galleryInstagram.map((img, index) => <Image key={index} src={img} width={0} height={0} className="w-full h-full object-cover" alt='imagen de instagram de vive monterrey' />)}
           </div>
         </section>
       </div>
