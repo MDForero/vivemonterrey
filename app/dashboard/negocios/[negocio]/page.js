@@ -134,7 +134,7 @@ export default function Page(props) {
                     </CardHeader>
                     <CardContent >
 
-                        <Input value={businessData.id} name='id' id='id' className=' hidden' />
+                        <Input value={businessData.id} readOnly name='id' id='id' className=' hidden' />
                         <div className='min-w-80 max-w-xl'>
                             <Label htmlFor='name'> Nombre del negocio </Label>
                             <Input defaultValue={businessData.name} name='name' id='name' />
@@ -174,7 +174,7 @@ export default function Page(props) {
                         <CardDescription>Actualiza las categorías y servicios</CardDescription>
                     </CardHeader>
                     <CardContent className='space-y-4'>
-                        <Input value={businessData.id} name='id' id='id' className=' hidden' />
+                        <Input readOnly value={businessData.id} name='id' id='id' className=' hidden' />
                         <Card>
                             <CardHeader>
                                 <CardTitle className='text-xl'>Categorías registradas</CardTitle>
@@ -188,7 +188,7 @@ export default function Page(props) {
                                     <legend className='font-semibold'>Categorías</legend>
                                     <div className='space-y-2'>
                                         {categories.map((category, index) => <div key={index} className='flex  items-center gap-2'>
-                                            <Input type='checkbox' id={category.id} name={category.id} defaultChecked={businessData?.categories?.includes(category.id)} className='w-6 h-6' />
+                                            <Input type='checkbox' id={category.id} name={category.id} defaultChecked={businessData?.categories?.includes(category.id)}  className='w-6 h-6' />
                                             <Label htmlFor={category.id}>{category.name}</Label>
                                         </div>)}
                                     </div>
@@ -211,7 +211,7 @@ export default function Page(props) {
                         <CardDescription>Actualiza las redes sociales</CardDescription>
                     </CardHeader>
                     <CardContent >
-                        <Input value={businessData.id} name='id' id='id' className=' hidden' />
+                        <Input value={businessData.id} name='id' id='id' readOnly className=' hidden' />
                         <div>
                             <Label htmlFor='instagram'> Instagram</Label>
                             <Input defaultValue={businessData.socials_account.filter(item => item.includes('instagram'))} name='instagram' id='instagram' placeholder='https://www.instagram.com/xxxxxxxxx' />
@@ -242,7 +242,7 @@ export default function Page(props) {
                         <CardDescription>Actualiza el horario de atención</CardDescription>
                     </CardHeader>
                     <CardContent className='flex flex-wrap gap-2 items-center lg:justify-start justify-center'>
-                        <Input value={businessData.id} name='id' id='id' className=' hidden' />
+                        <Input value={businessData.id} name='id' id='id' className=' hidden' readOnly/>
                         {hours.map((hour, index) => <fieldset htmlFor={hour.name} key={index} className='w-fit border leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 '>
                             <legend className="text-md font-semibold">{hour.label}</legend>
                             <div className="text-sm font-medium">

@@ -67,14 +67,14 @@ export default function DashboardLayout({ children }) {
                         <div className="flex flex-col  shrink-0  gap-2 transition-[width,height] ease-linear group-has-[[data-collapsible=icon]]/sidebar-wrapper:h-full" >
                             <Breadcrumb>
                                 <BreadcrumbList>
-                                    {path.slice(1, -1).split('/').slice(0, -1).map((item, index) => <>
+                                    {path.slice(1, -1).split('/').slice(0, -1).map((item, index) => <div key={index}>
                                         <BreadcrumbItem key={index}>
                                             <BreadcrumbLink href={`/${path.slice(1, -1).split('/').slice(0, index + 1).join('/')}`} className='capitalize' >
                                                 {item}
                                             </BreadcrumbLink>
                                         </BreadcrumbItem>
                                         <BreadcrumbSeparator />
-                                    </>
+                                    </div>
                                     )}
                                     <BreadcrumbItem>
                                         <BreadcrumbPage className='capitalize'>

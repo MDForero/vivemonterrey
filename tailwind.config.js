@@ -9,6 +9,9 @@ module.exports = {
   theme: {
   	extend: {
   		colors: {
+			viveRed:{
+				DEFAULT:'#b91c1c'
+			},
   			primary: {
   				DEFAULT: 'hsl(var(--primary))',
   				foreground: 'hsl(var(--primary-foreground))'

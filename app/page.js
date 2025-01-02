@@ -1,6 +1,8 @@
+import AcceleratorCount from "@/components/AcceleratorCount";
 import CardCategory from "@/components/CardCategory";
 import Slider from "@/components/Slider";
 import { createClient } from "@/utils/supabase/server";
+import { CompassIcon, HotelIcon, PizzaIcon } from "lucide-react";
 import Image from "next/image";
 
 export const metadata = {
@@ -11,13 +13,33 @@ export const metadata = {
 
 export default async function Home() {
   const supabase = createClient()
-  const { data, error } = await supabase.from('categories').select(`
-    *,
-    businesses (name)
-    )
-    `)
 
+  const { data, error } = await supabase.from('categories').select('*, businesses(count)')
 
+  const { count: countProducts, error: errorProducts } = await supabase.from('products').select('*', { count: 'exact', head: true })
+  const { count: countBusiness, error: errorBusiness } = await supabase.from('businesses').select('*', { count: 'exact', head: true })
+  const { count: countRooms, error: errorRooms } = await supabase.from('rooms').select('*', { count: 'exact', head: true })
+
+  const countAccelerator = [
+    {
+      title: 'Descubre más de',
+      subtitle: "sitios de interés",
+      value: countBusiness,
+      icon: <CompassIcon className="w-16 h-12 stroke-[with:20px]" />,
+    },
+    {
+      title: 'Explora más de',
+      subtitle: 'opciones de alojamiento.',
+      value: countRooms,
+      icon: <HotelIcon className="w-16 h-12" />,
+    },
+    {
+      title: 'Disfruta más de',
+      subtitle: 'platos únicos.',
+      value: countProducts,
+      icon: <PizzaIcon className="w-16 h-12" />,
+    },
+  ]
 
   return (
     <>
@@ -26,7 +48,7 @@ export default async function Home() {
           <source src="/assets/presentacion-viveMonterrey.mp4" type="video/mp4" />
         </video>
       </main>
-      <div className="lg:space-y-32 md:space-y-24  space-y-16 max-w-7xl mx-auto">
+      <div className="lg:space-y-52 md:space-y-24  space-y-16 max-w-7xl mx-auto">
 
         {/* categorias de negocios */}
         <section className="space-y-8 border-2 m-2 p-3 py-8 lg:p-14">
@@ -34,6 +56,7 @@ export default async function Home() {
             <h1 className="text-4xl font-bold title">¿Qué hacer en Monterrey Casanare?</h1>
             <h3 className="text-xl">Encuentra todo lo que necesitas para tu viaje ¡<span>ViveMonterrey</span> es tu punto de partida! </h3>
           </div>
+
           <div className="flex justify-around gap-8 flex-wrap">
             {data?.map((category) => <CardCategory key={category.id} {...category} />)}
           </div>
@@ -61,6 +84,15 @@ export default async function Home() {
           </article>
         </section>
 
+        <section className="max-w-6xl mx-auto space-y-12">
+          <div className="text-center">
+            <h1 className="font-bold md:text-3xl text-viveRed">Descubre Monterrey, Casanare en Números</h1>
+            <h1 className="text-viveRed/70">Explora lo mejor de nuestra tierra: sitios de interés, alojamientos acogedores y gastronomía única</h1>
+          </div>
+          <div className="flex justify-around gap-8 flex-wrap">
+            {countAccelerator?.map(count => <AcceleratorCount key={count.value} title={count.title} subtitle={count.subtitle} icon={count.icon} value={count.value} />)}
+          </div>
+        </section>
         {/* Cta para seguir a vive monterrey */}
         <section>
           <div className="flex items-center">
@@ -73,13 +105,7 @@ export default async function Home() {
             </div>
           </div>
           <Slider />
-        </section>
-        <section>
-          <h1 className="sm:text-xl md:text-3xl lg:text-5xl  text-center"> Siguenos como @vivemonterrey</h1>
-          <div className='columns-2 md:columns-3 space-y-4'>
-            {galleryInstagram.map((img, index) => <Image key={index} src={img} width={0} height={0} className="w-full h-full object-cover" alt='imagen de instagram de vive monterrey' />)}
-          </div>
-        </section>
+        </section> 
       </div>
     </>
   );

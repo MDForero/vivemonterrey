@@ -17,11 +17,11 @@ const ClosedOrTwentyFour = (props) => {
                     id={props?.hour.name + '-twentyFour'}
                     name={props?.hour.name + '-twentyFour'}
                     className='flex rounded-md border border-input bg-background text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50'
-                    onClick={() => {
+                    onChange={() => {
                         setTwentyFour(!twentyFour)
                         setClosed(false)
                     }}
-                    checked={twentyFour}
+                    defaultChecked={twentyFour}
                     type='checkbox'
                     placeholder={props?.hour?.placeholder ?? 'aun no hay un placeholder se debe configurar'}
                 />
@@ -33,11 +33,11 @@ const ClosedOrTwentyFour = (props) => {
                     name={props?.hour.name + '-closed'}
                     className='flex   rounded-md border border-input bg-background text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50'
                     type='checkbox'
-                    onClick={() => {
+                    onChange={() => {
                         setTwentyFour(false)
                         setClosed(!closed)
                     }}
-                    checked={closed}
+                    defaultChecked={closed}
                     placeholder={props?.hour?.placeholder ?? 'aun no hay un placeholder se debe configurar'}
                 />
             </div>

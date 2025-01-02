@@ -5,6 +5,7 @@ import NavBar from "@/components/layouts/NavBar";
 import BackTopButton from "@/components/BackTopButton";
 import Footer from "@/components/layouts/Footer";
 import { usePathname } from "next/navigation";
+import Script from "next/script";
 // import { createClient } from "@/utils/supabase/client";
 
 
@@ -42,16 +43,27 @@ export default function RootLayout({ children }) {
     return (
       <html lang="es" className={`${asap.variable} ${englebert.variable}`}>
         <body >
+          <Script src="https://www.googletagmanager.com/gtag/js?id=G-YGH8LGGZGH" />
+          <Script id="google-analytics">
+            {`
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+ 
+          gtag('config', 'G-YGH8LGGZGH');
+        `}
+          </Script>
+
           <NavBar links={links} />
           <BackTopButton />
-          <div className="container mx-auto lg:space-y-32 md:space-y-24  space-y-12">
+          <div className="container mx-auto lg:space-y-52 md:space-y-24  space-y-12 mb-20">
             {children}
           </div>
           <Footer />
         </body>
       </html>
     );
-  }else{
+  } else {
     return (
       <html lang="es" className={`${asap.variable} ${englebert.variable}`}>
         <body >

@@ -39,7 +39,7 @@ export default function QrCode({ value, logo }) {
             },
             dotsOptions: {
                 color: '#222222',
-                type: 'extra-rounded' // square, rounded
+                type: 'square' // square, rounded
             },
             cornersSquareOptions: {
                 type: 'dot', // square, rounded
