@@ -32,14 +32,14 @@ export default function QrCode({ value, logo }) {
             imageOptions: {
                 hideBackgroundDots: true,
                 imageSize: 0.4,
-                margin: 0,
+                margin: 2,
 
                 crossOrigin: 'anonymous',
                 saveAsBlob: true,
             },
             dotsOptions: {
                 color: '#222222',
-                type: 'square' // square, rounded
+                type: 'dots' // square, rounded
             },
             cornersSquareOptions: {
                 type: 'dot', // square, rounded

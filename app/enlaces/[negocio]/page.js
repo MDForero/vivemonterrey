@@ -78,11 +78,11 @@ export default async function Page(props) {
                 </div>
             }
 
-           
             {business?.wifi_name !== null && <QrCode value={`WIFI:S:${business?.wifi_name};T:WPA;P:${business?.wifi_password};H:${false};`} logo={business.logo} />}
+           
             <ScrollArea className="max-w-md w-full h-60 mx-auto" orientation="horizontal">
                 <div className="flex w-max space-x-4 p-4">
-                    {categories?.map(category => category.name === business.categories[0].name ? null : <Link className="h-52 aspect-square relative " key={category.name} href={category.name.split(' ').join('-')}><div className="absolute inset-y-0 inset-x-0 bg-black/20 font-bold rounded-md flex justify-center items-center text-white font-englebert">{category.name}</div>
+                    {categories?.map(category => category.name === business.categories[0].name ? null : <Link className="h-52 aspect-square relative " key={category.name} href={`/${category.name.split(' ').join('-')}`}><div className="absolute inset-y-0 inset-x-0 bg-black/20 font-bold rounded-md flex justify-center items-center text-white font-englebert">{category.name}</div>
                         <ImageSupabase url={category.image_url} className={'w-full aspect-square object-cover rounded-md'} buckets={'categories_image'} />
                     </Link>)}
                 </div>
