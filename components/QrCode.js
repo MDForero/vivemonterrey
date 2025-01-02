@@ -76,7 +76,7 @@ export default function QrCode({ value, logo }) {
 
     const downloadQr = () => {
         qrCode?.download({
-            name: 'qr-code',
+            name: `qr-${value}`,
             extension: 'png'
         })
     }
