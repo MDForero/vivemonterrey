@@ -19,8 +19,8 @@ export default function Page(props) {
     const params = use(props.params);
 
     const supabase = createClient()
-    const {user} = useUserCurrent()
-    const [dataProduct, setDataProduct ] = useState()
+    const { user } = useUserCurrent()
+    const [dataProduct, setDataProduct] = useState()
     const [dataBusiness, setDataBusiness] = useState()
 
     const handleChange = (e) => {
@@ -48,7 +48,7 @@ export default function Page(props) {
         if (params) {
             getData()
         }
-    },[params.negocio])
+    }, [params.negocio])
 
     return <section className="flex">
         <form action='#' method="POST">
@@ -89,17 +89,18 @@ export default function Page(props) {
                             <Label htmlFor='isDrink'>Bebida</Label>
                         </div>
                     </div>
-                    {dataBusiness?.categories_restaurant && <fieldset className="border p-2 ">
+                    <fieldset className="border p-2 ">
                         <legend className="font-bold">Categoría</legend>
-                        <RadioGroup id='category' name='category' >
-                            {dataBusiness.categories_restaurant.map(category => <div key={category} className="flex items-center space-x-2 ">
-                                <RadioGroupItem id={category.split(' ').join('-')} value={category} />
-                                <Label htmlFor={category.split(' ').join('-')} className='capitalize'>{category}</Label>
-                            </div>)}
-                        </RadioGroup>
-                        <Label htmlFor='other_category'>Otra</Label>
-                        <Input name='other_category' id='other_category' placeholder='' />
-                    </fieldset>}
+                        {dataBusiness?.categories_restaurant !== null &&
+                            <RadioGroup id='category' name='category' >
+                                {dataBusiness?.categories_restaurant?.map(category => <div key={category} className="flex items-center space-x-2 ">
+                                    <RadioGroupItem id={category.split(' ').join('-')} value={category} />
+                                    <Label htmlFor={category.split(' ').join('-')} className='capitalize'>{category}</Label>
+                                </div>)}
+                            </RadioGroup>
+                        }
+                    <Input name='other_category' id='other_category' placeholder='' />
+                    </fieldset>
                     <div>
                         <Label htmlFor='image'>Imagen</Label>
                         <Input name='image' id='image' type='file' onChange={handleChange} />

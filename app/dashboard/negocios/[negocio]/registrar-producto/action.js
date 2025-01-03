@@ -27,18 +27,13 @@ export async function productRegister(formData) {
         const image = formData.get('image')
 
         const other_category = formData.get('other_category')
-        if (!businessName.categories_restaurant.includes(other_category)) {
+        if (businessName.categories_restaurant === null) {
             data['category'] = other_category
+            const { data: updateBusinesses, error: errorBusinesses } = await supabase.from('businesses').update({ categories_restaurant: [other_category] }).eq('id', businessName.id)
 
-            const { data: updateBusinesses, error: errorBusinesses } = await supabase.from('businesses').update({ categories_restaurant: [...businessName.categories_restaurant, other_category] }).eq('id', businessName.id)
-            if (errorBusinesses) {
-                console.error(errorBusinesses)
-                return
-            } else {
-                console.log(updateBusinesses)
-            }
-        }else{
+        } else if (!businessName.categories_restaurant.includes(other_category)) {
             data['category'] = other_category
+            const { data: updateBusinesses, error: errorBusinesses } = await supabase.from('businesses').update({ categories_restaurant: [...businessName.categories_restaurant, other_category] }).eq('id', businessName.id)
         }
 
 
@@ -65,7 +60,7 @@ export async function productRegister(formData) {
         }
     }
     catch (error) {
-        console.error(error)    
+        console.error(error)
         // formData.delete('image')
 
         // formData.forEach((value, key) => data[key] = value)

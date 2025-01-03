@@ -70,7 +70,7 @@ export default function DashboardLayout({ children }) {
                                     {path.slice(1, -1).split('/').slice(0, -1).map((item, index) => <div key={index}>
                                         <BreadcrumbItem key={index}>
                                             <BreadcrumbLink href={`/${path.slice(1, -1).split('/').slice(0, index + 1).join('/')}`} className='capitalize' >
-                                                {item}
+                                                {decodeURI(item)}
                                             </BreadcrumbLink>
                                         </BreadcrumbItem>
                                         <BreadcrumbSeparator />

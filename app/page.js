@@ -90,7 +90,7 @@ export default async function Home() {
             <h1 className="text-viveRed/70">Explora lo mejor de nuestra tierra: sitios de interés, alojamientos acogedores y gastronomía única</h1>
           </div>
           <div className="flex justify-around gap-8 flex-wrap">
-            {countAccelerator?.map(count => <AcceleratorCount key={count.value} title={count.title} subtitle={count.subtitle} icon={count.icon} value={count.value} />)}
+            {countAccelerator?.map(count => <AcceleratorCount key={count.title} title={count.title} subtitle={count.subtitle} icon={count.icon} value={count.value} />)}
           </div>
         </section>
         {/* Cta para seguir a vive monterrey */}

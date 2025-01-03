@@ -29,6 +29,24 @@ export async function actionContact(formData) {
     }
 }
 
+export async function actionUpdateImage(formData) {
+    const data = []
+    formData.entries().forEach((pair) => {
+        data.push([pair[0], pair[1]])
+    })
+    console.log(data)
+    data.forEach(async (pair) => {
+        const { data, error } = await supabase.storage.from('banners').update(pair[0], pair[1])
+        if (error) {
+            console.error(error)
+            return
+        }
+        console.log(data)
+    }
+)
+
+}
+
 export async function actionSocialsAccount(formData) {
     const data = []
     const supabase = createClient()
@@ -106,7 +124,7 @@ export async function actionAmenities(formData) {
 
     })
     try {
-        categories.forEach( async (category) => {
+        categories.forEach(async (category) => {
             await supabase.from('businesses_categories').insert({ business_id: formData.get('id'), category_id: category })
         });
         await supabase.from('businesses').update({ amenities: amenities }).eq('id', formData.get('id'))

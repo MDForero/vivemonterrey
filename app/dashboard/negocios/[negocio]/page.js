@@ -9,7 +9,7 @@ import UploadImage from '@/components/forms/UploadImage'
 import InputAmenities from '@/components/inputs/InputAmenities'
 import { Label } from '@/components/ui/label'
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
-import { actionAmenities, actionContact, actionSchedule, actionSocialsAccount } from './action'
+import { actionAmenities, actionContact, actionSchedule, actionSocialsAccount, actionUpdateImage } from './action'
 import ClosedOrTwentyFour from '@/components/ClosedOrTwentyFour'
 import { Separator } from '@/components/ui/separator'
 
@@ -20,6 +20,7 @@ export default function Page(props) {
     const [isLoading, setIsLoading] = useState(true)
     const [categories, setCategories] = useState(null)
     const supabase = createClient()
+    const [logo , setLogo] = useState(null)
 
     useEffect(() => {
         async function fetchData() {
@@ -108,22 +109,31 @@ export default function Page(props) {
             required: true
         },
     ]
-
     const schedule = JSON.parse(businessData?.schedule)
 
+    const handleLogoUpload = (e) => {
+        e.preventDefault()
+        const file = e.target.files[0]
+        const url = URL.createObjectURL(file)
+        setLogo(<img src={url} alt='logo' className='w-44 object-cover' />)
+    }
 
 
     return (
         <div className='container mx-auto space-y-4'>
 
 
-            <form>
+            <form action='POST' method='#'>
                 {/* <Input defaultValue={businessData.banner_url} name='banner_url' id='banner_url' type='file'/> */}
                 <main className="relative h-[400px] md:h-[600px] overflow-hidden rounded-lg">
                     <ImageSupabase url={businessData.banner_url} buckets={'banners'} className='w-full object-cover aspect-video' />
                 </main>
-                <ImageSupabase url={businessData.logo} buckets={'banners'} className='w-44 object-cover' />
-
+                <Label htmlFor='logo' className='flex justify-center items-center'>
+                    {logo === null && <ImageSupabase url={businessData.logo} buckets={'banners'} className='w-44 object-cover' />}
+                    {logo !== null && logo}
+                    </Label>
+                    <Input className='hidden' onChange={handleLogoUpload} name={businessData.logo} id='logo' type='file' />
+                <Button formAction={actionUpdateImage}></Button>
             </form>
 
             <form method='POST' action='#'>

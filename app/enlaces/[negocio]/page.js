@@ -68,9 +68,9 @@ export default async function Page(props) {
             }
             {
                 products !== 0 &&
-                <div className='p-1 border-2 rounded-sm max-w-md'>
-                    <Link href={`/que-hacer/${params.business}/menu`} className="relative">
-                        <ImageSupabase url={business?.image_restaurant} className={'w-full aspect-video rounded-sm'} buckets={'banners'} />
+                <div className='p-1 border-2 rounded-sm max-w-md mx-auto'>
+                    <Link href={`/que-hacer/${params.negocio}/menu`} className="relative">
+                        <ImageSupabase url={business?.image_restaurant ?? categories.find(category=> 'Restaurantes' === category.name).image_url} className={'w-full aspect-video rounded-sm'} buckets={business?.image_restaurant ? 'banners' : 'categories_image'} />
                         <div className="absolute bottom-0 inset-x-0 font-bold rounded-md mx-auto">
                             <p className="mx-auto font-bold bg-white block w-fit p-1 rounded-sm"> Menú o Carta</p>
                         </div>
