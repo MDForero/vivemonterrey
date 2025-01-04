@@ -20,8 +20,8 @@ export default function Page(props) {
 
     const supabase = createClient()
     const { user } = useUserCurrent()
-    const [dataProduct, setDataProduct] = useState()
-    const [dataBusiness, setDataBusiness] = useState()
+    const [dataProduct, setDataProduct] = useState('')
+    const [dataBusiness, setDataBusiness] = useState('')
 
     const handleChange = (e) => {
         const { name, value } = e.target
@@ -52,8 +52,8 @@ export default function Page(props) {
 
     return <section className="flex">
         <form action='#' method="POST">
-            {dataBusiness && <input type="hidden" name="negocio" value={dataBusiness.name} />}
-            <Card className='max-w-2xl'>
+            {dataBusiness && <input type="hidden" name="negocio" value={dataBusiness.name} readOnly/>}
+         {dataBusiness &&   <Card className='max-w-2xl'>
                 <CardHeader>
                     <CardTitle>Registrar Producto</CardTitle>
                 </CardHeader>
@@ -69,7 +69,7 @@ export default function Page(props) {
                     </div>
                     <div>
                         <Label htmlFor='price'>Precio</Label>
-                        <Input type='number' step='500' name='price' id='price' onChange={handleChange} />
+                        <Input type='number' step='50' name='price' id='price' onChange={handleChange} />
                     </div>
                     {/* <div>
             <Label htmlFor='categories'>Categoría</Label>
@@ -89,30 +89,32 @@ export default function Page(props) {
                             <Label htmlFor='isDrink'>Bebida</Label>
                         </div>
                     </div>
-                    <fieldset className="border p-2 ">
+                    <fieldset className="border p-2 space-y-2 ">
                         <legend className="font-bold">Categoría</legend>
                         {dataBusiness?.categories_restaurant !== null &&
-                            <RadioGroup id='category' name='category' >
-                                {dataBusiness?.categories_restaurant?.map(category => <div key={category} className="flex items-center space-x-2 ">
-                                    <RadioGroupItem id={category.split(' ').join('-')} value={category} />
-                                    <Label htmlFor={category.split(' ').join('-')} className='capitalize'>{category}</Label>
-                                </div>)}
-                            </RadioGroup>
+                            <Select name="category" id="category">
+                                <SelectTrigger className="w-[180px]">
+                                    <SelectValue placeholder="Categoría" />
+                                </SelectTrigger>
+                                <SelectContent>
+                                    {dataBusiness?.categories_restaurant?.map(category => <SelectItem value={category} key={category}>{category}</SelectItem>)}
+                                </SelectContent>
+                            </Select>
                         }
-                    <Input name='other_category' id='other_category' placeholder='' />
+                        <Input name='other_category' id='other_category' placeholder='' />
                     </fieldset>
                     <div>
                         <Label htmlFor='image'>Imagen</Label>
                         <Input name='image' id='image' type='file' onChange={handleChange} />
                     </div>
-                    <Input name='profile_id' id='profile_id' value={user?.id} className='hidden' />
+                    <Input name='profile_id' id='profile_id' value={user?.id} readOnly className='hidden' />
                 </CardContent>
                 <CardFooter>
                     <Button formAction={productRegister}>
                         Registrar
                     </Button>
                 </CardFooter>
-            </Card>
+            </Card>}
         </form >
         <Card className='max-w-2xl'>
             <CardHeader>

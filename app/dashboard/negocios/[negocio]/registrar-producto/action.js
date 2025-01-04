@@ -31,7 +31,7 @@ export async function productRegister(formData) {
             data['category'] = other_category
             const { data: updateBusinesses, error: errorBusinesses } = await supabase.from('businesses').update({ categories_restaurant: [other_category] }).eq('id', businessName.id)
 
-        } else if (!businessName.categories_restaurant.includes(other_category)) {
+        } else if (!businessName.categories_restaurant.includes(other_category) && other_category !== '') { 
             data['category'] = other_category
             const { data: updateBusinesses, error: errorBusinesses } = await supabase.from('businesses').update({ categories_restaurant: [...businessName.categories_restaurant, other_category] }).eq('id', businessName.id)
         }
