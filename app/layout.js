@@ -43,14 +43,14 @@ export default function RootLayout({ children }) {
     return (
       <html lang="es" className={`${asap.variable} ${englebert.variable}`}>
         <body >
-          <Script src="https://www.googletagmanager.com/gtag/js?id=G-YGH8LGGZGH" />
+          <Script src="https://www.googletagmanager.com/gtag/js?id=G-M2MJPJS6N6" />
           <Script id="google-analytics">
             {`
           window.dataLayer = window.dataLayer || [];
           function gtag(){dataLayer.push(arguments);}
           gtag('js', new Date());
  
-          gtag('config', 'G-YGH8LGGZGH');
+          gtag('config', 'G-M2MJPJS6N6');
         `}
           </Script>
 

@@ -1,6 +1,6 @@
 'use server'
 import { createClient } from "@/utils/supabase/server"
-import sharp from "sharp"
+
 
 export async function registerBusiness(formData) {
 
@@ -59,27 +59,21 @@ export async function registerBusiness(formData) {
 
   // Subir imagen de banner
   const file = formData.get('banner_url')
-  const fileBuffer = await file.arrayBuffer()
-  const image = await sharp(fileBuffer)
-    .keepExif()
-    .jpeg({ quality: 40 })
-    .toBuffer()
-  const filePath = `${folder}/banner-${Date.now()}.jpeg`
-  const { data: dataImage, error: errorImage } = await supabase.storage.from('banners').upload(filePath, image, { contentType: 'image/jpeg' })
+  const fileExtension = file.name.split('.').pop()
+  
+  const filePath = `${folder}/banner-${Date.now()}.${fileExtension}`
+  const { data: dataImage, error: errorImage } = await supabase.storage.from('banners').upload(filePath, file, { contentType: 'image/jpeg' })
   if (errorImage) {
     console.log(errorImage, dataImage)
     return // Salir si hay error al subir el banner
   } else {
     console.log('Banner cargado')
   }
-  const jpeg = formData.get('logo')
-  const jpegBuffer = await jpeg.arrayBuffer()
-  const jpegLogo = await sharp(jpegBuffer)
-    .keepExif()
-    .png({ quality: 40 })
-    .toBuffer()
-  const logoPath = `${folder}/logo-${Date.now()}.png`
-  const { data: dataLogo, error: errorLogo } = await supabase.storage.from('banners').upload(logoPath, jpegLogo, { contentType: 'image/png' })
+  const logo = formData.get('logo')
+  const logoExtension = logo.name.split('.').pop()
+  
+  const logoPath = `${folder}/logo-${Date.now()}.${logoExtension}`
+  const { data: dataLogo, error: errorLogo } = await supabase.storage.from('banners').upload(logoPath, logo, { contentType: 'image/png' })
   if (errorLogo) {
     console.log(errorLogo)
     return // Salir si hay error al subir el banner
@@ -93,13 +87,10 @@ export async function registerBusiness(formData) {
 
   try {
     await Promise.all(gallery.map(async (file, index) => {
-      const fileBuffer = await file.arrayBuffer()
-      const image = await sharp(fileBuffer)
-        .keepExif()
-        .jpeg({ quality: 40, })
-        .toBuffer()
-      const filePath = `${folder}/gallery-${Date.now()}.jpeg`
-      const { data: dataImage, error: errorImage } = await supabase.storage.from('banners').upload(filePath, image, { contentType: 'image/jpeg' })
+      const fileExtension = file.name.split('.').pop()
+      
+      const filePath = `${folder}/gallery/${Date.now()}.${fileExtension}`
+      const { data: dataImage, error: errorImage } = await supabase.storage.from('banners').upload(filePath, file, { contentType: 'image/jpeg' })
 
       if (errorImage) {
         console.log('Error al subir imagen de galería:', errorImage)

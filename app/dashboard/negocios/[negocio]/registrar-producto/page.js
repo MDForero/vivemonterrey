@@ -9,10 +9,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { useEffect, useState, use } from "react";
 import { Separator } from "@/components/ui/separator";
-import { object } from "zod";
-import { PlusCircle, PlusCircleIcon } from "lucide-react";
-import { PlusCircledIcon } from "@radix-ui/react-icons";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { PlusCircleIcon } from "lucide-react";
 import { createClient } from "@/utils/supabase/client";
 
 export default function Page(props) {

@@ -163,7 +163,7 @@ export default async function Page() {
                     <div className="space-y-2">
                         <label
                             className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                            for="gallery"
+                            htmlFor="gallery"
                         >
                             Galería
                         </label>
@@ -180,7 +180,7 @@ export default async function Page() {
                 {textAreas.map(textarea => <div key={textarea.name} className="space-y-2">
                     <label
                         className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                        for="hours"
+                        htmlFor="hours"
                     >
                         {textarea.label}
                     </label>
@@ -243,7 +243,7 @@ export default async function Page() {
                     </fieldset>)}
                 </fieldset>
                 <div>
-                    <input type="text" hidden name="profile_id" value={user?.id} />
+                    <input type="text" hidden name="profile_id" value={user?.id} readOnly />
                     <button className="text-red-500 font-semibold" formAction={registerBusiness} type="submit">
                         Registrar negocio
                     </button>
