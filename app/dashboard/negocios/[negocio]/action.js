@@ -29,6 +29,30 @@ export async function actionContact(formData) {
     }
 }
 
+export async function actionUpdateData (formData) {
+    const data = {}
+    for (let pair of formData.entries()) {
+        if (pair[1] !== '' && pair[0] !== 'id') {
+            data[pair[0]] = pair[1]
+        }
+    }
+    console.log(data, formData.get('id'))
+    try {
+        await supabase.from('businesses').update(data).eq('id', formData.get('id'))
+        return toast('Datos actualizados', {
+            description: 'Los datos de contacto han sido actualizados con éxito',
+            action: {
+                label: 'Ir a negocios',
+                onClick: () => console.log('Muy bien'),
+            }
+        })
+
+    } catch (error) {
+        console.error(error)
+        return
+    }
+}
+
 export async function actionUpdateImage(formData) {
     const data = []
     formData.entries().forEach((pair) => {

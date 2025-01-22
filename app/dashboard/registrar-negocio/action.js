@@ -51,16 +51,19 @@ export async function registerBusiness(formData) {
 
   const supabase = createClient()
 
-  const folder = formData.get("name").split(' ').join('-')
+  const folder = formData.get("name")
     .normalize("NFD")
     .replace(/[\u0300-\u036f]/g, "")
     .replace(/ñ/g, "n")
-    .replace(/Ñ/g, "N");
+    .replace(/Ñ/g, "N")
+    .split(' ')
+    .join('-');
 
+  console.log(folder)
   // Subir imagen de banner
   const file = formData.get('banner_url')
   const fileExtension = file.name.split('.').pop()
-  
+
   const filePath = `${folder}/banner-${Date.now()}.${fileExtension}`
   const { data: dataImage, error: errorImage } = await supabase.storage.from('banners').upload(filePath, file, { contentType: 'image/jpeg' })
   if (errorImage) {
@@ -71,7 +74,7 @@ export async function registerBusiness(formData) {
   }
   const logo = formData.get('logo')
   const logoExtension = logo.name.split('.').pop()
-  
+
   const logoPath = `${folder}/logo-${Date.now()}.${logoExtension}`
   const { data: dataLogo, error: errorLogo } = await supabase.storage.from('banners').upload(logoPath, logo, { contentType: 'image/png' })
   if (errorLogo) {
@@ -88,7 +91,7 @@ export async function registerBusiness(formData) {
   try {
     await Promise.all(gallery.map(async (file, index) => {
       const fileExtension = file.name.split('.').pop()
-      
+
       const filePath = `${folder}/gallery/${Date.now()}.${fileExtension}`
       const { data: dataImage, error: errorImage } = await supabase.storage.from('banners').upload(filePath, file, { contentType: 'image/jpeg' })
 

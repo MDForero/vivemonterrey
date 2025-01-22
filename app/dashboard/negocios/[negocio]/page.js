@@ -9,7 +9,7 @@ import UploadImage from '@/components/forms/UploadImage'
 import InputAmenities from '@/components/inputs/InputAmenities'
 import { Label } from '@/components/ui/label'
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
-import { actionAmenities, actionContact, actionSchedule, actionSocialsAccount, actionUpdateImage } from './action'
+import { actionAmenities, actionContact, actionSchedule, actionSocialsAccount, actionUpdateData, actionUpdateImage } from './action'
 import ClosedOrTwentyFour from '@/components/ClosedOrTwentyFour'
 import { Separator } from '@/components/ui/separator'
 
@@ -176,7 +176,22 @@ export default function Page(props) {
                     </CardFooter>
                 </Card>
             </form>
-
+            <form>
+                <Card className='max-w-6xl mx-auto'>
+                    <CardHeader>
+                        <CardTitle className='text-2xl'>Descripción</CardTitle>
+                        <CardDescription>Actualiza la descripción de tu negocio</CardDescription>
+                    </CardHeader>
+                    <CardContent>
+                        <Input value={businessData.id} name='id' id='id' className=' hidden' readOnly />
+                        <Label htmlFor='description'>Descripción</Label>
+                        <textarea defaultValue={businessData.description} name='description' id='description' className='w-full h-40 border border-input bg-background px-2 py-1 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50'></textarea>
+                    </CardContent>
+                    <CardFooter>
+                        <Button formAction={actionUpdateData} className='ml-auto'>Guardar</Button>
+                    </CardFooter>
+                </Card>
+            </form>
             <form>
                 <Card className='max-w-6xl mx-auto'>
                     <CardHeader>
