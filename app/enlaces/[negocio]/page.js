@@ -31,13 +31,13 @@ export default async function Page(props) {
 
 
 
-    return <section className="max-w-xl space-y-10 md:space-y-20 mx-auto">
+    return <section className="max-w-xl space-y-16 sm:space-y-24  mx-auto">
         <main className="space-y-8 md:space-y-16">
             <div className="relative">
                 <ImageSupabase url={business.banner_url} buckets={'banners'} className={'w-full aspect-video object-cover rounded-md'} alt={`imagen principal de ${business.name} `} />
 
-                <div className="absolute -bottom-1/4 inset-x-0 flex justify-center items-center p-4">
-                    <ImageSupabase url={business.logo} buckets={'banners'} className={'w-32 h-32 md:w-44 md:h-44 object-contain rounded-full '} alt={`logo de ${business.name} `} />
+                <div className="absolute -bottom-1/4 w-1/3 right-1/3 bg-white flex justify-center items-center  rounded-full p-2 border-gray-400 border-[3px]">
+                    <ImageSupabase url={business.logo} buckets={'banners'} className={'w-full aspect-square md:w-44 p-4 object-contain  '} alt={`logo de ${business.name} `} />
                 </div>
             </div>
            
