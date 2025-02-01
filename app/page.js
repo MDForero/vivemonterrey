@@ -44,9 +44,10 @@ export default async function Home() {
   return (
     <>
       <main className="relative z-0 container mx-auto h-fit">
-        <video autoPlay className="object-cover aspect-square lg:aspect-auto w-full lg:h-[540px] xl:h-[680px] " muted loop     >
+      <iframe className='w-full aspect-video object-cover border-2 mx-auto' src="https://www.youtube.com/embed/TjeR7ZTvavc?playlist=TjeR7ZTvavc&autoplay=1&mute=1&loop=1&controls=0&fs=0" frameBorder="0" allow="autoplay" encrypted-media='true' allowFullScreen></iframe>
+        {/* <video autoPlay className="object-cover aspect-square lg:aspect-auto w-full lg:h-[540px] xl:h-[680px] " muted loop     >
           <source src="/assets/presentacion-viveMonterrey.mp4" type="video/mp4" />
-        </video>
+        </video> */}
       </main>
       <div className="lg:space-y-52 md:space-y-24  space-y-16 max-w-7xl mx-auto">
 
