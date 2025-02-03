@@ -58,10 +58,10 @@ const NavBar = ({ links }) => {
 }
 
 export const socialAccounts = [
-    { name: 'Facebook', url: 'https://www.facebook.com', svg: '/facebook.svg' },
-    { name: 'Instagram', url: 'https://www.instagram.com', svg: '/instagram.svg' },
-    { name: 'TikTok', url: 'https://www.tiktok.com', svg: '/tiktok.svg' },
-    { name: 'YouTube', url: 'https://www.tiktok.com', svg: '/youtube.svg' },
+    { name: 'Facebook', url: 'https://www.facebook.com/vivemonterrey.com.co/', svg: '/facebook.svg' },
+    { name: 'Instagram', url: 'https://www.instagram.com/vivemonterrey.com.co/', svg: '/instagram.svg' },
+    { name: 'TikTok', url: 'https://www.tiktok.com/@vivemonterrey.com.co', svg: '/tiktok.svg' },
+    { name: 'YouTube', url: 'https://www.youtube.com/@vivemonterreyCO', svg: '/youtube.svg' },
 ]
 
 export default NavBar

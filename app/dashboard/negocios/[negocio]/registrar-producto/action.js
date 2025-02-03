@@ -47,13 +47,14 @@ export async function productRegister(formData) {
 
         const { data: dataProduct, error: errorProduct } = await supabase.from('products').insert(data).select()
 
+ 
         if (dataProduct) {
             console.log(dataProduct)
             toast('Producto registrado', {
                 description: 'El producto ha sido registrado con éxito',
                 action: {
                     label: 'Ir a productos',
-                    onClick: () => window.location.href = `/dashboard/negocios/${businessName.name}/menu`
+                    onClick: () => window.location.href = `/dashboard/negocios/${businessName.name}/registrar-producto`
                 }
             }
             )

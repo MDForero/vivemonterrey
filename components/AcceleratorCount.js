@@ -1,4 +1,5 @@
 'use client'
+import { set } from 'date-fns'
 import { is } from 'date-fns/locale'
 import React, { use, useEffect, useState } from 'react'
 
@@ -13,15 +14,17 @@ const AcceleratorCount = ({ value, title, icon, subtitle }) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           if (!isViewed) {
-            let i = 0
+            let i = count > 30 ? count - 30 : 0
             const interval = setInterval(() => {
+
               if (i <= count) {
                 setNumber(i)
-                i++
+                i = i + 3
               } else {
+                setNumber(count)
                 clearInterval(interval)
               }
-            }, 100)
+            }, 50)
             setIsViewed(true)
             observer.unobserve(entry.target);
           }
@@ -35,9 +38,9 @@ const AcceleratorCount = ({ value, title, icon, subtitle }) => {
   return (
     <div className='font-semibold font-englebert observer w-60 h-60 border border-viveRed/60 rounded-md flex flex-col justify-center items-center gap-4'>
       <h1 >{title}</h1>
-      <div className='relative flex justify-center items-center'> 
+      <div className='relative flex justify-center items-center'>
         {icon}
-      <p className='flex justify-center items-center font-bold text-red-700 text-4xl '>{number}</p>
+        <p className='flex justify-center items-center font-bold text-red-700 text-4xl '>{number}</p>
       </div>
       <h2 className='first-letter:uppercase'>{subtitle}</h2>
     </div>

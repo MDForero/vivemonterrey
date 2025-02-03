@@ -44,7 +44,7 @@ export default async function Home() {
   return (
     <>
       <main className="relative z-0 container mx-auto h-fit">
-      <iframe className='w-full aspect-video object-cover border-2 mx-auto' src="https://www.youtube.com/embed/TjeR7ZTvavc?playlist=TjeR7ZTvavc&autoplay=1&mute=1&loop=1&controls=0&fs=0" frameBorder="0" allow="autoplay" encrypted-media='true' allowFullScreen></iframe>
+        <iframe className='w-full aspect-video object-cover border-2 mx-auto' src="https://www.youtube.com/embed/TjeR7ZTvavc?playlist=TjeR7ZTvavc&autoplay=1&mute=1&loop=1&controls=0&fs=0" frameBorder="0" allow="autoplay" encrypted-media='true' allowFullScreen></iframe>
         {/* <video autoPlay className="object-cover aspect-square lg:aspect-auto w-full lg:h-[540px] xl:h-[680px] " muted loop     >
           <source src="/assets/presentacion-viveMonterrey.mp4" type="video/mp4" />
         </video> */}
@@ -53,9 +53,10 @@ export default async function Home() {
 
         {/* categorias de negocios */}
         <section className="space-y-8 border-2 m-2 p-3 py-8 lg:p-14">
-          <div className="text-center ">
-            <h1 className="text-4xl font-bold title">¿Qué hacer en Monterrey Casanare?</h1>
-            <h3 className="text-xl">Encuentra todo lo que necesitas para tu viaje ¡<span>ViveMonterrey</span> es tu punto de partida! </h3>
+          <div className="text-center space-y-2 ">
+            <h1 className="text-4xl font-bold title">Descubre Monterrey, Casanare</h1>
+            <h1 className="text-2xl font-bold text-primary/85">¡Tu guía perfecta para explorar lo mejor del Llano!</h1>
+            <h3 className="text-xl text-primary/75">Adéntrate en la riqueza cultural, los paisajes naturales y las experiencias únicas que ofrece Monterrey. Encuentra alojamientos acogedores, vistas impresionantes desde miradores, actividades emocionantes, y mucho más. ViveMonterrey es el punto de inicio para planear tu próxima aventura. </h3>
           </div>
 
           <div className="flex justify-around gap-8 flex-wrap">
@@ -64,33 +65,14 @@ export default async function Home() {
         </section>
 
         {/* hero */}
-        <section className="space-y-10 border-2 px-2 lg:pb-32 m-2 p-3 py-8 lg:p-14">
-          <h1 className="text-3xl md:text-5xl lg:text-7xl text-balance text-center title  ">Explora la esencia del llano en Monterrey, Casanare</h1>
-          <article className="w-fit mx-auto max-w-5xl" >
-            <div className="md:float-right relative md:ml-20 mb-20 w-fit mx-auto">
-              <iframe className='h-[400px] lg:h-[550px] w-fit aspect-[9/16] object-cover border-2 mx-auto rounded-3xl' src="https://www.youtube.com/embed/t4MNuPljys0?playlist=t4MNuPljys0&autoplay=1&mute=1&loop=1&controls=0&fs=0" frameBorder="0" allow="autoplay" encrypted-media='true' allowFullScreen></iframe>
 
 
-              {/* <div className="absolute -bottom-4 -left-4 w-3/5 h-3/5 bg-gray-600 z-50 "></div> */}
-            </div>
-            <h2 className="text-xl md:text-3xl lg:text-4xl font-englebert ml-14 mb-3">¡Bienvenido a ViveMonterrey!</h2>
-            <p className="">
-              Descubre el tesoro escondido de los llanos orientales, <strong className="font-englebert ">un destino que fusiona aventura, naturaleza y tradición</strong> en el corazón de Casanare. <strong className="font-englebert ">Un paraíso donde la cultura llanera se entrelaza con una asombrosa riqueza hídrica,</strong> invitándote a ser parte de nuestra historia desde el momento en que llegas.
-              <br />
-              <br />
-              Sumérgete en la inolvidable experiencia que ofrece Monterrey y <strong className="font-englebert "> crea tus propias memorias de emoción y serenidad.</strong> Refréscate en nuestros <strong className="font-englebert ">ríos cristalinos, cascadas majestuosas, lagunas serenas y piscinas naturales,</strong> testigos de la abundancia acuática de nuestra tierra. Desde <strong className="font-englebert ">emocionantes vuelos en paratrike</strong> sobre las vastas llanuras, hasta <strong className="font-englebert ">vivir un día como un verdadero llanero,</strong> ViveMonterrey te invita a descubrir la perfecta armonía entre <strong className="font-englebert ">adrenalina y tradición.</strong>
-              <br />
-              <br />
-              Deleita tus sentidos con nuestra <strong className="font-englebert ">exquisita gastronomía local,</strong> maravíllate con <strong className="font-englebert ">impresionantes shows ecuestres,</strong> y conecta con la tierra a través de fascinantes <strong className="font-englebert ">experiencias agrarias.</strong> Asciende a nuestros <strong className="font-englebert ">miradores panorámicos</strong> para contemplar la imponente extensión de las llanuras, un espectáculo que te dejará sin aliento. Ya sea cabalgando por nuestros senderos o presenciando <strong className="font-englebert ">vibrantes muestras culturales</strong>, en Monterrey cada momento es una aventura que te acerca más a la esencia del llano colombiano y su extraordinaria biodiversidad.</p>
-          </article>
-        </section>
-
-        <section className="max-w-6xl mx-auto space-y-12">
+        <section className="max-w-7xl mx-auto space-y-12 border p-2 md:p-4 lg:p-16" >
           <div className="text-center">
             <h1 className="font-bold md:text-3xl text-viveRed">Descubre Monterrey, Casanare en Números</h1>
-            <h1 className="text-viveRed/70">Explora lo mejor de nuestra tierra: sitios de interés, alojamientos acogedores y gastronomía única</h1>
+            <h1 className="text-primary/70 font-semibold">Explora lo mejor de nuestra tierra: sitios de interés, alojamientos acogedores y gastronomía única</h1>
           </div>
-          <div className="flex justify-around gap-8 flex-wrap">
+          <div className="flex justify-evenly gap-8 flex-wrap">
             {countAccelerator?.map(count => <AcceleratorCount key={count.title} title={count.title} subtitle={count.subtitle} icon={count.icon} value={count.value} />)}
           </div>
         </section>
@@ -106,7 +88,7 @@ export default async function Home() {
             </div>
           </div>
           <Slider />
-        </section> 
+        </section>
       </div>
     </>
   );
