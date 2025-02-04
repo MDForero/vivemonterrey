@@ -31,7 +31,6 @@ export default function ImageSupabase({ buckets, url, className, alt }) {
 
     return (<> 
             {!loading ? <Image src={imageUrl ?? url} width={0} alt={alt ?? 'Imagen de vive monterrey'} height={0} className={className} /> : <div className={className + ' bg-gray-50 flex justify-center items-center'}>Loading...</div>}
-            {imageUrl}
     </>
     )
 }

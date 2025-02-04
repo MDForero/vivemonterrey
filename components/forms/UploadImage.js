@@ -32,11 +32,12 @@ export default function UploadImage({ bucket, businesses }) {
 
         const gallery = [...businesses.gallery]
         const fileExt = file.name.split('.').pop()
+        const path = businesses.name.split(' ').join('-') + '/' + Date.now()+ '.' + fileExt
 
-        gallery.push(businesses.name.split(' ').join('-') + '/' + Date.now() + fileExt)
+        gallery.push(path)
 
         try {
-            const { data, error } = await supabase.storage.from(bucket).upload(businesses.name.split(' ').join('-') + '/' + Date.now() + fileExt, file)
+            const { data, error } = await supabase.storage.from(bucket).upload(path, file, { contentType: 'image/jpeg' })
             if (data) {
                 await supabase.from('businesses').update({ gallery: gallery }).eq('id', businesses.id)
             }
