@@ -64,10 +64,11 @@ export default function DashboardLayout({ children }) {
 
                     <SidebarInset>
                         <SidebarTrigger />
-                        <div className="flex flex-col  shrink-0  gap-2 transition-[width,height] ease-linear group-has-[[data-collapsible=icon]]/sidebar-wrapper:h-full" >
+                        <div className="  shrink-0  gap-2 transition-[width,height] ease-linear group-has-[[data-collapsible=icon]]/sidebar-wrapper:h-full" >
                             <Breadcrumb>
                                 <BreadcrumbList>
-                                    {path.slice(1, -1).split('/').slice(0, -1).map((item, index) => <div key={index}>
+                                    {path.slice(1, -1).split('/').slice(0, -1).map((item, index) => 
+                                    <div key={index} className="grid grid-flow-col items-center gap-2">
                                         <BreadcrumbItem key={index}>
                                             <BreadcrumbLink href={`/${path.slice(1, -1).split('/').slice(0, index + 1).join('/')}`} className='capitalize' >
                                                 {decodeURI(item)}
@@ -86,7 +87,7 @@ export default function DashboardLayout({ children }) {
                             <div className="w-full ">
 
                                 {children}
-                                <Toaster/>
+                                <Toaster />
                             </div>
                         </div>
                     </SidebarInset>
