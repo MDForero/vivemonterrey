@@ -1,6 +1,6 @@
 'use client'
 import { Table, TableBody, TableCell, TableFooter, TableHeader, TableRow } from "@/components/ui/table"
-import { actions, useCart, useCartDispatch } from "../CartContext"
+import { actions, useCart, useCartDispatch } from "../../../../../components/CartContext"
 import { Button } from "@/components/ui/button"
 import { Radio, Trash2Icon } from "lucide-react"
 import Image from "next/image"

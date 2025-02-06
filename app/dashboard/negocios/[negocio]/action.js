@@ -15,7 +15,7 @@ export async function actionContact(formData) {
     console.log(data, formData.get('id'))
     try {
         await supabase.from('businesses').update(data).eq('id', formData.get('id'))
-        return toast('Datos actualizados', {
+        toast('Datos actualizados', {
             description: 'Los datos de contacto han sido actualizados con éxito',
             action: {
                 label: 'Ir a negocios',
@@ -29,7 +29,7 @@ export async function actionContact(formData) {
     }
 }
 
-export async function actionUpdateData (formData) {
+export async function actionUpdateData(formData) {
     const data = {}
     for (let pair of formData.entries()) {
         if (pair[1] !== '' && pair[0] !== 'id') {
@@ -39,7 +39,7 @@ export async function actionUpdateData (formData) {
     console.log(data, formData.get('id'))
     try {
         await supabase.from('businesses').update(data).eq('id', formData.get('id'))
-        return toast('Datos actualizados', {
+        toast('Datos actualizados', {
             description: 'Los datos de contacto han sido actualizados con éxito',
             action: {
                 label: 'Ir a negocios',
@@ -67,7 +67,7 @@ export async function actionUpdateImage(formData) {
         }
         console.log(data)
     }
-)
+    )
 
 }
 

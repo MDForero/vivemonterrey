@@ -1,13 +1,10 @@
 import BannerImage from '@/components/BannerImage'
-import BookingButton from '@/components/BookingButton'
 import BtnCtaWp from '@/components/BtnCtaWp'
 import CardRooms from '@/components/CardRooms'
 import ImgGallery from '@/components/ImgGallery'
 import SocialMediaButton from '@/components/SocialMediaButton'
-import { Button } from '@/components/ui/button'
 import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area'
 import { createClient } from '@/utils/supabase/server'
-import Image from 'next/image'
 
 export async function generateMetadata({ params }) {
     const supabase = createClient()
