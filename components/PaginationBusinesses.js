@@ -28,7 +28,7 @@ export default function PaginationBusinesses() {
 
     return (
         <div className="space-y-8 " id="businesses">
-            <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 py-8 gap-8 px-2 ">
+            <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 py-8 gap-8 px-2 place-items-center">
                 {data.map((business) => <CardBusinesses key={business.id} data={business} />)}
 
             </section>
