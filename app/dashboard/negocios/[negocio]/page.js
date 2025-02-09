@@ -20,7 +20,8 @@ export default function Page(props) {
     const [isLoading, setIsLoading] = useState(true)
     const [categories, setCategories] = useState(null)
     const supabase = createClient()
-    const [logo , setLogo] = useState(null)
+    const [logo, setLogo] = useState(null)
+    const [banner, setBanner] = useState(null)
 
     useEffect(() => {
         async function fetchData() {
@@ -117,23 +118,36 @@ export default function Page(props) {
         const url = URL.createObjectURL(file)
         setLogo(<img src={url} alt='logo' className='w-44 object-cover' />)
     }
+    const handleImageUpload = (e) => {
+        e.preventDefault()
+        const file = e.target.files[0]
+        const url = URL.createObjectURL(file)
+        setImage(<img src={url} alt='logo' className='w-44 object-cover' />)
+    }
 
+    console.log(businessData)
 
     return (
         <div className='container mx-auto space-y-4'>
 
 
-            <form action='POST' method='#'>
+            <form action='POST' method='#' className='flex flex-col items-center border p-2'>
                 {/* <Input defaultValue={businessData.banner_url} name='banner_url' id='banner_url' type='file'/> */}
                 <main className="relative h-[400px] md:h-[600px] overflow-hidden rounded-lg">
-                    <ImageSupabase url={businessData.banner_url} buckets={'banners'} className='w-full object-cover aspect-video' />
+                    <Label htmlFor='banner_url' className='flex justify-center items-center'>
+                        {!banner ? <ImageSupabase url={businessData.banner_url} buckets={'banners'} className='w-full object-cover aspect-video' /> : banner}
+                    </Label>
                 </main>
+                    <Input className='hidden' onChange={handleImageUpload} name={businessData.banner_url} id='banner_url' type='file' />
+                    <Button formAction={actionUpdateImage} >Actualizar</Button>
+            </form>
+            <form action='POST' method='#' className='flex flex-col items-center border p-2'>  
                 <Label htmlFor='logo' className='flex justify-center items-center'>
                     {logo === null && <ImageSupabase url={businessData.logo} buckets={'banners'} className='w-44 object-cover' />}
                     {logo !== null && logo}
-                    </Label>
-                    <Input className='hidden' onChange={handleLogoUpload} name={businessData.logo} id='logo' type='file' />
-                <Button formAction={actionUpdateImage}></Button>
+                </Label>
+                <Input className='hidden' onChange={handleLogoUpload} name={businessData.logo} id='logo' type='file' />
+                <Button formAction={actionUpdateImage}>Actualizar</Button>
             </form>
 
             <form method='POST' action='#'>
@@ -213,7 +227,7 @@ export default function Page(props) {
                                     <legend className='font-semibold'>Categorías</legend>
                                     <div className='space-y-2'>
                                         {categories.map((category, index) => <div key={index} className='flex  items-center gap-2'>
-                                            <Input type='checkbox' id={category.id} name={category.id} defaultChecked={businessData?.categories?.includes(category.id)}  className='w-6 h-6' />
+                                            <Input type='checkbox' id={category.id} name={category.id} defaultChecked={businessData?.categories?.includes(category.id)} className='w-6 h-6' />
                                             <Label htmlFor={category.id}>{category.name}</Label>
                                         </div>)}
                                     </div>
@@ -267,7 +281,7 @@ export default function Page(props) {
                         <CardDescription>Actualiza el horario de atención</CardDescription>
                     </CardHeader>
                     <CardContent className='flex flex-wrap gap-2 items-center lg:justify-start justify-center'>
-                        <Input value={businessData.id} name='id' id='id' className=' hidden' readOnly/>
+                        <Input value={businessData.id} name='id' id='id' className=' hidden' readOnly />
                         {hours.map((hour, index) => <fieldset htmlFor={hour.name} key={index} className='w-fit border leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 '>
                             <legend className="text-md font-semibold">{hour.label}</legend>
                             <div className="text-sm font-medium">
