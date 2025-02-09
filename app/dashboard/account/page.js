@@ -9,20 +9,16 @@ export default async function Account() {
     data: { user },
   } = await supabase.auth.getUser()
 
-  console.log(user)
+ 
+  
+  const { data: dataSesion, errorSesion } = supabase.auth.getSession()
 
-
-  const { data, error } = await supabase
-    .from('profiles')
-    .select('*, properties(count)')
-    .eq('user_id', user?.id)
-
-  console.log(data)
+  console.log(dataSesion)
 
   return <div className=''>
     <AccountForm user={user} />
     <div className='grid grid-cols-3 max-w-5xl'>
-      {data?.name}
+      {dataSesion}
     </div>
   </div>
 }

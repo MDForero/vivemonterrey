@@ -5,22 +5,23 @@ import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/componen
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
+import { Table, TableCell, TableRow, } from "@/components/ui/table"
 import { createClient } from "@/utils/supabase/client"
 import { Settings2, Trash2 } from "lucide-react"
 import { useRouter } from "next/navigation"
-import { useEffect } from "react"
 import { toast } from "sonner"
 
 export default function CardBusinesses({ business }) {
 
     const supabase = createClient()
     const router = useRouter()
+    console.log(business, 'business_admin')
 
     const handleDelete = async () => {
 
         const name = document.getElementById('name').value
 
-        if (name !== business.name) {
+        if (name !== business?.name) {
             toast('El nombre no coincide con el escrito', {
                 description: 'Vuelve a intentarlo',
                 action: {
@@ -34,7 +35,7 @@ export default function CardBusinesses({ business }) {
 
         try {
 
-            const { data, error } = await supabase.from('businesses').select('*, categories(id)').eq('name', business.name).single()
+            const { data, error } = await supabase.from('businesses').select('*, categories(id)').eq('name', business?.name).single()
             console.log(data, 'data', error)
             if (data?.banner_url) {
                 try {
@@ -46,12 +47,12 @@ export default function CardBusinesses({ business }) {
             if (data?.gallery) {
                 try {
                     await supabase.storage.from('gallery').remove(data.gallery)
-                }catch (error) {
+                } catch (error) {
                     console.error(error)
                 }
             }
 
-            await supabase.from('businesses').delete().eq('name', business.name)
+            await supabase.from('businesses').delete().eq('name', business?.name)
 
             if (data) {
                 toast('Negocio eliminado', {
@@ -69,45 +70,50 @@ export default function CardBusinesses({ business }) {
         }
     }
 
-    return <Card key={business.id} className='max-w-96'>
-        <CardHeader>
-            <CardTitle>{business.name}</CardTitle>
-        </CardHeader>
-        <CardContent>
-            <ImageSupabase buckets='banners' url={business.banner_url} className='w-full aspect-video' />
-        </CardContent>
-        <CardFooter className='flex justify-between'>
+    return <TableRow key={business?.id}>
+        <TableCell className='flex justify-center'>
+            <ImageSupabase url={business?.logo} buckets='banners' alt={business?.name} className='h-20 w-20 object-contain' />
+        </TableCell>
+        <TableCell>
+            {business?.name}
+        </TableCell>
+        <TableCell>
+            {business?.categories.map((category) => <p key={category.name}>{category.name}</p>)} 
+        </TableCell>
+        <TableCell className=''>
             <Button variant='outline'>
-                <a href={business.name}>
+                <a href={business?.name}>
                     <Settings2 />
                 </a>
             </Button>
-            <Dialog>
+        </TableCell>
+        <Dialog>
+            <TableCell className=''>
                 <DialogTrigger asChild>
                     <Button variant="destructive"><Trash2 /></Button>
                 </DialogTrigger>
-                <DialogContent className="sm:max-w-[425px]">
-                    <DialogHeader>
-                        <DialogTitle>Eliminar Negocio</DialogTitle>
-                        <DialogDescription>
-                            Estas seguro de que deseas eliminar este negocio? Esta acción no se puede deshacer.
-                            Para eliminar este negocio, por favor, escribe el nombre del negocio <strong>{business.name}</strong> a continuación.
-                        </DialogDescription>
-                    </DialogHeader>
-                    <div className="grid gap-4 py-4">
-                        <div className="grid grid-cols-4 items-center gap-4">
-                            <Label htmlFor="name" className="text-right">
-                                Negocio
-                            </Label>
-                            <Input id="name" className="col-span-3" />
-                        </div>
+            </TableCell>
+            <DialogContent className="sm:max-w-[425px]">
+                <DialogHeader>
+                    <DialogTitle>Eliminar Negocio</DialogTitle>
+                    <DialogDescription>
+                        Estas seguro de que deseas eliminar este negocio? Esta acción no se puede deshacer.
+                        Para eliminar este negocio, por favor, escribe el nombre del negocio <strong>{business?.name}</strong> a continuación.
+                    </DialogDescription>
+                </DialogHeader>
+                <div className="grid gap-4 py-4">
+                    <div className="grid grid-cols-4 items-center gap-4">
+                        <Label htmlFor="name" className="text-right">
+                            Negocio
+                        </Label>
+                        <Input id="name" className="col-span-3" />
                     </div>
-                    <DialogFooter>
-                        <Button variant='destructive' onClick={() => handleDelete()}>Eliminar</Button>
-                    </DialogFooter>
-                </DialogContent>
-            </Dialog>
-        </CardFooter>
-    </Card>
+                </div>
+                <DialogFooter>
+                    <Button variant='destructive' onClick={() => handleDelete()}>Eliminar</Button>
+                </DialogFooter>
+            </DialogContent>
+        </Dialog>
+    </TableRow>
 
 }

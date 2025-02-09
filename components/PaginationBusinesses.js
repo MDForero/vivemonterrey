@@ -23,7 +23,7 @@ export default function PaginationBusinesses() {
         }
         fetchBusinesses()
     }, [page])
-    const totalPages = Math.ceil(count / 8)
+    const totalPages = Math.ceil(count / 9)
     const pages = Array.from({ length: totalPages }, (_, i ) => i + 1)
 
     return (
