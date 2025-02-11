@@ -19,7 +19,7 @@ export async function login(formData) {
     }
 
     revalidatePath('/', 'layout')
-    redirect('/dashboard/account') 
+    redirect('/dashboard/') 
 
 }
 
@@ -29,6 +29,8 @@ export async function signup(formData) {
     const data = {
       email: formData.get('email'),
       password: formData.get('password'),
+      full_name: formData.get('full_name'),
+      username: formData.get('username'),
     }
   
     const { error } = await supabase.auth.signUp(data)
@@ -38,5 +40,5 @@ export async function signup(formData) {
     }
   
     revalidatePath('/', 'layout')
-    redirect('/dashboard/')
+    redirect('/confirmacion-registro/')
   }

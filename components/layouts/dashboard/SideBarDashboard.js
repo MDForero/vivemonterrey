@@ -68,7 +68,7 @@ const SideBarDashboard = () => {
   const { businesses, properties } = dataBusiness ?? { businesses: [], properties: [] }
 
   return (
-    <Sidebar collapsible="icon" variant='floating' className='sticky '>
+    <Sidebar collapsible="offcanvas" variant='floating' className='sticky '>
       <SidebarHeader>
         <SidebarMenu>
           <SidebarMenuItem>

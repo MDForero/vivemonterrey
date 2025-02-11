@@ -39,7 +39,7 @@ export default function RootLayout({ children }) {
     { name: 'Vivir en Monterrey', url: '/vivir-en-monterrey' },
     { name: 'Contacto', url: '/contacto' },
   ]
-  if (!['dashboard', 'login', 'ordenar', 'menu', 'enlaces'].find(element => path.split('/').includes(element))) {
+  if (!['dashboard', 'login', 'ordenar', 'menu', 'enlaces', 'registro'].find(element => path.split('/').includes(element))) {
     return (
       <html lang="es" className={`${asap.variable} ${englebert.variable}`}>
         <body >
