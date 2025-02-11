@@ -15,10 +15,11 @@ export default function PaginationBusinessesAdmin() {
     useEffect(() => {
         const fetchBusinesses = async () => {
             const { data, error } = await supabase.from('businesses').select('*, categories(name)').range(0 + ((page - 1) * 9), 8 + ((page - 1) * 9))
-            const { count, errorCount } = await supabase.from('businesses').select('*', { count: 'exact', head: true })
+            const { count, errorCount } = await supabase.from('businesses').select('*, profiles(*)', { count: 'exact', head: true })
             if (error) {
                 console.log(error)
             }
+            console.log(data)
             setData(data)
             setCount(count)
         }
@@ -29,12 +30,13 @@ export default function PaginationBusinessesAdmin() {
     const pages = Array.from({ length: totalPages }, (_, i) => i + 1)
 
     return (
-        <div className="space-y-8 " id="businesses">
-            <Table  className='max-w-5xl w-full'>
+        <div className="space-y-8" id="businesses" >
+            <Table  className='max-w-5xl w-full mx-auto'>
                 <TableHeader>
                     <TableRow>
                         <TableHead>Logo</TableHead>
                         <TableHead className='max-w-xl '>Nombre</TableHead>
+                        <TableHead>Propietario</TableHead>
                         <TableHead className='max-w-xl '>Categorías</TableHead>
                         <TableHead>Acciones</TableHead>
                         <TableHead>Acciones</TableHead>

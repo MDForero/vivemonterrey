@@ -7,18 +7,21 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Table, TableCell, TableRow, } from "@/components/ui/table"
 import { createClient } from "@/utils/supabase/client"
+import { set } from "date-fns"
 import { Settings2, Trash2 } from "lucide-react"
 import { useRouter } from "next/navigation"
+import { useEffect, useState } from "react"
 import { toast } from "sonner"
 
 export default function CardBusinesses({ business }) {
 
     const supabase = createClient()
     const router = useRouter()
+    const [name, setName] = useState('')
+
     console.log(business, 'business_admin')
 
     const handleDelete = async () => {
-
         const name = document.getElementById('name').value
 
         if (name !== business?.name) {
@@ -69,6 +72,18 @@ export default function CardBusinesses({ business }) {
             return
         }
     }
+    useEffect(() => {
+        const getProfile = async () => {
+            const { data: profile, error } = await supabase.from('profiles').select('full_name').eq('id', business?.profile_id).single()
+            if (error) {
+                console.error(error)
+                return
+            }
+            setName(profile?.full_name)
+        }
+        getProfile()
+    }, [business.name])
+
 
     return <TableRow key={business?.id}>
         <TableCell className='flex justify-center'>
@@ -78,7 +93,10 @@ export default function CardBusinesses({ business }) {
             {business?.name}
         </TableCell>
         <TableCell>
-            {business?.categories.map((category) => <p key={category.name}>{category.name}</p>)} 
+            {name}
+        </TableCell>
+        <TableCell>
+            {business?.categories.map((category) => <p key={category.name}>{category.name}</p>)}
         </TableCell>
         <TableCell className=''>
             <Button variant='outline'>

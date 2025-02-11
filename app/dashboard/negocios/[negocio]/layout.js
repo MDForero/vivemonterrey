@@ -64,13 +64,7 @@ export default async function layout(props) {
                     </NavigationMenuContent>
 
                 </NavigationMenuItem> : null}
-                <NavigationMenuItem>
-                    <Link href="/docs" legacyBehavior passHref>
-                        <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                            Documentation
-                        </NavigationMenuLink>
-                    </Link>
-                </NavigationMenuItem>
+                
             </NavigationMenuList>
         </NavigationMenu>
         <Separator />

@@ -133,7 +133,7 @@ export default function Page(props) {
 
             <form action='POST' method='#' className='flex flex-col items-center border p-2'>
                 {/* <Input defaultValue={businessData.banner_url} name='banner_url' id='banner_url' type='file'/> */}
-                <main className="relative h-[400px] md:h-[600px] overflow-hidden rounded-lg">
+                <main className="relative w-full h-[400px] md:h-[600px] overflow-hidden rounded-lg">
                     <Label htmlFor='banner_url' className='flex justify-center items-center'>
                         {!banner ? <ImageSupabase url={businessData.banner_url} buckets={'banners'} className='w-full object-cover aspect-video' /> : banner}
                     </Label>

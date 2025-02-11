@@ -7,6 +7,8 @@ import { SidebarInset, SidebarProvider, SidebarTrigger } from "@/components/ui/s
 import SideBarDashboard from "@/components/layouts/dashboard/SideBarDashboard"
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from "@/components/ui/breadcrumb"
 import { Toaster } from "sonner"
+import ImageSupabase from "@/components/ImageSupabase"
+import Image from "next/image"
 
 
 const userCurrent = createContext(null)
@@ -54,46 +56,38 @@ export default function DashboardLayout({ children }) {
     }, [user])
 
 
-    return (
+    return (<div>
+    <nav>
+        <Image src='/logo.svg' width={0} height={0} className='w-36' alt='Logo vive monterrey' />
+    </nav>
         <div className="container relative">
-
-            <userCurrent.Provider value={{ user, data }}>
-                <SidebarProvider defaultOpen={false}>
-
-                    <SideBarDashboard />
-
-                    <SidebarInset>
-                        <SidebarTrigger />
-                        <div className="  shrink-0  gap-2 transition-[width,height] ease-linear group-has-[[data-collapsible=icon]]/sidebar-wrapper:h-full" >
-                            <Breadcrumb>
-                                <BreadcrumbList>
-                                    {path.slice(1, -1).split('/').slice(0, -1).map((item, index) => 
-                                    <div key={index} className="grid grid-flow-col items-center gap-2">
-                                        <BreadcrumbItem key={index}>
-                                            <BreadcrumbLink href={`/${path.slice(1, -1).split('/').slice(0, index + 1).join('/')}`} className='capitalize' >
-                                                {decodeURI(item)}
-                                            </BreadcrumbLink>
-                                        </BreadcrumbItem>
-                                        <BreadcrumbSeparator />
-                                    </div>
-                                    )}
-                                    <BreadcrumbItem>
-                                        <BreadcrumbPage className='capitalize'>
-                                            {decodeURI(path.slice(1, -1).split('/').slice(-1))}
-                                        </BreadcrumbPage>
-                                    </BreadcrumbItem>
-                                </BreadcrumbList>
-                            </Breadcrumb>
-                            <div className="w-full ">
-
-                                {children}
-                                <Toaster />
+            <div className="  shrink-0  gap-2 transition-[width,height] ease-linear group-has-[[data-collapsible=icon]]/sidebar-wrapper:h-full" >
+                <Breadcrumb>
+                    <BreadcrumbList>
+                        {path.slice(1, -1).split('/').slice(0, -1).map((item, index) =>
+                            <div key={index} className="grid grid-flow-col items-center gap-2">
+                                <BreadcrumbItem key={index}>
+                                    <BreadcrumbLink href={`/${path.slice(1, -1).split('/').slice(0, index + 1).join('/')}`} className='capitalize' >
+                                        {decodeURI(item)}
+                                    </BreadcrumbLink>
+                                </BreadcrumbItem>
+                                <BreadcrumbSeparator />
                             </div>
-                        </div>
-                    </SidebarInset>
-                </SidebarProvider>
-            </userCurrent.Provider>
+                        )}
+                        <BreadcrumbItem>
+                            <BreadcrumbPage className='capitalize'>
+                                {decodeURI(path.slice(1, -1).split('/').slice(-1))}
+                            </BreadcrumbPage>
+                        </BreadcrumbItem>
+                    </BreadcrumbList>
+                </Breadcrumb>
+                <div className="w-full ">
+                    {children}
+                    <Toaster />
+                </div>
+            </div>
         </div>
+    </div>
     )
 }
 
