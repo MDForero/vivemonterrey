@@ -16,6 +16,7 @@ export default async function page() {
 
     // Decodificar el token JWT si hay una sesión
     const jwt = jwtDecode(session.session.access_token);
+    console.log(jwt);
     const userRole = jwt.user_role; // Extraer el rol del usuario
     if (userRole) {
         switch (userRole) {
