@@ -29,7 +29,7 @@ export default function Page(props) {
             const { data, error } = await supabase
                 .from('businesses')
                 .select('* , categories(name, id)')
-                .eq('name', decodeURI(params.negocio).split('-').join(' '))
+                .eq('enlace', params.negocio)
                 .single()
 
             if (error) {
@@ -37,8 +37,8 @@ export default function Page(props) {
             } else {
                 setBusinessData(data)
             }
-            const categories = await supabase.from('categories').select('name, id')
-            setCategories(categories.data)
+            const {data:categories , error:errorCategories} = await supabase.from('categories').select('name, id')
+            setCategories(categories?.data)
             setIsLoading(false)
 
 
@@ -226,7 +226,7 @@ export default function Page(props) {
                                 <fieldset>
                                     <legend className='font-semibold'>Categorías</legend>
                                     <div className='space-y-2'>
-                                        {categories.map((category, index) => <div key={index} className='flex  items-center gap-2'>
+                                        {categories?.map((category, index) => <div key={index} className='flex  items-center gap-2'>
                                             <Input type='checkbox' id={category.id} name={category.id} defaultChecked={businessData?.categories?.includes(category.id)} className='w-6 h-6' />
                                             <Label htmlFor={category.id}>{category.name}</Label>
                                         </div>)}
@@ -282,7 +282,7 @@ export default function Page(props) {
                     </CardHeader>
                     <CardContent className='flex flex-wrap gap-2 items-center lg:justify-start justify-center'>
                         <Input value={businessData.id} name='id' id='id' className=' hidden' readOnly />
-                        {hours.map((hour, index) => <fieldset htmlFor={hour.name} key={index} className='w-fit border leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 '>
+                        {hours?.map((hour, index) => <fieldset htmlFor={hour.name} key={index} className='w-fit border leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 '>
                             <legend className="text-md font-semibold">{hour.label}</legend>
                             <div className="text-sm font-medium">
 
@@ -322,7 +322,7 @@ export default function Page(props) {
                 </Card>
             </form>
             <div className='flex flex-wrap justify-center items-center gap-5'>
-                {businessData.gallery.map((image, index) => <ImageDelete bucket={'banners'} url={image} key={index} id={businessData.id} gallery={businessData.gallery} />)}
+                {businessData.gallery?.map((image, index) => <ImageDelete bucket={'banners'} url={image} key={index} id={businessData.id} gallery={businessData.gallery} />)}
                 <UploadImage businesses={businessData} bucket={"banners"} />
             </div>
 

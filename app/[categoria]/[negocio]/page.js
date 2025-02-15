@@ -8,10 +8,10 @@ import { createClient } from '@/utils/supabase/server'
 
 export async function generateMetadata({ params }) {
     const supabase = createClient()
-    const { data, error } = await supabase.from('businesses').select('*, categories(name), rooms(*)').eq('name', decodeURI(params.negocio).split('-').join(' ')).single()
+    const { data, error } = await supabase.from('businesses').select('*, categories(name), rooms(*)').eq('enlace', params.negocio).single()
     return {
-        title: data.name,
-        description: data.description,
+        title: data?.name,
+        description: data?.description,
     }
 }
 
@@ -20,7 +20,7 @@ export default async function page(props) {
     const params = await props.params;
 
     const supabase = createClient()
-    const { data, error } = await supabase.from('businesses').select('*, categories(name), rooms(*)').eq('name', decodeURI(params.negocio).split('-').join(' ')).single()
+    const { data, error } = await supabase.from('businesses').select('*, categories(name), rooms(*)').eq('enlace', params.negocio).single()
 
     const schedule = data?.schedule ? Object.entries(JSON.parse(data.schedule)) : []
     const categories = data?.categories?.map(category => category.name)
@@ -35,7 +35,7 @@ export default async function page(props) {
         </main>
 
         <div className="text-center  flex justify-center items-center flex-col">
-            <ImgGallery path={data?.logo} className='w-44 lg:w-60 h-full  bg-black/70 rounded-full ' />
+            <ImgGallery path={data?.logo} className='w-44 lg:w-60 h-full  rounded-full ' />
         </div>
 
         {categories?.includes('Restaurantes') ? <a href='menu' className='mx-auto flex justify-center items-center border-2 gap-4 text-2xl font-bold font-englebert max-w-sm w-full p-2 rounded-xl'>
@@ -45,7 +45,7 @@ export default async function page(props) {
         </a> : null}
         {categories?.includes('Alojamientos') && <ScrollArea className='w-full flex justify-center items-center px-4'>
             <div className='flex w-max mx-auto gap-4 justify-center items-center mb-12'>
-                {data?.rooms.map((room, index) =><CardRooms product={room} key={index} />)}
+                {data?.rooms.map((room, index) => <CardRooms product={room} key={index} />)}
             </div>
             <ScrollBar orientation='horizontal' />
         </ScrollArea>}
