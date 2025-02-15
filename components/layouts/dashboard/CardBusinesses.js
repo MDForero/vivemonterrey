@@ -96,11 +96,11 @@ export default function CardBusinesses({ business }) {
             {name}
         </TableCell>
         <TableCell>
-            {business?.categories.map((category) => <p key={category.name}>{category.name}</p>)}
+            {business?.categories.map((category) => <p key={category?.name}>{category?.name}</p>)}
         </TableCell>
         <TableCell className=''>
             <Button variant='outline'>
-                <a href={business?.name}>
+                <a href={business?.enlace}>
                     <Settings2 />
                 </a>
             </Button>

@@ -15,7 +15,7 @@ export default async function CardEvent({ event }) {
             <p className="text-xl fon-bold capitalize">{month.slice(0, 3)}</p>
         </div>
         <div className="p-4 space-y-2">
-            <Link href={event?.name.split(" ").join('-').toLowerCase()}><h2 className='text-3xl font-bold'>{event?.name}</h2></Link>
+            <Link href={event?.enlace}><h2 className='text-3xl font-bold'>{event?.name}</h2></Link>
             <p className="text-xl">{event?.location}</p>
         </div>
     </div>
