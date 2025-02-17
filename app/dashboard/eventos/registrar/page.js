@@ -7,7 +7,7 @@ export default function Page() {
     const minDate = new Date().toISOString().split('T')[0]
 
     return (
-        <div className='flex items-center justify-center w-full h-screen'>
+        <div className='flex items-center justify-center w-full '>
 
             <div className="    flex  max-w-96 flex-1 flex-col justify-center px-6 py-12 lg:px-8 ">
                 
@@ -87,19 +87,14 @@ export default function Page() {
                             <button
                                 formAction={registerEvent}
                                 type="submit"
-                                className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                                className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-green-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                             >
-                                Iniciar sesión
+                                Registrar evento
                             </button>
                         </div>
                     </form>
 
-                    <p className="mt-10 text-center text-sm text-gray-500">
-                        Not a member?{' '}
-                        <a href="#" className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">
-                            Start a 14 day free trial
-                        </a>
-                    </p>
+                    
                 </div>
             </div>
         </div>
