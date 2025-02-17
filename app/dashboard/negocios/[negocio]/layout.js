@@ -13,13 +13,13 @@ export default async function layout(props) {
     } = props;
 
     const supabase = createClient()
-    const { data: business, error } = await supabase.from('businesses').select('*, categories(name)').eq('name', decodeURI(params.negocio).split('-').join(' ')).single()
+    const { data: business, error } = await supabase.from('businesses').select('*, categories(name)').eq('enlace', params.negocio).single()
 
     return <div className="space-y-2">
         <NavigationMenu className='mx-auto'>
             <NavigationMenuList>
                 <NavigationMenuItem>
-                    <Link href={'/dashboard/negocios/' + params.negocio} legacyBehavior passHref>
+                    <Link href={'/dashboard/negocios/' + params?.negocio} legacyBehavior passHref>
                         <NavigationMenuLink className={navigationMenuTriggerStyle()}>
                             Inicio
                         </NavigationMenuLink>
@@ -40,7 +40,7 @@ export default async function layout(props) {
                     </NavigationMenuContent>
                 </NavigationMenuItem>
 
-                {business.categories.map(element => element.name).includes('Restaurantes') ? <NavigationMenuItem >
+                {business?.categories.map(element => element.name).includes('Restaurantes') ? <NavigationMenuItem >
                     <NavigationMenuTrigger>Menu</NavigationMenuTrigger>
                     <NavigationMenuContent>
                         <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
@@ -52,7 +52,7 @@ export default async function layout(props) {
                     </NavigationMenuContent>
 
                 </NavigationMenuItem> : null}
-                {business.categories.map(element => element.name).includes('Alojamientos') ? <NavigationMenuItem >
+                {business?.categories.map(element => element.name).includes('Alojamientos') ? <NavigationMenuItem >
                     <NavigationMenuTrigger>Habitaciones</NavigationMenuTrigger>
                     <NavigationMenuContent>
                         <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">

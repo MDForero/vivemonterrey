@@ -120,6 +120,7 @@ export async function registerBusiness(formData) {
     logo: logoPath,
     socials_account: formData.get('socials_account').split(',').map(social => social.trim()),
     gallery: galleryArray,
+    enlace: formData.get('name').toLowerCase().replace(/[\u0300-\u036f]/g, '').replace(/ /g, '-').replace(/ñ/g, 'n'),
     schedule: JSON.stringify(shcedule),
   }
 

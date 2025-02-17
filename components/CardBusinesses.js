@@ -8,7 +8,7 @@ import { Skeleton } from "./ui/skeleton"
 
 export default function CardBusinesses(data) {
     const path = usePathname()
-    const { name, banner_url, address, website, phone, } = data?.data
+    const { name, banner_url, address, website, phone, enlace} = data?.data
     const [loading, setLoading] = useState(true)
     const supabase = createClient()
     const [imageUrl, setImageUrl] = useState(null)
@@ -53,7 +53,7 @@ export default function CardBusinesses(data) {
                 </Link>
             </div>
             <div className="p-1 flex flex-col justify-around gap-1 ">
-                <Link href={path + name.split(' ').join('-')} className=""><h1 className="font-bold hover:text-blue-700 duration-200 text-xl title text-center">
+                <Link href={path + enlace} className=""><h1 className="font-bold hover:text-blue-700 duration-200 text-xl title text-center">
                     {name}</h1></Link>
                 <a href="" className="flex capitalize items-center font-medium "><svg viewBox="0 0 512 512" width={0} height={0} className="min-w-6 min-h-6" version="1.1" xmlns="http://www.w3.org/2000/svg" fill="#000000"><g id="SVGRepo_bgCarrier" strokeWidth="0"></g><g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g><g id="SVGRepo_iconCarrier"> <title>location-filled</title> <g id="Page-1" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd"> <g id="location-outline" fill="#000000" transform="translate(106.666667, 42.666667)"> <path d="M149.333333,7.10542736e-15 C231.807856,7.10542736e-15 298.666667,66.8588107 298.666667,149.333333 C298.666667,176.537017 291.413333,202.026667 278.683512,224.008666 C270.196964,238.663333 227.080238,313.32711 149.333333,448 C71.5864284,313.32711 28.4697022,238.663333 19.9831547,224.008666 C7.25333333,202.026667 2.84217094e-14,176.537017 2.84217094e-14,149.333333 C2.84217094e-14,66.8588107 66.8588107,7.10542736e-15 149.333333,7.10542736e-15 Z M149.333333,85.3333333 C113.987109,85.3333333 85.3333333,113.987109 85.3333333,149.333333 C85.3333333,184.679557 113.987109,213.333333 149.333333,213.333333 C184.679557,213.333333 213.333333,184.679557 213.333333,149.333333 C213.333333,113.987109 184.679557,85.3333333 149.333333,85.3333333 Z" id="Combined-Shape"> </path> </g> </g> </g></svg><p className="line-clamp-1">{address}</p></a>
                 {/* <a href="" className="flex capitalize items-center font-medium "><svg viewBox="0 0 24 24" width={18} height={18} fill="none" className="mr-1" xmlns="http://www.w3.org/2000/svg">
