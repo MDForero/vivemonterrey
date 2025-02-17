@@ -8,10 +8,10 @@ import Link from "next/link"
 
 export async function generateMetadata({ params }) {
     const supabase = createClient()
-    const { data: business, error } = await supabase.from('businesses').select('*, products(count), rooms(count), categories(name) ').eq('name', decodeURI(params.negocio).split('-').join(' ')).single()
+    const { data: business, error } = await supabase.from('businesses').select('*, products(count), rooms(count), categories(name) ').eq('enlace', params.negocio).single()
     return {
-        title: business.name,
-        description: business.description,
+        title: business?.name,
+        description: business?.description,
     }
 }
 
@@ -23,10 +23,10 @@ export default async function Page(props) {
 
     const supabase = createClient()
 
-    const { data: business, error } = await supabase.from('businesses').select('*, products(count), rooms(count), categories(name) ').eq('name', decodeURI(params.negocio).split('-').join(' ')).single()
+    const { data: business, error } = await supabase.from('businesses').select('*, products(count), rooms(count), categories(name) ').eq('enlace', params.negocio).single()
     const { data: categories, error: errorCategories } = await supabase.from('categories').select('image_url, name')
-    const products = business.products[0].count
-    const rooms = business.rooms[0].count
+    const products = business?.products[0].count
+    const rooms = business?.rooms[0].count
     console.log(business, categories)
 
 
@@ -34,13 +34,13 @@ export default async function Page(props) {
     return <section className="max-w-xl space-y-16 sm:space-y-24  mx-auto">
         <main className="space-y-8 md:space-y-16">
             <div className="relative">
-                <ImageSupabase url={business.banner_url} buckets={'banners'} className={'w-full aspect-video object-cover rounded-md'} alt={`imagen principal de ${business.name} `} />
+                <ImageSupabase url={business?.banner_url} buckets={'banners'} className={'w-full aspect-video object-cover rounded-md'} alt={`imagen principal de ${business?.name} `} />
 
                 <div className="absolute -bottom-1/4 w-1/3 right-1/3 bg-white flex justify-center items-center  rounded-full p-2 border-gray-400 border-[3px]">
-                    <ImageSupabase url={business.logo} buckets={'banners'} className={'w-full aspect-square md:w-44 p-4 object-contain  '} alt={`logo de ${business.name} `} />
+                    <ImageSupabase url={business?.logo} buckets={'banners'} className={'w-full aspect-square md:w-44 p-4 object-contain  '} alt={`logo de ${business?.name} `} />
                 </div>
             </div>
-           
+
         </main>
         <aside className="space-y-4 md:space-y-8 w-11/12 mx-auto">
 
@@ -70,7 +70,7 @@ export default async function Page(props) {
                 products !== 0 &&
                 <div className='p-1 border-2 rounded-sm max-w-md mx-auto'>
                     <Link href={`/que-hacer/${params.negocio}/menu`} className="relative">
-                        <ImageSupabase url={business?.image_restaurant ?? categories.find(category=> 'Restaurantes' === category.name).image_url} className={'w-full aspect-video rounded-sm'} buckets={business?.image_restaurant ? 'banners' : 'categories_image'} />
+                        <ImageSupabase url={business?.image_restaurant ?? categories.find(category => 'Restaurantes' === category.name).image_url} className={'w-full aspect-video rounded-sm'} buckets={business?.image_restaurant ? 'banners' : 'categories_image'} />
                         <div className="absolute bottom-0 inset-x-0 font-bold rounded-md mx-auto">
                             <p className="mx-auto font-bold bg-white block w-fit p-1 rounded-sm"> Menú o Carta</p>
                         </div>
@@ -78,11 +78,11 @@ export default async function Page(props) {
                 </div>
             }
 
-            {business?.wifi_name !== null && <QrCode value={`WIFI:S:${business?.wifi_name};T:WPA;P:${business?.wifi_password};H:${false};`} logo={business.logo} />}
-           
+            {business?.wifi_name !== null && <QrCode value={`WIFI:S:${business?.wifi_name};T:WPA;P:${business?.wifi_password};H:${false};`} logo={business?.logo} />}
+
             <ScrollArea className="max-w-md w-full h-60 mx-auto" orientation="horizontal">
                 <div className="flex w-max space-x-4 p-4">
-                    {categories?.map(category => category.name === business.categories[0].name ? null : <Link className="h-52 aspect-square relative " key={category.name} href={`/${category.name.split(' ').join('-')}`}><div className="absolute inset-y-0 inset-x-0 bg-black/20 font-bold rounded-md flex justify-center items-center text-white font-englebert">{category.name}</div>
+                    {categories?.map(category => category.name === business?.categories[0].name ? null : <Link className="h-52 aspect-square relative " key={category.name} href={`/${category.name.split(' ').join('-')}`}><div className="absolute inset-y-0 inset-x-0 bg-black/20 font-bold rounded-md flex justify-center items-center text-white font-englebert">{category.name}</div>
                         <ImageSupabase url={category.image_url} className={'w-full aspect-square object-cover rounded-md'} buckets={'categories_image'} />
                     </Link>)}
                 </div>
