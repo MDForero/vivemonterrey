@@ -1,14 +1,19 @@
 import Menu from "@/components/AppSheet";
+import { createClient } from "@/utils/supabase/server";
 
-export async function  generateMetadata ({params}){
+export async function generateMetadata({ params }) {
+    const supabase = createClient()
+    const { data, error } = await supabase.from('businesses').select('*').eq('enlace', params?.negocio).single()
     return {
-        title: params.negocio.split('-').join(' ') + ' - ' + 'Menu',
+        title: `${data?.name} + ' - ' + 'Menu'`,
         description: 'Menu de productos',
-        image: 'https://example.com/image.jpg',
-        url: `https://example.com/${params.categoria}/${params.negocio}/menu`
     }
 }
 
-export default function Page ({params}){
-    return <Menu params={params} />
+export default function Page({ params }) {
+
+    return (<> {params.negocio}
+        <Menu params={params} />
+    </>
+    )
 }

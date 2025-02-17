@@ -21,14 +21,18 @@ export default function Menu({ params }) {
 
     const dispatch = useCartDispatch()
     const path = usePathname()
-    const businessName = decodeURI(path.split('/')[2]).split('-').join(' ')
+    const businessName = decodeURI(path.split('/')[2])
 
     const [products, setProducts] = useState()
     const [business, setBusiness] = useState()
+    console.log(params, 'params')
+
 
 
     const getPoducts = async () => {
-        const { data, error } = await supabase.from('businesses').select('* ,  products(*)').eq('name', businessName).single()
+        console.log(businessName, 'businessName')
+        const { data, error } = await supabase.from('businesses').select('* ,  products(*)').eq('enlace', businessName).single()
+        console.log(data, error, 'data')
         return { data, error }
     }
 
