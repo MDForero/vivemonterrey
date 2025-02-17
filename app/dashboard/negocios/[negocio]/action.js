@@ -79,10 +79,14 @@ export async function actionSocialsAccount(formData) {
             data.push(pair[1])
         }
     })
-    console.log(data)
-    // try {
-    //     await supabase.from('businesses').update({socials_account: data}).eq('id', )
-    // }
+    try {
+        await supabase.from('businesses').update({socials_account: data}).eq('id', formData.get('id'))
+        toast.success('Datos actualizados')
+        window.location.reload()
+    }catch(error) {
+        console.error(error)
+        return
+    }
 }
 
 export async function actionSchedule(formData) {
