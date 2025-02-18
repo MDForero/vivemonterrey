@@ -47,7 +47,7 @@ export default function CardBusinesses(data) {
     return (
         <article className="max-w-96 flex flex-col shadow-2xl p-1">
             <div className="relative max-h-80 group overflow-hidden ">
-                <Link href={path + name.split(' ').join('-')} className="">
+                <Link href={path + enlace} className="">
                     {imageUrl ? <Image src={imageUrl} loading="lazy" alt={name} width={0} height={0} className="w-96 h-60  object-cover group-hover:scale-125 duration-200 rounded-md" /> : null}
                     {data?.data?.categories && <h1 className="absolute  top-1 left-1  bg-black/75 z-50 px-2 py-1 tracking-wider rounded-sm font-extrabold text-white ">{data?.data?.categories[0]?.name}</h1>}
                 </Link>
