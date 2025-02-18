@@ -9,6 +9,7 @@ import { Table, TableCell, TableRow, } from "@/components/ui/table"
 import { createClient } from "@/utils/supabase/client"
 import { set } from "date-fns"
 import { Settings2, Trash2 } from "lucide-react"
+import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
 import { toast } from "sonner"
@@ -99,11 +100,11 @@ export default function CardBusinesses({ business }) {
             {business?.categories.map((category) => <p key={category?.name}>{category?.name}</p>)}
         </TableCell>
         <TableCell className=''>
-            <Button variant='outline'>
-                <a href={business?.enlace}>
+            
+                <Link href={business?.enlace}>
                     <Settings2 />
-                </a>
-            </Button>
+                </Link>
+            
         </TableCell>
         <Dialog>
             <TableCell className=''>

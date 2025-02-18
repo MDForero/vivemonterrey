@@ -1,6 +1,5 @@
 'use client'
 import { Button } from "@/components/ui/button";
-import { useUserCurrent } from "../../../layout";
 import { productRegister } from "./action";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
@@ -16,7 +15,13 @@ export default function Page(props) {
     const params = use(props.params);
 
     const supabase = createClient()
-    const { user } = useUserCurrent()
+    // const { user } = useUserCurrent()
+    const getUser = async () => {
+        const { data: user } = await supabase.auth.getUser()
+    }
+
+    const user = getUser()
+
     const [dataProduct, setDataProduct] = useState('')
     const [dataBusiness, setDataBusiness] = useState('')
 
@@ -35,7 +40,7 @@ export default function Page(props) {
 
     useEffect(() => {
         async function getData() {
-            const { data, error } = await supabase.from('businesses').select('*').eq('name', decodeURI(params.negocio).split('-').join(' ')).single()
+            const { data, error } = await supabase.from('businesses').select('*').eq('enlace ', params.negocio).single()
             if (error) {
                 console.error(error)
                 return
@@ -49,8 +54,8 @@ export default function Page(props) {
 
     return <section className="flex">
         <form action='#' method="POST">
-            {dataBusiness && <input type="hidden" name="negocio" value={dataBusiness.name} readOnly/>}
-         {dataBusiness &&   <Card className='max-w-2xl'>
+            {dataBusiness && <input type="hidden" name="negocio" value={dataBusiness.name} readOnly />}
+            {dataBusiness && <Card className='max-w-2xl'>
                 <CardHeader>
                     <CardTitle>Registrar Producto</CardTitle>
                 </CardHeader>

@@ -19,7 +19,13 @@ export default function Page(props) {
     const params = use(props.params);
 
     const supabase = createClient()
-    const { user } = useUserCurrent()
+
+    const getUser = async () => {
+        const { data: user } = await supabase.auth.getUser()
+    }
+
+    const user = getUser()
+    
     const [images, setImages] = useState([])
     const [dataProduct, setDataProduct] = useState()
     const [dataBusiness, setDataBusiness] = useState()

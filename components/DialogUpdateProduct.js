@@ -16,8 +16,12 @@ import { toast } from 'sonner'
 
 const DialogUpdateProduct = ({ product }) => {
 
-  const { user } = useUserCurrent()
   const supabase = createClient()
+  const getUser = async () => {
+    const { data: user } = await supabase.auth.getUser()
+  }
+
+  const user = getUser()
   const [loading, setLoading] = useState(false)
 
   const [image, setImage] = useState()
@@ -57,7 +61,7 @@ const DialogUpdateProduct = ({ product }) => {
         <Button variant="outline">Actualizar</Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
-          <Label htmlFor=''>Nombre</Label>
+        <Label htmlFor=''>Nombre</Label>
         <form action='#' method='POST'>
           <DialogHeader>
             <DialogTitle>Actualizar Producto</DialogTitle>

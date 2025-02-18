@@ -15,45 +15,42 @@ const userCurrent = createContext(null)
 
 export default function DashboardLayout({ children }) {
 
-    const supabase = createClient()
+    
     const path = usePathname()
-    const router = useRouter()
+   
 
-    const [user, setUser] = useState()
-    const [data, setData] = useState()
+    // const getUser = async () => {
 
+    //     try {
 
-    const getUser = async () => {
+    //         const { data, error } = await supabase.auth.getUser()
+    //         const { data: profile, errorProfile } = await supabase.from('profiles').select('*, properties(count), businesses(count)').eq('id', data?.user.id).single()
+    //         setUser({ ...profile, email: data.user.email })
 
-        try {
+    //     } catch (error) {
 
-            const { data, error } = await supabase.auth.getUser()
-            const { data: profile, errorProfile } = await supabase.from('profiles').select('*, properties(count), businesses(count)').eq('id', data?.user.id).single()
-            setUser({ ...profile, email: data.user.email })
+    //         console.error(error)
+    //         router.push('/login')
 
-        } catch (error) {
+    //     }
+    // }
 
-            console.error(error)
-            router.push('/login')
+    // useEffect(() => {
+    //     getUser()
+    // }, [path])
 
-        }
-    }
-
-    useEffect(() => {
-        getUser()
-    }, [path])
-
-    useEffect(() => {
-        const getData = async (id) => {
-            const { data, error } = await supabase.from('profiles').select('properties(*), businesses(*)').eq('id', id).single()
-            if (error) {
-                console.error(error)
-                return
-            }
-            setData(data)
-        }
-        if (user) getData(user?.id)
-    }, [user])
+    // useEffect(() => {
+    //     const getData = async () => {
+    //         const id = supabase.auth.user().id
+    //         const { data, error } = await supabase.from('profiles').select('properties(*), businesses(*)').eq('id', id).single()
+    //         if (error) {
+    //             console.error(error)
+    //             return
+    //         }
+    //         setData(data)
+    //     }
+    //     if (user) getData()
+    // }, [user])
 
 
     return (<div>
