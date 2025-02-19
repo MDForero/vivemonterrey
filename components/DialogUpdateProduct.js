@@ -1,32 +1,29 @@
 'use client'
-import { useUserCurrent } from '@/app/dashboard/layout'
 import { createClient } from '@/utils/supabase/client'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import ImageSupabase from './ImageSupabase'
 import { Button } from './ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from './ui/card'
-import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from './ui/dialog'
+import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from './ui/dialog'
 import { Input } from './ui/input'
 import { Label } from './ui/label'
 import { Textarea } from './ui/textarea'
 import Image from 'next/image'
 import { updateProduct } from '@/app/dashboard/negocios/[negocio]/menu/action'
-import { set } from 'react-hook-form'
+import { Pencil } from 'lucide-react'
 import { toast } from 'sonner'
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './ui/select'
 
-const DialogUpdateProduct = ({ product }) => {
+const DialogUpdateProduct = ({ product, businessLink, categories_restaurant }) => {
+  console.log(businessLink)
 
   const supabase = createClient()
-  const getUser = async () => {
-    const { data: user } = await supabase.auth.getUser()
-  }
 
-  const user = getUser()
   const [loading, setLoading] = useState(false)
 
-  const [image, setImage] = useState()
-  const [fileImage, setFileImage] = useState()
-  const [data, setData] = useState({})
+
+  const [image, setImage] = useState('')
+  const [fileImage, setFileImage] = useState('')
 
 
   const handleImage = async (e) => {
@@ -37,28 +34,39 @@ const DialogUpdateProduct = ({ product }) => {
 
   const updateImage = async () => {
     setLoading(true)
-    try {
-      await supabase.storage.from('banners').update(product.image, fileImage, { upsert: true })
-      toast('Imagen actualizada', {
-        description: 'La imagen ha sido actualizada con éxito',
-        action: {
-          label: 'Aceptar',
-          onClick: () => window.location.reload()
-        }
-      })
 
-    } catch (error) {
-      console.log('Error uploading image: ', error)
+    if (product.image.endsWith('.') || !product.image) {
+      const fileExt = fileImage.name.split('.').pop()
+      const pathFile = `${businessLink}/productos/${product.name.split(' ').join('-')}.${fileExt}`
+
+      const { data, error } = await supabase.from('products').update({ image: pathFile }).eq('id', product.id)
+
+      if (error) {
+        toast.error('Error al actualizar la imagen')
+        return
+      } else {
+        await supabase.storage.from('banners').upload(pathFile, fileImage)
+      }
+      toast.success('Imagen actualizada')
+      setLoading(false)
+      return
     }
+    const { data, error } = await supabase.storage.from('banners').update(product.image, fileImage, { upsert: true })
+    if (error) {
+      toast.error('Error al actualizar la imagen')
+      return
+    }
+    toast.success('Imagen actualizada')
     setLoading(false)
   }
+
 
 
   return (
 
     <Dialog>
-      <DialogTrigger asChild>
-        <Button variant="outline">Actualizar</Button>
+      <DialogTrigger asChild className='cursor-pointer'>
+        <Pencil />
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <Label htmlFor=''>Nombre</Label>
@@ -72,7 +80,7 @@ const DialogUpdateProduct = ({ product }) => {
             </CardHeader>
             <CardContent className='space-y-2'>
               <Label htmlFor='image' className='relative'>
-                {image ? <Image src={image} className='mx-auto w-44 object-cover aspect-square rounded-full' width={0} height={0} /> : <ImageSupabase buckets='banners' url={product.image} className='mx-auto w-44 object-cover aspect-square rounded-full' />}
+                {image ? <Image src={image} className='mx-auto w-44 object-cover aspect-square rounded-full' alt={`imagen de ${product?.name}`} width={0} height={0} /> : <ImageSupabase buckets='banners' url={product.image} className='mx-auto w-44 object-cover aspect-square rounded-full' />}
                 {image && <Button type='button' onClick={updateImage}>Cambiar</Button>}
                 {loading && <span>Cargando...</span>}
               </Label>
@@ -89,10 +97,24 @@ const DialogUpdateProduct = ({ product }) => {
                 <Label htmlFor='price'>Precio</Label>
                 <Input type='number' step='500' name='price' id='price' defaultValue={product.price} />
               </div>
+
               {/* <div>
             <Label htmlFor='categories'>Categoría</Label>
             <Input name='categories' id='categories' defaultValue={product.categories} />
             </div> */}
+              <fieldset className="border p-2 space-y-2 ">
+                <legend className="font-bold">Categoría</legend>
+                {categories_restaurant !== null &&
+                  <Select name="category" id="category">
+                    <SelectTrigger className="w-[180px]">
+                      <SelectValue placeholder="Categoría" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {categories_restaurant?.map(category => <SelectItem value={category} key={category}>{category}</SelectItem>)}
+                    </SelectContent>
+                  </Select>
+                }
+              </fieldset>
               <div className=" flex gap-8">
                 <Checkbox name='isoutstanding' className='w-4 h-4' id='isoutstanding' label='Destacado' checked={product.isoutstanding} />
                 <Checkbox name='isvegetarian' className='w-4 h-4' id='isvegetarian' label='Vegetariano' checked={product.isvegetarian} />
@@ -101,9 +123,7 @@ const DialogUpdateProduct = ({ product }) => {
               <div>
                 <Input name='image' id='image' type='file' onChange={handleImage} className='hidden' />
               </div>
-
-              <Input name='profile_id' id='profile_id' value={user?.id} className='hidden' />
-              <Input name='id' id='id' value={product?.id} className='hidden' />
+              <Input name='id' id='id' value={product?.id} readOnly className='hidden' />
 
             </CardContent>
           </Card>
@@ -115,7 +135,6 @@ const DialogUpdateProduct = ({ product }) => {
     </Dialog>
   )
 }
-
 
 const Checkbox = ({ name, label, checked }) => {
   const [check, setCheck] = useState(checked)
