@@ -13,7 +13,7 @@ export async function updateProduct(formData) {
   
   try {
     const {data:dataProduct, error} = await supabase.from('products').update(data).eq('id', formData.get('id'))
-    console.log(dataProduct)
+    toast.success('Producto actualizado')
   } catch (error) {
     console.log('Error updating product: ', error)
   }
