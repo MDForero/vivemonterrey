@@ -30,9 +30,11 @@ export default function UploadImage({ bucket, businesses }) {
             return
         }
 
+
         const gallery = [...businesses.gallery]
         const fileExt = file.name.split('.').pop()
-        const path = businesses.enlace+ '.' + fileExt
+        const nameDate = Date.now()
+        const path = `${businesses.enlace}/gallery/${nameDate}+ '.' + fileExt`
 
         gallery.push(path)
 
