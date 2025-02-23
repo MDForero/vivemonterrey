@@ -96,7 +96,7 @@ const AppSheet = () => {
                                 <TableBody>
 
                                     {cart?.map(item => <TableRow key={item.id} >
-                                        <TableCell className=" h-fit text-sm text-left w-36"><strong>{item.name.split(' ')[0].slice(0, 1) + ' ' + item.name.split(' ').slice(1, -1).join(' ')}</strong> x{item.quantity}</TableCell>
+                                        <TableCell className=" h-fit text-sm text-left w-36"><strong>{item.name}</strong> x{item.quantity}</TableCell>
                                         <TableCell className="text-left font-bold">{item.price * item.quantity}</TableCell>
                                         <TableCell className="text-left font-bold w-4"><Button className='p-1' onClick={() => {
                                             dispatch({
@@ -111,7 +111,7 @@ const AppSheet = () => {
                 </div>
             <SheetFooter>
                 <div >
-                    {!(cart.length === 0) ? <Link href='ordenar' asChild><Button className="btn btn-primary float-right" >Pagar</Button></Link> : <></>}
+                    {!(cart.length === 0) ? <Link href='ordenar' ><Button className="btn btn-primary float-right" >Pagar</Button></Link> : <></>}
                     {!(cart.length === 0) ? <Button onClick={() => dispatch({ type: actions.clear })} className="float-left" variant='outline'>Limpiar orden</Button> : <></>}
                 </div>
             </SheetFooter>

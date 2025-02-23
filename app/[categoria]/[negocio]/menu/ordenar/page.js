@@ -1,7 +1,7 @@
 'use client'
 import { Table, TableBody, TableCell, TableFooter, TableHeader, TableRow } from "@/components/ui/table"
 import { actions, useCart, useCartDispatch } from "../../../../../components/CartContext"
-import { Button } from "@/components/ui/button"
+import { Button } from "@/components/ui/button" 
 import { Radio, Trash2Icon } from "lucide-react"
 import Image from "next/image"
 import { Label } from "@/components/ui/label"
@@ -19,7 +19,7 @@ export default function Page(props) {
     const dispatch = useCartDispatch()
     const messageCart = cart.map(item => `%0A *${item.name.trim()}* x ${item.quantity}`).join(', ')
     const supabase = createClient()
-    const [business, setBusiness] = useState()
+    const [business, setBusiness] = useState(null)
 
     const handleSend = (formData) => {
         const send = document.getElementById('send')
@@ -31,7 +31,7 @@ export default function Page(props) {
     useEffect(() => {
 
         async function getData() {
-            const { data, error } = await supabase.from('businesses').select('name, logo').eq('name', decodeURI(params.negocio).split('-').join(' ')).single()
+            const { data, error } = await supabase.from('businesses').select('name, logo').eq('enlace', params.negocio).single()
             if (error) {
                 console.error(error)
                 return
@@ -43,15 +43,15 @@ export default function Page(props) {
         }
     }, [params])
 
-    return <div className="flex flex-col w-screen space-y-8 justify-center items-center">
-        {business && <ImageSupabase buckets='banners' url={business?.logo} className='w-44 p-2 mx-auto' />}
+    return <div className="flex flex-col w-screen space-y-8 justify-center items-center mx-auto">
+        {/* {business?.logo && <ImageSupabase buckets='banners' url={business?.logo ?? null} className='w-44 p-2 mx-auto' />} */}
         <Card>
             <CardContent>
                 <h1 className="text-3xl font-bold text-center mt-12">Generar Orden</h1>
                 <h2 className="text-xl font-bold text-center mt-4">Complete la información y revise su orden</h2>
 
 
-                <form method="POST" action={handleSend} className="">
+                <form  action={handleSend} className="">
                     <div>
                         <Label htmlFor='name'>Nombre</Label>
                         <Input id='name' name='name' type='text' placeholder='Juan Perez' />
@@ -108,7 +108,7 @@ export default function Page(props) {
                         </TableHeader>
                         <TableBody>
                             {cart?.map(item => <TableRow key={item.id} >
-                                <TableCell><Image src={item.image} alt={item.name} width={50} height={50} className="rounded-full aspect-square object-cover" /></TableCell>
+                                {/* <TableCell><Image src={item.image} alt={item.name} width={50} height={50} className="rounded-full aspect-square object-cover" /></TableCell> */}
 
                                 <TableCell className=" h-fit text-sm text-left w-96"><strong>{item.name}</strong> x {item.quantity}</TableCell>
                                 <TableCell className="text-left font-bold">{item.price}</TableCell>
