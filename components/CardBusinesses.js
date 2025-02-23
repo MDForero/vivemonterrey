@@ -5,16 +5,17 @@ import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { useEffect, useState } from "react"
 import { Skeleton } from "./ui/skeleton"
+import { toast } from "sonner"
 
 export default function CardBusinesses(data) {
     const path = usePathname()
-    const { name, banner_url, address, website, phone, enlace} = data?.data
+    const { name, banner_url, address, website, phone, enlace } = data?.data
     const [loading, setLoading] = useState(true)
     const supabase = createClient()
     const [imageUrl, setImageUrl] = useState(null)
 
     useEffect(() => {
-        
+
         async function downloadImage(path) {
             setLoading(true)
             try {
@@ -33,24 +34,68 @@ export default function CardBusinesses(data) {
         if (banner_url) downloadImage(banner_url)
     }, [banner_url, supabase])
 
-    if (loading) return(
-        <div className="flex flex-col  space-y-2">
-          <Skeleton className="w-96 h-60" />
-          <div className="space-y-2">
-            <Skeleton className="h-4 w-[250px]" />
-            <Skeleton className="h-4 w-[250px]" />
-            <Skeleton className="h-4 w-[200px]" />
-          </div>
-        </div>
-      )
-
     return (
         <article className="max-w-96 flex flex-col shadow-2xl p-1">
             <div className="relative max-h-80 group overflow-hidden ">
-                <Link href={path + enlace} className="">
-                    {imageUrl ? <Image src={imageUrl} loading="lazy" alt={name} width={0} height={0} className="w-96 h-60  object-cover group-hover:scale-125 duration-200 rounded-md" /> : null}
-                    {data?.data?.categories && <h1 className="absolute  top-1 left-1  bg-black/75 z-50 px-2 py-1 tracking-wider rounded-sm font-extrabold text-white ">{data?.data?.categories[0]?.name}</h1>}
-                </Link>
+                {loading ? <>
+                    <Skeleton className="w-96 h-60" /><div className="absolute inset-y-0 inset-x-0 flex justify-center items-center">
+
+                        <svg xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid" width="50" height="50"><g><g transform="rotate(0 50 50)">
+                            <rect fill="#fe718d" height="12" width="6" ry="6" rx="3" y="24" x="47">
+                                <animate repeatCount="indefinite" begin="-0.9166666666666666s" dur="1s" keyTimes="0;1" values="1;0" attributeName="opacity" />
+                            </rect>
+                        </g><g transform="rotate(30 50 50)">
+                                <rect fill="#fe718d" height="12" width="6" ry="6" rx="3" y="24" x="47">
+                                    <animate repeatCount="indefinite" begin="-0.8333333333333334s" dur="1s" keyTimes="0;1" values="1;0" attributeName="opacity" />
+                                </rect>
+                            </g><g transform="rotate(60 50 50)">
+                                <rect fill="#fe718d" height="12" width="6" ry="6" rx="3" y="24" x="47">
+                                    <animate repeatCount="indefinite" begin="-0.75s" dur="1s" keyTimes="0;1" values="1;0" attributeName="opacity" />
+                                </rect>
+                            </g><g transform="rotate(90 50 50)">
+                                <rect fill="#fe718d" height="12" width="6" ry="6" rx="3" y="24" x="47">
+                                    <animate repeatCount="indefinite" begin="-0.6666666666666666s" dur="1s" keyTimes="0;1" values="1;0" attributeName="opacity" />
+                                </rect>
+                            </g><g transform="rotate(120 50 50)">
+                                <rect fill="#fe718d" height="12" width="6" ry="6" rx="3" y="24" x="47">
+                                    <animate repeatCount="indefinite" begin="-0.5833333333333334s" dur="1s" keyTimes="0;1" values="1;0" attributeName="opacity" />
+                                </rect>
+                            </g><g transform="rotate(150 50 50)">
+                                <rect fill="#fe718d" height="12" width="6" ry="6" rx="3" y="24" x="47">
+                                    <animate repeatCount="indefinite" begin="-0.5s" dur="1s" keyTimes="0;1" values="1;0" attributeName="opacity" />
+                                </rect>
+                            </g><g transform="rotate(180 50 50)">
+                                <rect fill="#fe718d" height="12" width="6" ry="6" rx="3" y="24" x="47">
+                                    <animate repeatCount="indefinite" begin="-0.4166666666666667s" dur="1s" keyTimes="0;1" values="1;0" attributeName="opacity" />
+                                </rect>
+                            </g><g transform="rotate(210 50 50)">
+                                <rect fill="#fe718d" height="12" width="6" ry="6" rx="3" y="24" x="47">
+                                    <animate repeatCount="indefinite" begin="-0.3333333333333333s" dur="1s" keyTimes="0;1" values="1;0" attributeName="opacity" />
+                                </rect>
+                            </g><g transform="rotate(240 50 50)">
+                                <rect fill="#fe718d" height="12" width="6" ry="6" rx="3" y="24" x="47">
+                                    <animate repeatCount="indefinite" begin="-0.25s" dur="1s" keyTimes="0;1" values="1;0" attributeName="opacity" />
+                                </rect>
+                            </g><g transform="rotate(270 50 50)">
+                                <rect fill="#fe718d" height="12" width="6" ry="6" rx="3" y="24" x="47">
+                                    <animate repeatCount="indefinite" begin="-0.16666666666666666s" dur="1s" keyTimes="0;1" values="1;0" attributeName="opacity" />
+                                </rect>
+                            </g><g transform="rotate(300 50 50)">
+                                <rect fill="#fe718d" height="12" width="6" ry="6" rx="3" y="24" x="47">
+                                    <animate repeatCount="indefinite" begin="-0.08333333333333333s" dur="1s" keyTimes="0;1" values="1;0" attributeName="opacity" />
+                                </rect>
+                            </g><g transform="rotate(330 50 50)">
+                                <rect fill="#fe718d" height="12" width="6" ry="6" rx="3" y="24" x="47">
+                                    <animate repeatCount="indefinite" begin="0s" dur="1s" keyTimes="0;1" values="1;0" attributeName="opacity" />
+                                </rect>
+                            </g><g /></g></svg>
+                    </div>
+                </>
+                    :
+                    <Link href={path + enlace} className="">
+                        {imageUrl ? <Image src={imageUrl} loading="lazy" alt={name} width={0} height={0} className="w-96 h-60  object-cover group-hover:scale-125 duration-200 rounded-md" /> : null}
+                        {data?.data?.categories && <h1 className="absolute  top-1 left-1  bg-black/75 z-50 px-2 py-1 tracking-wider rounded-sm font-extrabold text-white ">{data?.data?.categories[0]?.name}</h1>}
+                    </Link>}
             </div>
             <div className="p-1 flex flex-col justify-around gap-1 ">
                 <Link href={path + enlace} className=""><h1 className="font-bold hover:text-blue-700 duration-200 text-xl title text-center">
@@ -63,7 +108,7 @@ export default function CardBusinesses(data) {
                 {/* <div className="flex justify-evenly flex-wrap gap-3">
                     {data?.data?.categories?.map(category => <p key={category.name} className="p-2 title font-englebert bg-gray-200 rounded-xl">{category.name}</p>)}
                 </div> */}
-                {website && <a href={'https://'+website} className="flex gap-1 items-center font-medium "><svg viewBox="0 0 24 24" width={0} height={0} className="min-w-6 min-h-6" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" strokeWidth="0"></g><g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g><g id="SVGRepo_iconCarrier"> <path fillRule="evenodd" clipRule="evenodd" d="M5.63605 5.63605C7.19815 4.07395 9.73081 4.07395 11.2929 5.63605L14.1213 8.46448C15.6834 10.0266 15.6834 12.5592 14.1213 14.1213C13.7308 14.5119 13.0976 14.5119 12.7071 14.1213C12.3166 13.7308 12.3166 13.0976 12.7071 12.7071C13.4882 11.9261 13.4882 10.6597 12.7071 9.87869L9.87869 7.05026C9.09764 6.26922 7.83131 6.26922 7.05026 7.05026C6.26922 7.83131 6.26922 9.09764 7.05026 9.87869L7.75737 10.5858C8.1479 10.9763 8.14789 11.6095 7.75737 12C7.36685 12.3905 6.73368 12.3905 6.34316 12L5.63605 11.2929C4.07395 9.73081 4.07395 7.19815 5.63605 5.63605ZM11.2929 9.8787C11.6834 10.2692 11.6834 10.9024 11.2929 11.2929C10.5119 12.074 10.5119 13.3403 11.2929 14.1213L14.1213 16.9498C14.9024 17.7308 16.1687 17.7308 16.9498 16.9498C17.7308 16.1687 17.7308 14.9024 16.9498 14.1213L16.2427 13.4142C15.8521 13.0237 15.8521 12.3905 16.2427 12C16.6332 11.6095 17.2663 11.6095 17.6569 12L18.364 12.7071C19.9261 14.2692 19.9261 16.8019 18.364 18.364C16.8019 19.9261 14.2692 19.9261 12.7071 18.364L9.8787 15.5356C8.3166 13.9735 8.3166 11.4408 9.8787 9.8787C10.2692 9.48817 10.9024 9.48817 11.2929 9.8787Z" fill="#000000"></path> </g></svg>{website}</a>}
+                {website && <a href={'https://' + website} className="flex gap-1 items-center font-medium "><svg viewBox="0 0 24 24" width={0} height={0} className="min-w-6 min-h-6" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" strokeWidth="0"></g><g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g><g id="SVGRepo_iconCarrier"> <path fillRule="evenodd" clipRule="evenodd" d="M5.63605 5.63605C7.19815 4.07395 9.73081 4.07395 11.2929 5.63605L14.1213 8.46448C15.6834 10.0266 15.6834 12.5592 14.1213 14.1213C13.7308 14.5119 13.0976 14.5119 12.7071 14.1213C12.3166 13.7308 12.3166 13.0976 12.7071 12.7071C13.4882 11.9261 13.4882 10.6597 12.7071 9.87869L9.87869 7.05026C9.09764 6.26922 7.83131 6.26922 7.05026 7.05026C6.26922 7.83131 6.26922 9.09764 7.05026 9.87869L7.75737 10.5858C8.1479 10.9763 8.14789 11.6095 7.75737 12C7.36685 12.3905 6.73368 12.3905 6.34316 12L5.63605 11.2929C4.07395 9.73081 4.07395 7.19815 5.63605 5.63605ZM11.2929 9.8787C11.6834 10.2692 11.6834 10.9024 11.2929 11.2929C10.5119 12.074 10.5119 13.3403 11.2929 14.1213L14.1213 16.9498C14.9024 17.7308 16.1687 17.7308 16.9498 16.9498C17.7308 16.1687 17.7308 14.9024 16.9498 14.1213L16.2427 13.4142C15.8521 13.0237 15.8521 12.3905 16.2427 12C16.6332 11.6095 17.2663 11.6095 17.6569 12L18.364 12.7071C19.9261 14.2692 19.9261 16.8019 18.364 18.364C16.8019 19.9261 14.2692 19.9261 12.7071 18.364L9.8787 15.5356C8.3166 13.9735 8.3166 11.4408 9.8787 9.8787C10.2692 9.48817 10.9024 9.48817 11.2929 9.8787Z" fill="#000000"></path> </g></svg>{website}</a>}
                 {/* <div className="flex justify-evenly flex-wrap gap-3">
                     {data?.data?.categories?.map(category => <p key={category.name} className="p-2 title font-englebert bg-gray-200 rounded-xl">{category.name}</p>)}
                 </div> */}
