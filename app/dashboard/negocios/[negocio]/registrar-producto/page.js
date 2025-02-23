@@ -10,6 +10,7 @@ import { useEffect, useState, use } from "react";
 import { Separator } from "@/components/ui/separator";
 import { PlusCircleIcon } from "lucide-react";
 import { createClient } from "@/utils/supabase/client";
+import { get } from "react-hook-form";
 
 export default function Page(props) {
     const params = use(props.params);
@@ -18,12 +19,14 @@ export default function Page(props) {
     // const { user } = useUserCurrent()
     const getUser = async () => {
         const { data: user } = await supabase.auth.getUser()
+        console.log(user)
+        setUser(user)
     }
 
-    const user = getUser()
 
     const [dataProduct, setDataProduct] = useState('')
     const [dataBusiness, setDataBusiness] = useState('')
+    const [user, setUser] = useState(null)
 
     const handleChange = (e) => {
         const { name, value } = e.target
@@ -49,6 +52,7 @@ export default function Page(props) {
         }
         if (params) {
             getData()
+            getUser()
         }
     }, [params.negocio])
 
@@ -109,7 +113,8 @@ export default function Page(props) {
                         <Label htmlFor='image'>Imagen</Label>
                         <Input name='image' id='image' type='file' onChange={handleChange} />
                     </div>
-                    <Input name='profile_id' id='profile_id' value={user?.id} readOnly className='hidden' />
+                    {user && <Input name='profile_id' id='profile_id' value={user.user?.id} readOnly className='hidden' />}
+                    <Input name='business_id' id='business_id' value={dataBusiness?.id} readOnly className='hidden' />
                 </CardContent>
                 <CardFooter>
                     <Button formAction={productRegister}>
