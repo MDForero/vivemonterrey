@@ -31,7 +31,7 @@ export default function Page(props) {
     useEffect(() => {
 
         async function getData() {
-            const { data, error } = await supabase.from('businesses').select('name, logo').eq('enlace', params.negocio).single()
+            const { data, error } = await supabase.from('businesses').select('*').eq('enlace', params.negocio).single()
             if (error) {
                 console.error(error)
                 return
