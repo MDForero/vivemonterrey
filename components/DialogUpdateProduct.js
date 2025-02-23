@@ -95,7 +95,7 @@ const DialogUpdateProduct = ({ product, businessLink, categories_restaurant }) =
               </div>
               <div>
                 <Label htmlFor='price'>Precio</Label>
-                <Input type='number' step='500' name='price' id='price' defaultValue={product.price} />
+                <Input type='number' step='50' name='price' id='price' defaultValue={product.price} />
               </div>
 
               {/* <div>
@@ -105,11 +105,11 @@ const DialogUpdateProduct = ({ product, businessLink, categories_restaurant }) =
               <fieldset className="border p-2 space-y-2 ">
                 <legend className="font-bold">Categoría</legend>
                 {categories_restaurant !== null &&
-                  <Select name="category" id="category">
+                  <Select name="category" id="category" defaultValue={product.category}>
                     <SelectTrigger className="w-[180px]">
                       <SelectValue placeholder="Categoría" />
                     </SelectTrigger>
-                    <SelectContent>
+                    <SelectContent >
                       {categories_restaurant?.map(category => <SelectItem value={category} key={category}>{category}</SelectItem>)}
                     </SelectContent>
                   </Select>
