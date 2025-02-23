@@ -51,7 +51,7 @@ export default function RootLayout({ children }) {
 
         <NavBar links={links} />
         <BackTopButton />
-        <div className="container mx-auto lg:space-y-52 md:space-y-24  space-y-12 mb-20">
+        <div className="container mx-auto lg:space-y-8 md:space-y-6  space-y-2 mb-20">
           {children}
         </div>
         <Footer />

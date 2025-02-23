@@ -5,6 +5,7 @@ import ImgGallery from '@/components/ImgGallery'
 import SocialMediaButton from '@/components/SocialMediaButton'
 import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area'
 import { createClient } from '@/utils/supabase/server'
+import Link from 'next/link'
 import { redirect } from 'next/navigation'
 
 export async function generateMetadata({ params }) {
@@ -30,7 +31,7 @@ export default async function page(props) {
         redirect('/que-hacer/')
     }
 
-    return <div className='container mx-auto space-y-16'>
+    return <div className='container mx-auto space-y-4'>
 
         {data?.whatsapp && <BtnCtaWp cta={data?.whatsapp} />}
         <main className="relative h-[400px] md:h-[600px] overflow-hidden rounded-lg">
@@ -38,14 +39,14 @@ export default async function page(props) {
         </main>
 
         <div className="text-center  flex justify-center items-center flex-col">
-            <ImgGallery path={data?.logo} className='w-44 lg:w-60 h-full  rounded-full ' />
+            <ImgGallery path={data?.logo} className='w-44 lg:w-60 h-full' />
         </div>
 
-        {categories?.includes('Restaurantes') ? <a href='menu' className='mx-auto flex justify-center items-center border-2 gap-4 text-2xl font-bold font-englebert max-w-sm w-full p-2 rounded-xl'>
+        {categories?.includes('Restaurantes') ? <Link href='menu' className='mx-auto flex justify-center items-center border-2 gap-4 text-2xl font-bold font-englebert max-w-sm w-full p-2 rounded-xl'>
             <svg viewBox="0 0 24 24" width='50' height='50' fill="none" xmlns="http://www.w3.org/2000/svg" >
                 <g id="SVGRepo_bgCarrier" strokeWidth="0"></g><g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M16 6.00008V4.2844C16 3.51587 16 3.13161 15.8387 2.88321C15.6976 2.66587 15.4776 2.5118 15.2252 2.45345C14.9366 2.38677 14.5755 2.51809 13.8532 2.78073L6.57982 5.4256C6.01064 5.63257 5.72605 5.73606 5.51615 5.91845C5.33073 6.07956 5.18772 6.28374 5.09968 6.51304C5 6.77264 5 7.07546 5 7.6811V12.0001M9 17.0001H15M9 13.5001H15M9 10.0001H15M8.2 21.0001H15.8C16.9201 21.0001 17.4802 21.0001 17.908 20.7821C18.2843 20.5903 18.5903 20.2844 18.782 19.9081C19 19.4802 19 18.9202 19 17.8001V9.20008C19 8.07997 19 7.51992 18.782 7.0921C18.5903 6.71577 18.2843 6.40981 17.908 6.21807C17.4802 6.00008 16.9201 6.00008 15.8 6.00008H8.2C7.0799 6.00008 6.51984 6.00008 6.09202 6.21807C5.71569 6.40981 5.40973 6.71577 5.21799 7.0921C5 7.51992 5 8.07997 5 9.20008V17.8001C5 18.9202 5 19.4802 5.21799 19.9081C5.40973 20.2844 5.71569 20.5903 6.09202 20.7821C6.51984 21.0001 7.07989 21.0001 8.2 21.0001Z" stroke="#000000" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"></path> </g>
             </svg>Menu
-        </a> : null}
+        </Link> : null}
         {categories?.includes('Alojamientos') && <ScrollArea className='w-full flex justify-center items-center px-4'>
             <div className='flex w-max mx-auto gap-4 justify-center items-center mb-12'>
                 {data?.rooms.map((room, index) => <CardRooms product={room} key={index} />)}
@@ -53,9 +54,9 @@ export default async function page(props) {
             <ScrollBar orientation='horizontal' />
         </ScrollArea>}
 
-        <aside className="container mx-auto flex flex-col md:flex-row start  mt-12 max-w-7xl gap-8  listing ">
+        <aside className="container mx-auto flex flex-col md:flex-row start   max-w-7xl gap-4 listing ">
 
-            <section className='block md:hidden'>
+            <section className='block md:hidden '>
                 {data?.socials_account && <div >
                     <h3 className="text-xl font-bold mb-2">Síguenos</h3>
                     <div className="space-y-2">
@@ -65,7 +66,7 @@ export default async function page(props) {
                 </div>}
             </section>
 
-            <section className='max-w-4xl w-full space-y-8 p-2'>
+            <section className='max-w-4xl w-full space-y-4 p-2'>
 
                 {/* <div>
                     <h3 className="text-xl font-bold mb-2">Meet the Owner</h3>
@@ -107,7 +108,7 @@ export default async function page(props) {
             </section>
 
             {/* Redes sociales*/}
-            <section className='space-y-12 lg:max-w-sm w-full p-2'>
+            <section className='space-y-4 lg:max-w-sm w-full p-2'>
 
                 {data?.socials_account && <div className='hidden md:block'>
                     <h3 className="text-xl font-bold mb-2">Síguenos</h3>

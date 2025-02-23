@@ -49,7 +49,7 @@ export default async function Home() {
           <source src="/assets/presentacion-viveMonterrey.mp4" type="video/mp4" />
         </video> */}
       </main>
-      <div className="lg:space-y-52 md:space-y-24  space-y-16 max-w-7xl mx-auto">
+      <div className="lg:space-y-16 md:space-y-10  space-y-6 max-w-7xl mx-auto">
 
         {/* categorias de negocios */}
         <section className="space-y-8 border-2 m-2 p-3 py-8 lg:p-14">

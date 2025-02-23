@@ -50,7 +50,7 @@ export default function Menu({ params }) {
 
 
     return <><div>
-        {business && <ImageSupabase buckets={'banners'} url={business.logo} className='w-20 h-20 lg:w-44 lg:h-44  aspect-video object-cover rounded-full' />}
+        {business && <ImageSupabase buckets={'banners'} url={business.logo} className='w-20 h-20 lg:w-44 lg:h-44  aspect-video object-cover' />}
         <div className="container">
 
             {business?.categories_restaurant && <Tabs defaultValue={business?.categories_restaurant[0]}>
