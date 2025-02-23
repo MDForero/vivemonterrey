@@ -46,7 +46,7 @@ export default function Menu({ params }) {
             setBusiness(data)
             console.log(products, data.categories_restaurant)
         })
-    }, [params])
+    }, [path])
 
 
     return <><div>
@@ -89,7 +89,6 @@ const AppSheet = () => {
                             <Table>
                                 <TableHeader>
                                     <TableRow className='font-bold'>
-                                        <TableCell>Imagen</TableCell>
                                         <TableCell>Productos</TableCell>
                                         <TableCell>Precio</TableCell>
                                     </TableRow>
@@ -97,7 +96,6 @@ const AppSheet = () => {
                                 <TableBody>
 
                                     {cart?.map(item => <TableRow key={item.id} >
-                                        <TableCell><Image src={item.image} alt={item.name} width={50} height={50} className="rounded-full aspect-square object-cover" /></TableCell>
                                         <TableCell className=" h-fit text-sm text-left w-36"><strong>{item.name.split(' ')[0].slice(0, 1) + ' ' + item.name.split(' ').slice(1, -1).join(' ')}</strong> x{item.quantity}</TableCell>
                                         <TableCell className="text-left font-bold">{item.price * item.quantity}</TableCell>
                                         <TableCell className="text-left font-bold w-4"><Button className='p-1' onClick={() => {
