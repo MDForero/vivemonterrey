@@ -5,7 +5,7 @@ export async function generateMetadata({ params }) {
     const supabase = createClient()
     const { data, error } = await supabase.from('businesses').select('*').eq('enlace', params?.negocio).single()
     return {
-        title: `${data?.name} + ' - ' + 'Menu'`,
+        title: `${data?.name} - Menu`,
         description: 'Menu de productos',
     }
 }
