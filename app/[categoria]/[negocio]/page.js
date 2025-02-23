@@ -5,6 +5,7 @@ import ImgGallery from '@/components/ImgGallery'
 import SocialMediaButton from '@/components/SocialMediaButton'
 import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area'
 import { createClient } from '@/utils/supabase/server'
+import { redirect } from 'next/navigation'
 
 export async function generateMetadata({ params }) {
     const supabase = createClient()
@@ -25,7 +26,9 @@ export default async function page(props) {
     const schedule = data?.schedule ? Object.entries(JSON.parse(data.schedule)) : []
     const categories = data?.categories?.map(category => category.name)
 
-    console.log(data, categories)
+    if (!data) {
+        redirect('/que-hacer/')
+    }
 
     return <div className='container mx-auto space-y-16'>
 
