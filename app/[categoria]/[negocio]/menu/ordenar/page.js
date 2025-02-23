@@ -24,7 +24,7 @@ export default function Page(props) {
     const handleSend = (formData) => {
         const send = document.getElementById('send')
         const message = `Hola, soy *${encodeURIComponent(formData.get('name')).trim()}*, quiero ordenar: ${messageCart} %0AMétodo de pago: *${formData.get('payment')}*  %0AMi dirección es: *${encodeURIComponent(formData.get('address')).trim()}* %0AMi teléfono es: *${formData.get('tel')}*`
-        send.setAttribute('href', `https://api.whatsapp.com/send?phone=573108854737&text=${message}`)
+        send.setAttribute('href', `https://api.whatsapp.com/send?phone=57${business.phone}&text=${message}`)
         send.click()
     }
 
