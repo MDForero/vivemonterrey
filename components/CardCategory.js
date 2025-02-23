@@ -52,7 +52,6 @@ const CardCategory = (data) => {
       <div className="absolute top-0 left-0 right-0 bottom-0 flex flex-col justify-center group-hover:justify-end items-center bg-slate-950/40 duration-1000 z-10 text-white">
       {/* {iconUrl ? <Image loading='lazy' alt={`Icono que representa la categoría ${name}`} src={iconUrl} width={0} height={0} className="group-hover:hidden w-20 h-20"/>  : null} */}
         <h1 className="font-bold capitalize text-xl">{name} </h1>
-        <p className="group-hover:block hidden text-pretty text-center">Contamos con mas de {data.businesses[0].count} {name}</p>
       </div>
       {imageUrl ? <Image loading='lazy' src={imageUrl} alt={`imagen que representa la categoría ${name}`}  width={0} height={0} className=" group-hover:scale-125 w-full object-cover duration-200" /> : null}
 

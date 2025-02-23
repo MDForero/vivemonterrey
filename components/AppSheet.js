@@ -132,20 +132,14 @@ const TriggerShopping = () => {
         }
     }, [cart])
     return <>
+        
         <SheetTrigger asChild>
-            <Button className='hidden md:block md:absolute top-0  right-0 z-50 '>
-                <p className="relative ">  <ShoppingCart className="hidden md:block" />
-                    <span className={(animate ? 'animate-ping text-2xl duration-1000' : ' ') + " md:absolute md:-top-3 md:-left-3 font-bold  "}>{cart.reduce((acc, value) => acc + value.quantity, 0)}</span>
-                </p>
-            </Button>
-        </SheetTrigger>
-        <SheetTrigger asChild>
-            <div className='fixed bottom-0 w-full   md:hidden z-50 '>
-                <p className="md:relative m-2 rounded-md bg-blue-200 p-2 text-center text-lg">
-                    <span className={(animate ? 'animate-ping text-2xl duration-1000' : ' ') + " md:absolute md:-top-3 md:-left-3 font-bold  "}>{cart.reduce((acc, value) => acc + value.quantity, 0)}</span>
+            <div className='fixed bottom-0  inset-x-0 max-w-96 mx-auto w-full p-2 cursor-pointer bg-de'>
+                <p className="md:relative m-2 rounded-md bg-destructive p-2 text-center text-lg">
+                    <span className={(animate ? 'animate-ping text-2xl duration-1000' : ' ') + " font-bold  "}>{cart.reduce((acc, value) => acc + value.quantity, 0)}</span>
 
-                    <strong className='md:hidden'> Ordenar </strong>
-                    <span className="md:hidden font-bold">{cart.reduce((acc, value) => acc + (value.quantity * value.price), 0)}</span>
+                    <strong className=''> Ordenar </strong>
+                    <span className=" font-bold">{cart.reduce((acc, value) => acc + (value.quantity * value.price), 0)}</span>
                 </p>
             </div>
         </SheetTrigger>
