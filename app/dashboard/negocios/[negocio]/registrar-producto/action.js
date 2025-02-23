@@ -1,5 +1,6 @@
 'use client'
 import { createClient } from "@/utils/supabase/client"
+import { redirect } from "next/navigation";
 import { toast } from "sonner";
 
 const supabase = createClient()
@@ -31,7 +32,7 @@ export async function productRegister(formData) {
             data['category'] = other_category
             const { data: updateBusinesses, error: errorBusinesses } = await supabase.from('businesses').update({ categories_restaurant: [other_category] }).eq('id', businessName.id)
 
-        } else if (!businessName.categories_restaurant.includes(other_category) && other_category !== '') { 
+        } else if (!businessName.categories_restaurant.includes(other_category) && other_category !== '') {
             data['category'] = other_category
             const { data: updateBusinesses, error: errorBusinesses } = await supabase.from('businesses').update({ categories_restaurant: [...businessName.categories_restaurant, other_category] }).eq('id', businessName.id)
         }
@@ -47,17 +48,11 @@ export async function productRegister(formData) {
 
         const { data: dataProduct, error: errorProduct } = await supabase.from('products').insert(data).select()
 
- 
+
         if (dataProduct) {
             console.log(dataProduct)
-            toast('Producto registrado', {
-                description: 'El producto ha sido registrado con éxito',
-                action: {
-                    label: 'Ir a productos',
-                    onClick: () => window.location.href = `/dashboard/negocios/${businessName.name}/registrar-producto`
-                }
-            }
-            )
+            toast.success('Producto registrado')
+            window.location.reload()
         }
     }
     catch (error) {
