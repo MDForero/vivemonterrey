@@ -9,7 +9,6 @@ export default function ImageSupabase({ buckets, url, className, alt }) {
     const [imageUrl, setImageUrl] = useState(null)
     const [loading, setLoading] = useState(true)
     const supabase = createClient()
-    console.log(url)
     useEffect(() => {
         async function downloadImage() {
             try {
