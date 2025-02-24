@@ -23,8 +23,7 @@ export default function Page(props) {
     const [logo, setLogo] = useState(null)
     const [banner, setBanner] = useState(null)
 
-    useEffect( () => {
-        console.log(params?.negocio)
+    useEffect(() => {
         async function fetchData() {
 
             const { data, error } = await supabase
@@ -32,16 +31,18 @@ export default function Page(props) {
                 .select('* , categories(name, id)')
                 .eq('enlace', params.negocio)
                 .single()
-            
-            console.log(data, 'data', error , 'error')
+            const { data: categoriesData, error: errorCategories } = await supabase
+                .from('categories')
+                .select('name, id')
 
-            if (error) {
+            console.log(data, 'data', error, 'error')
+
+            if (error || errorCategories) {
                 console.error('Error fetching business data:', error)
             } else {
                 setBusinessData(data)
+                setCategories(categoriesData)
             }
-            const { data: categories, error: errorCategories } = await supabase.from('categories').select('name, id')
-            setCategories(categories?.data)
             setIsLoading(false)
 
 
@@ -58,7 +59,7 @@ export default function Page(props) {
         return <div>Loading...</div>
     }
 
-    if (!businessData) {
+    if (!businessData || !categories) {
         return <div>Business not found</div>
     }
 
@@ -121,14 +122,13 @@ export default function Page(props) {
         const url = URL.createObjectURL(file)
         setLogo(<img src={url} alt='logo' className='w-44 object-cover' />)
     }
+
     const handleImageUpload = (e) => {
         e.preventDefault()
         const file = e.target.files[0]
         const url = URL.createObjectURL(file)
         setBanner(<img src={url} alt='logo' className='w-44 object-cover' />)
     }
-
-    console.log(businessData)
 
     return (
         <div className='container mx-auto space-y-4'>
@@ -182,7 +182,6 @@ export default function Page(props) {
                             <Label htmlFor='iframe_maps'> Url Google Maps </Label>
                             <Input defaultValue={businessData?.iframe_maps} name='iframe_maps' id='iframe_maps' />
                         </div>
-
                         <div>
                             <Label htmlFor='website'> Sitio Web </Label>
                             <Input defaultValue={businessData?.website} name='website' id='website' placeholder='unsitioincreible.com' />
@@ -210,6 +209,7 @@ export default function Page(props) {
                 </Card>
             </form>
             <form>
+
                 <Card className='max-w-6xl mx-auto'>
                     <CardHeader>
                         <CardTitle className='text-2xl'>Categorías y servicios</CardTitle>
@@ -229,10 +229,16 @@ export default function Page(props) {
                                 <fieldset>
                                     <legend className='font-semibold'>Categorías</legend>
                                     <div className='space-y-2'>
-                                        {categories?.map((category, index) => <div key={index} className='flex  items-center gap-2'>
-                                            <Input type='checkbox' id={category?.id} name={category?.id} defaultChecked={businessData?.categories?.includes(category.id)} className='w-6 h-6' />
-                                            <Label htmlFor={category?.id}>{category?.name}</Label>
-                                        </div>)}
+                                        {categories?.map((category, index) => {
+                                            const {name , id} = category
+                                            const categoriesName = businessData?.categories?.map(category => category.name)
+                                            console.log(categoriesName.includes(category.name), 'businessData?.categories?.includes(category.name)')  
+                                            return (<div key={index} className='flex  items-center gap-2'>
+                                                <Input type='checkbox' id={id} name={id} defaultChecked={businessData?.categories?.includes(category.name)} className='w-6 h-6' />
+                                                <Label htmlFor={id}>{name}</Label>
+                                            </div>)
+                                        })}
+
                                     </div>
                                 </fieldset>
                             </CardContent>
