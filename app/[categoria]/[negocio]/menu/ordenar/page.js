@@ -1,16 +1,16 @@
 'use client'
 import { Table, TableBody, TableCell, TableFooter, TableHeader, TableRow } from "@/components/ui/table"
 import { actions, useCart, useCartDispatch } from "../../../../../components/CartContext"
-import { Button } from "@/components/ui/button" 
-import { Radio, Trash2Icon } from "lucide-react"
-import Image from "next/image"
+import { Button } from "@/components/ui/button"
+import { Trash2Icon } from "lucide-react"
 import { Label } from "@/components/ui/label"
 import { Input } from "@/components/ui/input"
-import ImageSupabase from "@/components/ImageSupabase"
 import { createClient } from "@/utils/supabase/client"
-import { useEffect, useState, use } from "react";
+import { useEffect, useState, use } from "react"
 import { Card, CardContent } from "@/components/ui/card"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
+import ReCAPTCHA from "react-google-recaptcha"
+import { set } from "date-fns"
 
 export default function Page(props) {
     const params = use(props.params);
@@ -20,8 +20,14 @@ export default function Page(props) {
     const messageCart = cart.map(item => `%0A *${item.name.trim()}* x ${item.quantity}`).join(', ')
     const supabase = createClient()
     const [business, setBusiness] = useState(null)
+    const [message, setMessage] = useState(null)
 
     const handleSend = (formData) => {
+        if (!recaptcha) {
+            alert('Por favor, complete el captcha')
+            setMessage('Por favor, complete el captcha')
+            return
+        }
         const send = document.getElementById('send')
         const message = `Hola, soy *${encodeURIComponent(formData.get('name')).trim()}*, quiero ordenar: ${messageCart} %0AMétodo de pago: *${formData.get('payment')}*  %0AMi dirección es: *${encodeURIComponent(formData.get('address')).trim()}* %0AMi teléfono es: *${formData.get('tel')}*`
         send.setAttribute('href', `https://api.whatsapp.com/send?phone=57${business.phone}&text=${message}`)
@@ -42,6 +48,13 @@ export default function Page(props) {
             getData()
         }
     }, [params])
+
+    const [recaptcha, setRecaptcha] = useState('')
+
+    const handleReCaptchaChange = (token) => {
+        setRecaptcha(token)
+        console.log(token)
+    }
 
     return <div className="flex flex-col w-screen space-y-8 justify-center items-center mx-auto">
         {/* {business?.logo && <ImageSupabase buckets='banners' url={business?.logo ?? null} className='w-44 p-2 mx-auto' />} */}
@@ -100,6 +113,13 @@ export default function Page(props) {
                             </RadioGroup>
                         </fieldset>
                     </div>
+
+                    <ReCAPTCHA
+                        sitekey="6Lcp1WQqAAAAAHvQQevlOqsNSUfuVzaySlrPU2Dx"
+                        onChange={handleReCaptchaChange}
+                        className="mx-auto w-fit"
+                    />
+                    {message && <div className="text-center text-red-500">{message}</div>}
                     <Table className=''>
                         <TableHeader className='font-bold text-xl'>
                             <TableRow>
