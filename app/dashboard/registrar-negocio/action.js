@@ -51,15 +51,7 @@ export async function registerBusiness(formData) {
 
   const supabase = createClient()
 
-  const folder = formData.get("name")
-    .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g, "")
-    .replace(/ñ/g, "n")
-    .replace(/Ñ/g, "N")
-    .split(' ')
-    .join('-');
-
-  console.log(folder)
+  const folder = formData.get('name').toLowerCase().normalize('NFD').trim().replace(/[\u0300-\u036f]/g, '').replace(/ /g, '-')
   // Subir imagen de banner
   const file = formData.get('banner_url')
   const fileExtension = file.name.split('.').pop()
@@ -120,7 +112,7 @@ export async function registerBusiness(formData) {
     logo: logoPath,
     socials_account: formData.get('socials_account').split(',').map(social => social.trim()),
     gallery: galleryArray,
-    enlace: formData.get('name').toLowerCase().replace(/[\u0300-\u036f]/g, '').replace(/ /g, '-').replace(/ñ/g, 'n'),
+    enlace: folder,
     schedule: JSON.stringify(shcedule),
   }
 
