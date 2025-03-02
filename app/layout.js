@@ -37,6 +37,9 @@ export default function RootLayout({ children }) {
 
   return (
     <html lang="es" className={`${asap.variable} ${englebert.variable}`}>
+      <head>
+        <meta name="apple-mobile-web-app-title" content="Monterrey" />
+      </head>
       <body >
         <Script src="https://www.googletagmanager.com/gtag/js?id=G-M2MJPJS6N6" />
         <Script id="google-analytics">
