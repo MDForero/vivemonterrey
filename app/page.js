@@ -1,9 +1,9 @@
+
 import AcceleratorCount from "@/components/AcceleratorCount";
 import CardCategory from "@/components/CardCategory";
 import Slider from "@/components/Slider";
 import { createClient } from "@/utils/supabase/server";
 import { CompassIcon, HotelIcon, PizzaIcon } from "lucide-react";
-import Image from "next/image";
 
 export const metadata = {
   title: "Vive Monterrey",

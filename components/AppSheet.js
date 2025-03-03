@@ -110,8 +110,8 @@ const AppSheet = () => {
                     </div>
                 </div>
             <SheetFooter>
-                <div >
-                    {!(cart.length === 0) ? <Link href='ordenar' ><Button className="btn btn-primary float-right" >Pagar</Button></Link> : <></>}
+                <div  className="w-full">
+                    {!(cart.length === 0) ? <Link href='ordenar' className="btn btn-primary bg-primary text-white font-semibold float-right py-2 px-4 rounded-md">Ordenar</Link> : <></>}
                     {!(cart.length === 0) ? <Button onClick={() => dispatch({ type: actions.clear })} className="float-left" variant='outline'>Limpiar orden</Button> : <></>}
                 </div>
             </SheetFooter>
