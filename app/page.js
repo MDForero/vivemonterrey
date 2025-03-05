@@ -2,6 +2,7 @@
 import AcceleratorCount from "@/components/AcceleratorCount";
 import CardCategory from "@/components/CardCategory";
 import Slider from "@/components/Slider";
+import SliderCategory from "@/components/SliderCategory";
 import { createClient } from "@/utils/supabase/server";
 import { CompassIcon, HotelIcon, PizzaIcon } from "lucide-react";
 
@@ -48,19 +49,23 @@ export default async function Home() {
         {/* <video autoPlay className="object-cover aspect-square lg:aspect-auto w-full lg:h-[540px] xl:h-[680px] " muted loop     >
           <source src="/assets/presentacion-viveMonterrey.mp4" type="video/mp4" />
         </video> */}
+        {/* <PlayerYoutube /> */}
       </main>
       <div className="lg:space-y-16 md:space-y-10  space-y-6 max-w-7xl mx-auto">
 
         {/* categorias de negocios */}
         <section className="space-y-8 border-2 m-2 p-3 py-8 lg:p-14">
           <div className="text-center space-y-2 ">
-            <h1 className="text-4xl font-bold title">Descubre Monterrey, Casanare</h1>
-            <h1 className="text-2xl font-bold text-primary/85">¡Tu guía perfecta para explorar lo mejor del Llano!</h1>
-            <h3 className="text-xl text-primary/75">Adéntrate en la riqueza cultural, los paisajes naturales y las experiencias únicas que ofrece Monterrey. Encuentra alojamientos acogedores, vistas impresionantes desde miradores, actividades emocionantes, y mucho más. ViveMonterrey es el punto de inicio para planear tu próxima aventura. </h3>
+            <h1 className="text-xl font-bold title">Descubre Monterrey, Casanare</h1>
+            <h1 className="text-md font-bold text-primary/85">¡Tu guía perfecta para explorar lo mejor del Llano!</h1>
+            <h3 className="text-sm text-primary/75">Adéntrate en la riqueza cultural, los paisajes naturales y las experiencias únicas que ofrece Monterrey. Encuentra alojamientos acogedores, vistas impresionantes desde miradores, actividades emocionantes, y mucho más. ViveMonterrey es el punto de inicio para planear tu próxima aventura. </h3>
           </div>
 
-          <div className="flex justify-around gap-8 flex-wrap">
-            {data?.map((category) => <CardCategory key={category.id} {...category} />)}
+          <div className=" justify-around gap-8 flex-wrap md:flex hidden">
+            {data?.map((category) => <CardCategory key={category.id} data={category} />)}
+          </div>
+          <div className="md:hidden">
+            <SliderCategory data={data}/>
           </div>
         </section>
 

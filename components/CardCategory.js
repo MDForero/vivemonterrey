@@ -3,8 +3,9 @@ import { createClient } from "@/utils/supabase/client"
 import Image from "next/image"
 import Link from "next/link"
 import { useEffect, useState } from "react"
+import { Skeleton } from "./ui/skeleton"
 
-const CardCategory = (data) => {
+const CardCategory = ({data}) => {
   const supabase = createClient()
   const [imageUrl, setImageUrl] = useState(null)
   const [iconUrl, setIconUrl] = useState(null)
@@ -48,7 +49,8 @@ const CardCategory = (data) => {
   console.log(data)
 
   return (
-    <Link href={name.split(' ').join('-')} className=" group w-80 aspect-video border-2 relative overflow-hidden rounded-xl ">
+    <div>
+    <Link href={name.split(' ').join('-')} className="hidden md:flex group w-80 aspect-video border-2 relative overflow-hidden rounded-xl ">
       <div className="absolute top-0 left-0 right-0 bottom-0 flex flex-col justify-center group-hover:justify-end items-center bg-slate-950/40 duration-1000 z-10 text-white">
       {/* {iconUrl ? <Image loading='lazy' alt={`Icono que representa la categoría ${name}`} src={iconUrl} width={0} height={0} className="group-hover:hidden w-20 h-20"/>  : null} */}
         <h1 className="font-bold capitalize text-xl">{name} </h1>
@@ -56,6 +58,15 @@ const CardCategory = (data) => {
       {imageUrl ? <Image loading='lazy' src={imageUrl} alt={`imagen que representa la categoría ${name}`}  width={0} height={0} className=" group-hover:scale-125 w-full object-cover duration-200" /> : null}
 
     </Link>
+    <Link href={name.split(' ').join('-')} className=" md:hidden flex group w-24 sm:w-36 aspect-[3/4]  border-2 relative overflow-hidden rounded-xl ">
+      <div className="absolute top-0 left-0 right-0 bottom-0 flex flex-col justify-center group-hover:justify-end items-center bg-slate-950/40 duration-1000 z-10 text-white">
+      {/* {iconUrl ? <Image loading='lazy' alt={`Icono que representa la categoría ${name}`} src={iconUrl} width={0} height={0} className="group-hover:hidden w-20 h-20"/>  : null} */}
+        <h1 className="font-bold capitalize text-sm sm:text-md text-center">{name} </h1>
+      </div>
+      {imageUrl ? <Image loading='lazy' src={imageUrl} alt={`imagen que representa la categoría ${name}`}  width={0} height={0} className=" group-hover:scale-125 aspect-[4/3] w-full object-cover duration-200" /> : <Skeleton className='w-36 aspect-[4/4]'/>}
+
+    </Link>
+    </div>
   )
 }
 

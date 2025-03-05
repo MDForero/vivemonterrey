@@ -1,3 +1,4 @@
+'use client'
 import { Asap, Englebert } from "next/font/google";
 import "./globals.css";
 import NavBar from "@/components/layouts/NavBar";
@@ -53,8 +54,10 @@ export default function RootLayout({ children }) {
         </Script>
 
         <NavBar links={links} />
+
         <BackTopButton />
         <div className="container mx-auto lg:space-y-8 md:space-y-6  space-y-2 mb-20">
+          {/* <PlayerYouTube /> */}
           {children}
         </div>
         <Footer />
