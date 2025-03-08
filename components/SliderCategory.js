@@ -14,7 +14,7 @@ const SliderCategory = ({data}) => {
                 }),
             ]}>
             <CarouselContent>
-                {data?.map((category) => <CarouselItem key={category.id} className="basis-1/2 sm:basis-1/3">
+                {data?.map((category) => <CarouselItem key={category.id} className="basis-1/2 sm:basis-1/3 ">
                     <CardCategory data={category} />
                 </CarouselItem>
                 )}
