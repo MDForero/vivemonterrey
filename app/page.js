@@ -54,11 +54,11 @@ export default async function Home() {
       <div className="lg:space-y-16 md:space-y-10  space-y-6 max-w-7xl mx-auto">
 
         {/* categorias de negocios */}
-        <section className="space-y-8 border-2 m-2 p-3 py-8 lg:p-14">
+        <section className="space-y-8 md:border-2 m-2 p-3 py-8 lg:p-14">
           <div className="text-center space-y-2 ">
             <h1 className="text-xl font-bold title">Descubre Monterrey, Casanare</h1>
             <h1 className="text-md font-bold text-primary/85">¡Tu guía perfecta para explorar lo mejor del Llano!</h1>
-            <h3 className="text-sm text-primary/75">Adéntrate en la riqueza cultural, los paisajes naturales y las experiencias únicas que ofrece Monterrey. Encuentra alojamientos acogedores, vistas impresionantes desde miradores, actividades emocionantes, y mucho más. ViveMonterrey es el punto de inicio para planear tu próxima aventura. </h3>
+            <h3 className="text-sm text-primary/75 text-justify md:text-center">Adéntrate en la riqueza cultural, los paisajes naturales y las experiencias únicas que ofrece Monterrey. Encuentra alojamientos acogedores, vistas impresionantes desde miradores, actividades emocionantes, y mucho más. ViveMonterrey es el punto de inicio para planear tu próxima aventura. </h3>
           </div>
 
           <div className=" justify-around gap-8 flex-wrap md:flex hidden">

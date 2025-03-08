@@ -10,11 +10,11 @@ const SliderCategory = ({data}) => {
         <Carousel className=' w-full'
             plugins={[
                 Autoplay({
-                    delay: 2000,
+                    delay: 2500,
                 }),
             ]}>
             <CarouselContent>
-                {data?.map((category) => <CarouselItem key={category.id} className="basis-1/3 sm:basis-1/4">
+                {data?.map((category) => <CarouselItem key={category.id} className="basis-1/2 sm:basis-1/3">
                     <CardCategory data={category} />
                 </CarouselItem>
                 )}
