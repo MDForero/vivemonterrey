@@ -21,8 +21,9 @@ export default function Page(props) {
 
     useEffect(() => {
         async function fetch() {
-            const { data: room, error } = await supabase.from('rooms').select('*').eq('id', params.rooms).single()
+            const { data: room, error } = await supabase.from('rooms').select('*, businesses(phone)').eq('id', params.rooms).single()
             if (room) {
+                console.log(room)
                 setData(room)
             }
         }
@@ -49,9 +50,8 @@ export default function Page(props) {
         </Carousel >
         <h1>{data?.name}</h1>
         <p>{data?.description}</p>
-        <div className="mx-auto w-fit border-1 rounded-md p-2 bg-gray-100 mt-4 space-x-4">
-            <InputCalendar name='Check-in' />
-            <a href='#'>Reservar</a>
+        <div className="">
+            <InputCalendar data={data}/>
         </div>
     </div>
 } 
