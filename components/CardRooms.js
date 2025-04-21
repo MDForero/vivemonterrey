@@ -60,7 +60,7 @@ const CardRooms = ({ product, dispatch, action }) => {
                 </dl>
             </div>
         </div>
-        <Link href={product.id} className='w-full block p-1 font-bold rounded-sm text-center bg-[#b91c1c] text-white '>Reservar</Link>
+        <Link href={product.id} className='w-full block p-1 font-bold rounded-sm text-center bg-[#3F7D58] text-white '>Reservar</Link>
         {/* <div >
             <Popover>
                 <PopoverTrigger>

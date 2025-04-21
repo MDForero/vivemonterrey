@@ -43,11 +43,11 @@ export default function QrCode({ value, logo }) {
             },
             cornersSquareOptions: {
                 type: 'dot', // square, rounded
-                color: '#b91c1c'
+                color: '#3F7D58'
             },
             cornersDotOptions: {
                 type: 'dot',
-                color:'#b91c1c' // square, rounded
+                color:'#3F7D58' // square, rounded
             }
         })
         )

@@ -63,7 +63,7 @@ export function FormContact() {
                         onChange={handleReCaptchaChange}
                         className="mx-auto"
                     />
-                    <Button formAction={action} className="w-full bg-[#b91c1c]">
+                    <Button formAction={action} className="w-full bg-[#3F7D58]">
                         Contactar
                     </Button>
                 </form>

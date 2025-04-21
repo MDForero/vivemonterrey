@@ -11,13 +11,14 @@ import { Card, CardContent } from "@/components/ui/card"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import ReCAPTCHA from "react-google-recaptcha"
 import { set } from "date-fns"
+import Image from "next/image"
 
 export default function Page(props) {
     const params = use(props.params);
 
     const cart = useCart()
     const dispatch = useCartDispatch()
-    const messageCart = cart.map(item => `%0A *${item.name.trim()}* x ${item.quantity}`).join(', ')
+    const messageCart = cart.map(item => `%0A  ${item.quantity} x *${item.category.trim()} ${item.name.trim()}* `).join(', ')
     const supabase = createClient()
     const [business, setBusiness] = useState(null)
     const [message, setMessage] = useState(null)
@@ -56,7 +57,7 @@ export default function Page(props) {
         console.log(token)
     }
 
-    return <div className="flex flex-col w-screen space-y-8 justify-center items-center mx-auto">
+    return <div className="flex flex-col w-full space-y-8 justify-center items-center ">
         {/* {business?.logo && <ImageSupabase buckets='banners' url={business?.logo ?? null} className='w-44 p-2 mx-auto' />} */}
         <Card>
             <CardContent>
@@ -152,7 +153,7 @@ export default function Page(props) {
         </Card>
         <a href='#' id='send' target="_blank" className="hidden">Enviar</a>
         <div>
-            <img src="/logo.svg" alt="logo" className="w-44" />
+            <Image loading='lazy' src="/logo.svg" alt="logo" className="w-44" width={0} height={0} />
         </div>
     </div>
 }

@@ -10,6 +10,7 @@ import { Button } from "./ui/button";
 import { Pencil } from "lucide-react";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
+import Image from "next/image";
 
 export default function ActionUpdate({ data }) {
     const supabase = createClient()
@@ -75,7 +76,7 @@ export default function ActionUpdate({ data }) {
                 <div className="relative">
                     <Label htmlFor='image'>
                         {!image && <ImageSupabase url={data?.image} alt={data?.name} buckets={'banners'} className='w-full aspect-[1:1] object-cover ' />}
-                        {image && <img src={image} alt={data?.name} className='w-full aspect-[1:1] object-cover' />}
+                        {image && <Image loading='lazy' width={0} height={0} src={image} alt={data?.name} className='w-full aspect-[1:1] object-cover' />}
                         <div className="absolute top-0 right-0 bg-white p-1 rounded-md cursor-pointer">
                             <Pencil />
                         </div>

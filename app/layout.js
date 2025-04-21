@@ -1,28 +1,17 @@
-'use client'
-import { Asap, Englebert } from "next/font/google";
+import "@css/aos.css";
+import "@css/bootstrap.min.css";
+import "@css/flaticon.min.css";
+import "@css/fontawesome-5.14.0.min.css";
+import "@css/magnific-popup.min.css";
+import "@css/nice-select.min.css";
+import "@css/slick.min.css";
 import "./globals.css";
-import NavBar from "@/components/layouts/NavBar";
-import BackTopButton from "@/components/BackTopButton";
-import Footer from "@/components/layouts/Footer";
+import "@css/style.css";
 import Script from "next/script";
+import ReveloLayout from "@/components/layouts/ReveloLayout";
 // import { createClient } from "@/utils/supabase/client";
 
 
-
-const englebert = Englebert({
-  weight: '400',
-  subsets: ["latin"],
-  style: 'normal',
-  display: 'swap',
-  variable: '--font-englebert',
-})
-
-const asap = Asap({
-  subsets: ["latin"],
-  weights: ['400', '500', '600', '700'],
-  variable: '--font-asap',
-  display: 'swap',
-});
 
 
 
@@ -37,7 +26,7 @@ export default function RootLayout({ children }) {
   ]
 
   return (
-    <html lang="es" className={`${asap.variable} ${englebert.variable}`}>
+    <html lang="es" className={``}>
       <head>
         <meta name="apple-mobile-web-app-title" content="Monterrey" />
       </head>
@@ -53,14 +42,9 @@ export default function RootLayout({ children }) {
         `}
         </Script>
 
-        <NavBar links={links} />
-
-        <BackTopButton />
-        <div className="container mx-auto lg:space-y-8 md:space-y-6  space-y-2 mb-20">
-          {/* <PlayerYouTube /> */}
+        <ReveloLayout>
           {children}
-        </div>
-        <Footer />
+        </ReveloLayout>
       </body>
     </html>
   )

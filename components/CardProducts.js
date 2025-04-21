@@ -46,13 +46,15 @@ const CardProducts = ({ product, dispatch, action }) => {
         <div className='col-span-2 flex flex-col justify-between p-2'>
             <h1 className='text-xl font-bold px-1 leading-4 title capitalize'>{product.name}</h1>
             <p className='text-sm font-light line-clamp-3 px-1'>{product.description}</p>
-            <div className='flex md:block font-bold justify-between items-center px-1 pb-1'>
-                {product.price}
+            <div className='flex  font-bold justify-between items-center px-1 pb-1'>
+                {dispatch ?
+                    <button onClick={() => dispatch({ type: action, payload: { id: product.id, name: product.name, category:product.category, price: product.price, image: urlImage } })} className='  rounded-md  flex justify-center items-center bg-[#EC5228] text-white w-fit py-1 px-2 font-semibold'>Agregar al carrito</button> :
+                    <button className=' hidden absolute bottom-0 right-0 rounded-2xl rounded-tl-3xl w-1/6 h-1/2 md:flex justify-center items-center bg-white '><PlusCircleIcon className=' w-8 h-8' /></button>
+                }
+                <p>
+                    {product.price}
+                </p>
             </div>
-            {dispatch ?
-                <button onClick={() => dispatch({ type: action, payload: { id: product.id, name: product.name, price: product.price, image: urlImage } })} className=' absolute bottom-0 right-0 rounded-2xl rounded-tl-3xl w-1/6 h-1/2 flex justify-center items-center bg-white '><PlusCircleIcon className=' w-8 h-8' /></button> :
-                <button className=' hidden absolute bottom-0 right-0 rounded-2xl rounded-tl-3xl w-1/6 h-1/2 md:flex justify-center items-center bg-white '><PlusCircleIcon className=' w-8 h-8' /></button>
-            }
         </div>
     </div>
     )

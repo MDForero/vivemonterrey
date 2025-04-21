@@ -7,6 +7,7 @@ import { Button } from "../ui/button"
 import { toast } from "sonner"
 import { useRouter, usePathname } from "next/navigation"
 import { set } from "react-hook-form"
+import Image from "next/image"
 
 export default function UploadImage({ bucket, businesses }) {
     const supabase = createClient()
@@ -62,7 +63,7 @@ export default function UploadImage({ bucket, businesses }) {
 
 
             <label htmlFor="file" className={`relative w-64 aspect-square flex justify-center items-center ${image === null ? 'bg-gray-600/70' : ''}`}>
-                {image === null ? <PlusCircleIcon width={50} height={50} /> : <img src={URL.createObjectURL(image)} alt='imagen' className="w-64 aspect-square object-cover" />}
+                {image === null ? <PlusCircleIcon width={50} height={50} /> : <Image loading='lazy' src={URL.createObjectURL(image)} alt='imagen' width={0} height={0} className="w-64 aspect-square object-cover" />}
             <div className={isLoading? "absolute inset-0 flex justify-center items-center bg-gray-900/80" : "hidden" }>Loading...</div>
             </label>
             <input type='file' id='file' hidden onChange={(e) => setImage(e.target.files[0])} />

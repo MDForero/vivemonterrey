@@ -49,14 +49,14 @@ export default function Menu({ params }) {
     }, [path])
 
 
-    return <><div>
-        {business && <ImageSupabase buckets={'banners'} url={business.logo} className='w-20 h-20 lg:w-44 lg:h-44  aspect-video object-cover' />}
+    return <>
+        {business && <ImageSupabase buckets={'banners'} url={business.logo} className='w-36 md:w-40 lg:w-56 xl:w-80 aspect-video object-contain' />}
         <div className="container">
 
             {business?.categories_restaurant && <Tabs defaultValue={business?.categories_restaurant[0]}>
                 <ScrollArea className='w-full py-3'>
                     <TabsList className=' gap-2 bg-white z-0'>
-                        {business?.categories_restaurant.map(category => <TabsTrigger className='data-[state=active]:text-white data-[state=active]:bg-[#b91c1c] border bg-blue-100' key={category} value={category}>{category}</TabsTrigger>)}
+                        {business?.categories_restaurant.map(category => <TabsTrigger className='data-[state=active]:text-white data-[state=active]:bg-[#3F7D58] border bg-blue-100' key={category} value={category}>{category}</TabsTrigger>)}
                     </TabsList>
                     <ScrollBar orientation='horizontal' />
                 </ScrollArea>
@@ -69,8 +69,8 @@ export default function Menu({ params }) {
         </div>
         <AppSheet />
 
-    </div>
     </>
+
 }
 
 const AppSheet = () => {
@@ -96,8 +96,8 @@ const AppSheet = () => {
                                 <TableBody>
 
                                     {cart?.map(item => <TableRow key={item.id} >
-                                        <TableCell className=" h-fit text-sm text-left w-36"><strong>{item.name}</strong> x{item.quantity}</TableCell>
-                                        <TableCell className="text-left font-bold">{item.price * item.quantity}</TableCell>
+                                        <TableCell className=" h-fit text-xs text-left w-36"> {item.quantity} x {item.category} {item.name} </TableCell>
+                                        <TableCell className="text-left font-semibold">{item.price * item.quantity}</TableCell>
                                         <TableCell className="text-left font-bold w-4"><Button className='p-1' onClick={() => {
                                             dispatch({
                                                 type: actions.remove, payload: { id: item.id }
@@ -134,8 +134,8 @@ const TriggerShopping = () => {
     return <>
         
         <SheetTrigger asChild>
-            <div className='fixed bottom-0  inset-x-0 max-w-96 mx-auto w-full p-2 cursor-pointer bg-de'>
-                <p className="md:relative m-2 rounded-md bg-destructive p-2 text-center text-lg">
+            <div className='fixed bottom-0  inset-x-0 max-w-96 mx-auto w-full p-2 cursor-pointer '>
+                <p className="md:relative m-2 rounded-md bg-[#3F7D58] p-2 text-center text-white text-lg">
                     <span className={(animate ? 'animate-ping text-2xl duration-1000' : ' ') + " font-bold  "}>{cart.reduce((acc, value) => acc + value.quantity, 0)}</span>
 
                     <strong className=''> Ordenar </strong>

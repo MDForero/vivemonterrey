@@ -20,7 +20,7 @@ export default async function page({ params }) {
             {business?.categories_restaurant && <Tabs defaultValue={business?.categories_restaurant[0]}>
                 <ScrollArea className='max-w-5xl w-full py-3 mx-auto'>
                     <TabsList className=' gap-2 bg-white z-0'>
-                        {business?.categories_restaurant.map(category => <TabsTrigger className='data-[state=active]:text-white data-[state=active]:bg-[#b91c1c] border bg-blue-100' key={category} value={category}>{category}</TabsTrigger>)}
+                        {business?.categories_restaurant.map(category => <TabsTrigger className='data-[state=active]:text-white data-[state=active]:bg-[#3F7D58] border bg-blue-100' key={category} value={category}>{category}</TabsTrigger>)}
                     </TabsList>
                     <ScrollBar orientation='horizontal' />
                 </ScrollArea>
