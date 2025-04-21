@@ -30,7 +30,7 @@ const CardContact = ({ data }) => {
                 <h5>{data.title}</h5>
                 <div className="text flex flex-col line-clamp-1">
                     <i className="far fa-envelope" />{" "}
-                    {data.links.map((link, index) => <a href={link.url}>{link.name}</a>)}
+                    {data.links.map((link, index) => <a key={index} href={link.url}>{link.name}</a>)}
                 </div>
             </div>
         </div>
