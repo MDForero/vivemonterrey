@@ -3,9 +3,12 @@ import Link from "next/link";
 import { Fragment, use, useEffect, useState } from "react";
 import { createClient } from "@/utils/supabase/client";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 
 export default function NavbarRovelo() {
 
+    const supabase = createClient()
+    const path = usePathname()
 
     const links = [
         { name: 'Inicio', url: '/' },
@@ -19,10 +22,13 @@ export default function NavbarRovelo() {
     const [categories, setCategories] = useState(null)
 
 
-    const supabase = createClient()
 
     const sidebarClick = () => {
         document.querySelector("body").classList.toggle("side-content-visible");
+    }
+
+    const closeSidebar = () => {
+        document.querySelector("body").classList.remove("side-content-visible");
     }
 
     useEffect(() => {
@@ -38,6 +44,10 @@ export default function NavbarRovelo() {
         }
         getCategory()
     }, [])
+
+    useEffect(() => {
+        closeSidebar()
+    }, [path])
 
     const activeMenuSet = (value) =>
         setActiveMenu(activeMenu === value ? "" : value),
@@ -59,7 +69,7 @@ export default function NavbarRovelo() {
                             <div className="logo-outer d-block">
                                 <div className="logo">
                                     <Link href="/">
-                                        <Image loading='lazy' src="/assets/images/logos/logo-two.png"  className="w-full" alt="Logo" title="Logo" width={0} height={0} />
+                                        <Image loading='lazy' src="/assets/images/logos/logo-two.png" className="w-full" alt="Logo" title="Logo" width={0} height={0} />
                                     </Link>
                                 </div>
                             </div>
@@ -86,7 +96,7 @@ export default function NavbarRovelo() {
                     </div>
                     <div className="logo text-lg-center">
                         <Link href="/">
-                            <Image loading='lazy' src="/assets/images/logos/logo-two.png" alt="Logo" width={0} height={0} className="w-full"/>
+                            <Image loading='lazy' src="/assets/images/logos/logo-two.png" alt="Logo" width={0} height={0} className="w-full" />
                         </Link>
                     </div>
                     <hr className="my-40" />
