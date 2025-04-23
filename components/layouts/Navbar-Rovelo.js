@@ -5,6 +5,7 @@ import { createClient } from "@/utils/supabase/client";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 
+
 export default function NavbarRovelo() {
 
     const supabase = createClient()
@@ -16,6 +17,14 @@ export default function NavbarRovelo() {
         { name: 'Eventos', url: '/eventos' },
         { name: 'Vivir en Monterrey', url: '/vivir-en-monterrey' },
     ]
+
+    const socialAccounts = [
+        { name: 'Facebook', url: 'https://www.facebook.com/vivemonterrey.com.co/', icon: 'fab fa-facebook-f' },
+        { name: 'Instagram', url: 'https://www.instagram.com/vivemonterrey.com.co/', icon: 'fab fa-instagram' },
+        { name: 'TikTok', url: 'https://www.tiktok.com/@vivemonterrey.com.co', icon: 'fab fa-tiktok' },
+        { name: 'YouTube', url: 'https://www.youtube.com/@vivemonterreyCO', icon: 'fab fa-youtube' },
+    ];
+    
 
     const [activeMenu, setActiveMenu] = useState("");
     const [multiMenu, setMultiMenu] = useState("");
@@ -128,26 +137,17 @@ export default function NavbarRovelo() {
                             </Link>
                         </li>
                     </ul>
-                    <Link href="contact" className="theme-btn style-two style-three mt-15 mb-55">
+                    {/* <Link href="contact" className="theme-btn style-two style-three mt-15 mb-55">
                         <span data-hover="Book Now">Book Now</span>
                         <i className="fal fa-arrow-right" />
-                    </Link>
+                    </Link> */}
                     <hr className="mb-65" />
-                    <h6>Social Media</h6>
+                    <h6>Redes Sociales</h6>
                     {/*Social Icons*/}
                     <div className="social-style-two mt-10">
-                        <Link href="contact">
-                            <i className="fab fa-twitter" />
-                        </Link>
-                        <Link href="contact">
-                            <i className="fab fa-facebook-f" />
-                        </Link>
-                        <Link href="contact">
-                            <i className="fab fa-instagram" />
-                        </Link>
-                        <a href="#">
-                            <i className="fab fa-pinterest-p" />
-                        </a>
+                        {socialAccounts.map(social =><Link key={social.name} href={social.url}>
+                            <i className={social.icon} />
+                        </Link>)}
                     </div>
                 </div>
             </section>
