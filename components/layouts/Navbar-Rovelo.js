@@ -137,10 +137,10 @@ export default function NavbarRovelo() {
                             </Link>
                         </li>
                     </ul>
-                    {/* <Link href="contact" className="theme-btn style-two style-three mt-15 mb-55">
-                        <span data-hover="Book Now">Book Now</span>
+                    <Link href='https://api.whatsapp.com/send?phone=573108854737&text=estaba%20en%20vive%20monterrey%20y%20me%20gustaria%20tener%20mayor%20informacion' className="theme-btn style-two style-three mt-15 mb-55">
+                        <span data-hover="WhatsApp">Conversemos</span>
                         <i className="fal fa-arrow-right" />
-                    </Link> */}
+                    </Link>
                     <hr className="mb-65" />
                     <h6>Redes Sociales</h6>
                     {/*Social Icons*/}
