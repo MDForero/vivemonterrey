@@ -13,7 +13,7 @@ export default function NavbarRovelo() {
 
     const links = [
         { name: 'Inicio', url: '/' },
-        { name: '¿Que hacer?', url: '/que-hacer' },
+        { name: 'Explora', url: '/explora' },
         { name: 'Eventos', url: '/eventos' },
         { name: 'Vivir en Monterrey', url: '/vivir-en-monterrey' },
     ]

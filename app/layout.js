@@ -19,7 +19,7 @@ export default function RootLayout({ children }) {
 
   const links = [
     { name: 'Inicio', url: '/' },
-    { name: '¿Que hacer?', url: '/que-hacer' },
+    { name: '¿Que hacer?', url: '/explora' },
     { name: 'Eventos', url: '/eventos' },
     { name: 'Vivir en Monterrey', url: '/vivir-en-monterrey' },
     { name: 'Contacto', url: '/contacto' },
