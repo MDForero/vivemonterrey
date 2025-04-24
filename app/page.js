@@ -87,7 +87,7 @@ export default async function Home() {
                       Descubre los mejores planes, lugares y actividades para vivir Monterrey como un local y disfrutar cada rincón de este paraíso llanero.
                     </p>
                     <Link
-                      href="/que-hacer"
+                      href="/explora"
                       className="theme-btn style-two bgc-secondary mt-25"
                     >
                       <span data-hover="Explore Tours">Explora más</span>

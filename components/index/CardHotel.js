@@ -35,7 +35,7 @@ export default function CardHotel({ data }) {
                 <span className="price">
                     {/* <span>$58.00</span>/per night */}
                 </span>
-                <Link href={`/que-hacer/${enlace}`} className="theme-btn style-three">
+                <Link href={`/explora/${enlace}`} className="theme-btn style-three">
                     <span data-hover="Book Now">Ver más</span>
                     <i className="fal fa-arrow-right"/>
                 </Link>

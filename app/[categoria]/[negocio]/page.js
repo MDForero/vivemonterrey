@@ -32,7 +32,7 @@ export default async function page(props) {
   const categories = data?.categories?.map(category => category.name)
 
   if (!data) {
-    redirect('/que-hacer/')
+    redirect('/explora/')
   }
 
   return <div className='container mx-auto space-y-4'>

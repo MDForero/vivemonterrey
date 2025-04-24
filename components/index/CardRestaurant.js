@@ -41,7 +41,7 @@ export default function CardRestaurant({ data }) {
                 <span className="price">
                     <span>$35.000 ±</span>/plato
                 </span>
-                <Link href={`/que-hacer/${enlace}`} className="read-more">
+                <Link href={`/explora/${enlace}`} className="read-more">
                     Ver más <i className="fal fa-angle-right" />
                 </Link>
             </div>

@@ -2,7 +2,7 @@
 import { Pagination, PaginationContent, PaginationEllipsis, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious } from "@/components/ui/pagination"
 import { createClient } from "@/utils/supabase/client"
 import { use, useEffect, useState } from 'react'
-import CardBusinesses from "./que-hacer/CardBusinesses"
+import CardBusinesses from "./explora/CardBusinesses"
 
 export default function PaginationBusinesses() {
     const supabase = createClient()
