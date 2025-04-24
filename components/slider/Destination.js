@@ -20,7 +20,7 @@ const Destination = () => {
         </div>
         <div className="content">
           <h6>
-            <Link href="destination-details">Switzerland's</Link>
+            <Link href="destination-details">Switzerland&lsquo;s </Link>
           </h6>
           <span className="tours">258 tours</span>
         </div>
