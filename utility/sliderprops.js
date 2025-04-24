@@ -2,13 +2,13 @@ export const sliderProps = {
   testimonials: {
     slidesToShow: 1,
     slidesToScroll: 1,
-    infinite: false,
+    infinite: true,
     speed: 400,
     arrows: false,
-    dots: false,
+    dots: true,
     focusOnSelect: true,
-    autoplay: false,
-    autoplaySpeed: 5000,
+    autoplay: true,
+    autoplaySpeed: 3500,
   },
   destination: {
     infinite: true,
