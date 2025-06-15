@@ -13,9 +13,9 @@ export default function NavbarRovelo() {
 
     const links = [
         { name: 'Inicio', url: '/' },
-        { name: 'Explora', url: '/explora' },
-        { name: 'Eventos', url: '/eventos' },
-        { name: 'Vivir en Monterrey', url: '/vivir-en-monterrey' },
+        { name: 'Explora', url: '/explora/' },
+        { name: 'Eventos', url: '/eventos/' },
+        { name: 'Vivir en Monterrey', url: '/vivir-en-monterrey/' },
     ]
 
     const socialAccounts = [
@@ -24,10 +24,9 @@ export default function NavbarRovelo() {
         { name: 'TikTok', url: 'https://www.tiktok.com/@vivemonterrey.com.co', icon: 'fab fa-tiktok' },
         { name: 'YouTube', url: 'https://www.youtube.com/@vivemonterreyCO', icon: 'fab fa-youtube' },
     ];
-    
+
 
     const [activeMenu, setActiveMenu] = useState("");
-    const [multiMenu, setMultiMenu] = useState("");
     const [categories, setCategories] = useState(null)
 
 
@@ -62,11 +61,6 @@ export default function NavbarRovelo() {
         setActiveMenu(activeMenu === value ? "" : value),
         activeLi = (value) =>
             value === activeMenu ? { display: "block" } : { display: "none" };
-
-    const multiMenuSet = (value) =>
-        setMultiMenu(multiMenu === value ? "" : value),
-        multiMenuActiveLi = (value) =>
-            value === multiMenu ? { display: "block" } : { display: "none" };
 
     return (
         <Fragment>
@@ -111,7 +105,7 @@ export default function NavbarRovelo() {
                     <hr className="my-40" />
                     <ul className="sidebar-menu">
                         {links.map((link, index) => <li key={link.name}>
-                            <Link href={link.url}>
+                            <Link href={link.url} className={path === link.url ? 'activeNav' : ""} onClick={() => closeSidebar()}>
                                 {link.name}
                             </Link>
                         </li>)}
@@ -122,7 +116,7 @@ export default function NavbarRovelo() {
                                 </a>
                                 <ul style={activeLi("Pages")}>
                                     {categories?.map((category, index) => <li key={index}>
-                                        <Link href={`/${category?.name?.split(' ').join('-')}`}>{category.name}</Link>
+                                        <Link href={`/${category?.name?.split(' ').join('-')}`} className={path.split('/').includes(category?.name?.split(' ').join('-')) ? 'activeNav' : ' '}>{category.name}</Link>
                                     </li>)}
                                 </ul>
                                 <div className="dropdown-btn" onClick={() => activeMenuSet("Pages")}
@@ -145,7 +139,7 @@ export default function NavbarRovelo() {
                     <h6>Redes Sociales</h6>
                     {/*Social Icons*/}
                     <div className="social-style-two mt-10">
-                        {socialAccounts.map(social =><Link key={social.name} href={social.url}>
+                        {socialAccounts.map(social => <Link key={social.name} href={social.url}>
                             <i className={social.icon} />
                         </Link>)}
                     </div>

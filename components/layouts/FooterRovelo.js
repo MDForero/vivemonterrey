@@ -1,7 +1,14 @@
+'use client'
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 export default function FooterRevelo() {
+    const path = usePathname();
+    const pathParts = path.split('/');
+    if (pathParts.includes('menu') || pathParts.includes('ordenar')) {
+        return null; // No footer for menu or order pages
+    }
     return (
         <footer
             className="main-footer footer-two bgp-bottom bgc-black rel z-15 "
