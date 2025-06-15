@@ -139,13 +139,13 @@ export default function CardBusinesses({data}) {
                     {/* <span className="price">
                       <span>$58.00</span>/person
                     </span> */}
-                    <Link
+                    <a
                       href={enlace}
                       className="theme-btn style-two style-three w-full"
                     >
                       <span data-hover="Book Now">Ver Más</span>
                       <i className="fal fa-arrow-right" />
-                    </Link>
+                    </a>
                   </div>
                 </div>
               </div>
