@@ -553,7 +553,7 @@ export default async function page(props) {
 
             <div className="blog-sidebar tour-sidebar">
               <div
-                className="widget widget-booking"
+                className="widget widget-booking lg:block hidden"
                 data-aos="fade-up"
                 data-aos-duration={1500}
                 data-aos-offset={50}
