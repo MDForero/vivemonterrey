@@ -1,3 +1,4 @@
+'use client'
 export default function HeaderArea({ data }) {
     const {address, name} = data
     return <section className="tour-header-area pt-70 rel z-1">

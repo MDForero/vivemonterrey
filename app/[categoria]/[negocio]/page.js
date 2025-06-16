@@ -3,11 +3,10 @@ import BtnCtaWp from '@/components/BtnCtaWp'
 import Gallery from '@/components/businesess/Gallery'
 import HeaderArea from '@/components/businesess/HeaderArea'
 import SectionTitle from '@/components/businesess/SectionTitle'
-import CardRooms from '@/components/CardRooms'
 import ClientOnly from '@/components/ClientOnly'
 import ImgGallery from '@/components/ImgGallery'
+import SearchFilter from '@/components/SearchFilter'
 import SocialMediaButton from '@/components/SocialMediaButton'
-import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area'
 import { createClient } from '@/utils/supabase/server'
 import Link from 'next/link'
 import { redirect } from 'next/navigation'
@@ -39,6 +38,7 @@ export default async function page(props) {
     <ClientOnly>
       <SectionTitle />
     </ClientOnly>
+
     <main className="relative overflow-hidden rounded-lg hidden md:block order-3 lg:order-1">
       {data.gallery.length === 0 ?
         <BannerImage path={data?.banner_url} buckets={'banners'} />
@@ -55,44 +55,51 @@ export default async function page(props) {
       <div className="text-center  flex justify-center items-center flex-col">
         <ImgGallery path={data?.logo} className='w-44 lg:w-60 h-full' />
       </div>
-      <HeaderArea data={data} />
+
+      <ClientOnly>
+        <HeaderArea data={data} />
+      </ClientOnly>
     </section>
+    <ClientOnly >
+      <SearchFilter />
+    </ClientOnly>
     <section className="tour-details-page pb-100 order-2 lg:order-3">
       <div className="container">
         <div className="row">
           <div className="col-lg-8">
-            <div
-              className="widget widget-booking lg:hidden"
-              data-aos="fade-up"
-              data-aos-duration={1500}
-              data-aos-offset={50}
-            >
-              <h5 className="widget-title">Menú</h5>
-              {categories?.includes('Restaurantes') && (
-                <Link
-                  href="menu"
-                  className="w-full max-w-sm mx-auto flex items-center justify-center gap-3 p-4 rounded-2xl border border-muted shadow-sm transition hover:shadow-md hover:bg-muted/40 bg-background text-foreground"
-                >
-                  <svg
-                    viewBox="0 0 24 24"
-                    width="32"
-                    height="32"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="stroke-primary"
+            <ClientOnly>
+              <div
+                className="widget widget-booking lg:hidden"
+                data-aos="fade-up"
+                data-aos-duration={1500}
+                data-aos-offset={50}
+              >
+                <h5 className="widget-title">Menú</h5>
+                {categories?.includes('Restaurantes') && (
+                  <Link
+                    href="menu"
+                    className="w-full max-w-sm mx-auto flex items-center justify-center gap-3 p-4 rounded-2xl border border-muted shadow-sm transition hover:shadow-md hover:bg-muted/40 bg-background text-foreground"
                   >
-                    <path
-                      d="M16 6.00008V4.2844C16 3.51587 16 3.13161 15.8387 2.88321C15.6976 2.66587 15.4776 2.5118 15.2252 2.45345C14.9366 2.38677 14.5755 2.51809 13.8532 2.78073L6.57982 5.4256C6.01064 5.63257 5.72605 5.73606 5.51615 5.91845C5.33073 6.07956 5.18772 6.28374 5.09968 6.51304C5 6.77264 5 7.07546 5 7.6811V12.0001M9 17.0001H15M9 13.5001H15M9 10.0001H15M8.2 21.0001H15.8C16.9201 21.0001 17.4802 21.0001 17.908 20.7821C18.2843 20.5903 18.5903 20.2844 18.782 19.9081C19 19.4802 19 18.9202 19 17.8001V9.20008C19 8.07997 19 7.51992 18.782 7.0921C18.5903 6.71577 18.2843 6.40981 17.908 6.21807C17.4802 6.00008 16.9201 6.00008 15.8 6.00008H8.2C7.0799 6.00008 6.51984 6.00008 6.09202 6.21807C5.71569 6.40981 5.40973 6.71577 5.21799 7.0921C5 7.51992 5 8.07997 5 9.20008V17.8001C5 18.9202 5 19.4802 5.21799 19.9081C5.40973 20.2844 5.71569 20.5903 6.09202 20.7821C6.51984 21.0001 7.07989 21.0001 8.2 21.0001Z"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                  </svg>
-                  <span className="text-lg font-semibold">Ver Menú</span>
-                </Link>)}
-            </div>
-
+                    <svg
+                      viewBox="0 0 24 24"
+                      width="32"
+                      height="32"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="stroke-primary"
+                    >
+                      <path
+                        d="M16 6.00008V4.2844C16 3.51587 16 3.13161 15.8387 2.88321C15.6976 2.66587 15.4776 2.5118 15.2252 2.45345C14.9366 2.38677 14.5755 2.51809 13.8532 2.78073L6.57982 5.4256C6.01064 5.63257 5.72605 5.73606 5.51615 5.91845C5.33073 6.07956 5.18772 6.28374 5.09968 6.51304C5 6.77264 5 7.07546 5 7.6811V12.0001M9 17.0001H15M9 13.5001H15M9 10.0001H15M8.2 21.0001H15.8C16.9201 21.0001 17.4802 21.0001 17.908 20.7821C18.2843 20.5903 18.5903 20.2844 18.782 19.9081C19 19.4802 19 18.9202 19 17.8001V9.20008C19 8.07997 19 7.51992 18.782 7.0921C18.5903 6.71577 18.2843 6.40981 17.908 6.21807C17.4802 6.00008 16.9201 6.00008 15.8 6.00008H8.2C7.0799 6.00008 6.51984 6.00008 6.09202 6.21807C5.71569 6.40981 5.40973 6.71577 5.21799 7.0921C5 7.51992 5 8.07997 5 9.20008V17.8001C5 18.9202 5 19.4802 5.21799 19.9081C5.40973 20.2844 5.71569 20.5903 6.09202 20.7821C6.51984 21.0001 7.07989 21.0001 8.2 21.0001Z"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                    </svg>
+                    <span className="text-lg font-semibold">Ver Menú</span>
+                  </Link>)}
+              </div>
+            </ClientOnly>
             <div className="tour-details-content">
               {/* <h3>Explore Tours</h3> */}
               <p>
@@ -552,100 +559,106 @@ export default async function page(props) {
           <div className="col-lg-4 col-md-8 col-sm-10 rmt-75">
 
             <div className="blog-sidebar tour-sidebar">
-              <div
-                className="widget widget-booking lg:block hidden"
-                data-aos="fade-up"
-                data-aos-duration={1500}
-                data-aos-offset={50}
-              >
-                <h5 className="widget-title">Menú</h5>
-                {categories?.includes('Restaurantes') && (
-                  <Link
-                    href="menu"
-                    className="w-full max-w-sm mx-auto flex items-center justify-center gap-3 p-4 rounded-2xl border border-muted shadow-sm transition hover:shadow-md hover:bg-muted/40 bg-background text-foreground"
-                  >
-                    <svg
-                      viewBox="0 0 24 24"
-                      width="32"
-                      height="32"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                      className="stroke-primary"
+              <ClientOnly>
+
+
+                <div
+                  className="widget widget-booking lg:block hidden"
+                  data-aos="fade-up"
+                  data-aos-duration={1500}
+                  data-aos-offset={50}
+                >
+                  <h5 className="widget-title">Menú</h5>
+                  {categories?.includes('Restaurantes') && (
+                    <Link
+                      href="menu"
+                      className="w-full max-w-sm mx-auto flex items-center justify-center gap-3 p-4 rounded-2xl border border-muted shadow-sm transition hover:shadow-md hover:bg-muted/40 bg-background text-foreground"
                     >
-                      <path
-                        d="M16 6.00008V4.2844C16 3.51587 16 3.13161 15.8387 2.88321C15.6976 2.66587 15.4776 2.5118 15.2252 2.45345C14.9366 2.38677 14.5755 2.51809 13.8532 2.78073L6.57982 5.4256C6.01064 5.63257 5.72605 5.73606 5.51615 5.91845C5.33073 6.07956 5.18772 6.28374 5.09968 6.51304C5 6.77264 5 7.07546 5 7.6811V12.0001M9 17.0001H15M9 13.5001H15M9 10.0001H15M8.2 21.0001H15.8C16.9201 21.0001 17.4802 21.0001 17.908 20.7821C18.2843 20.5903 18.5903 20.2844 18.782 19.9081C19 19.4802 19 18.9202 19 17.8001V9.20008C19 8.07997 19 7.51992 18.782 7.0921C18.5903 6.71577 18.2843 6.40981 17.908 6.21807C17.4802 6.00008 16.9201 6.00008 15.8 6.00008H8.2C7.0799 6.00008 6.51984 6.00008 6.09202 6.21807C5.71569 6.40981 5.40973 6.71577 5.21799 7.0921C5 7.51992 5 8.07997 5 9.20008V17.8001C5 18.9202 5 19.4802 5.21799 19.9081C5.40973 20.2844 5.71569 20.5903 6.09202 20.7821C6.51984 21.0001 7.07989 21.0001 8.2 21.0001Z"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      />
-                    </svg>
-                    <span className="text-lg font-semibold">Ver Menú</span>
-                  </Link>
-                )}
-              </div>
-              <div
-                className="widget widget-booking"
-                data-aos="fade-up"
-                data-aos-duration={1500}
-                data-aos-offset={50}
-              >
-                {/* Red Social */}
-                {data?.socials_account && (
-                  <div className="mb-30">
-                    <h5 className="widget-title">Síguenos</h5>
-                    <div className="space-y-2">
-                      {data.socials_account.map((social, index) => (
-                        <SocialMediaButton url={social} key={index} />
-                      ))}
-                      {data.phone && (
-                        <SocialMediaButton url={`https://wa.me/+57${data.phone}`} />
-                      )}
-                    </div>
-                  </div>
-                )}
-              </div>
-              {/* Horarios */}
-              <div className="blog-sidebar tour-sidebar">
+                      <svg
+                        viewBox="0 0 24 24"
+                        width="32"
+                        height="32"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="stroke-primary"
+                      >
+                        <path
+                          d="M16 6.00008V4.2844C16 3.51587 16 3.13161 15.8387 2.88321C15.6976 2.66587 15.4776 2.5118 15.2252 2.45345C14.9366 2.38677 14.5755 2.51809 13.8532 2.78073L6.57982 5.4256C6.01064 5.63257 5.72605 5.73606 5.51615 5.91845C5.33073 6.07956 5.18772 6.28374 5.09968 6.51304C5 6.77264 5 7.07546 5 7.6811V12.0001M9 17.0001H15M9 13.5001H15M9 10.0001H15M8.2 21.0001H15.8C16.9201 21.0001 17.4802 21.0001 17.908 20.7821C18.2843 20.5903 18.5903 20.2844 18.782 19.9081C19 19.4802 19 18.9202 19 17.8001V9.20008C19 8.07997 19 7.51992 18.782 7.0921C18.5903 6.71577 18.2843 6.40981 17.908 6.21807C17.4802 6.00008 16.9201 6.00008 15.8 6.00008H8.2C7.0799 6.00008 6.51984 6.00008 6.09202 6.21807C5.71569 6.40981 5.40973 6.71577 5.21799 7.0921C5 7.51992 5 8.07997 5 9.20008V17.8001C5 18.9202 5 19.4802 5.21799 19.9081C5.40973 20.2844 5.71569 20.5903 6.09202 20.7821C6.51984 21.0001 7.07989 21.0001 8.2 21.0001Z"
+                          stroke="currentColor"
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        />
+                      </svg>
+                      <span className="text-lg font-semibold">Ver Menú</span>
+                    </Link>
+                  )}
+                </div>
+              </ClientOnly>
+              <ClientOnly>
                 <div
                   className="widget widget-booking"
                   data-aos="fade-up"
                   data-aos-duration={1500}
                   data-aos-offset={50}
                 >
-                  {data?.schedule && (
+                  {/* Red Social */}
+                  {data?.socials_account && (
                     <div className="mb-30">
-                      <h5 className="widget-title">Horario</h5>
-                      <dl className="space-y-2">
-                        {schedule.map(([key, value], index) => (
-                          <div
-                            key={index}
-                            className="border-b border-gray-200 flex justify-between py-2 text-sm"
-                          >
-                            <dt className="text-muted-foreground font-medium capitalize">
-                              {key}
-                            </dt>
-                            {value.open || value.twentyFour ? (
-                              <>
-                                {value.open && (
-                                  <dd className="text-muted-foreground">
-                                    {value.open} - {value.close}
-                                  </dd>
-                                )}
-                                {value.twentyFour && (
-                                  <dd className="text-muted-foreground">24 horas</dd>
-                                )}
-                              </>
-                            ) : (
-                              <dd className="text-muted-foreground">Cerrado</dd>
-                            )}
-                          </div>
+                      <h5 className="widget-title">Síguenos</h5>
+                      <div className="space-y-2">
+                        {data.socials_account.map((social, index) => (
+                          <SocialMediaButton url={social} key={index} />
                         ))}
-                      </dl>
+                        {data.phone && (
+                          <SocialMediaButton url={`https://wa.me/+57${data.phone}`} />
+                        )}
+                      </div>
                     </div>
                   )}
                 </div>
-              </div>
+                {/* Horarios */}
+                <div className="blog-sidebar tour-sidebar">
+                  <div
+                    className="widget widget-booking"
+                    data-aos="fade-up"
+                    data-aos-duration={1500}
+                    data-aos-offset={50}
+                  >
+                    {data?.schedule && (
+                      <div className="mb-30">
+                        <h5 className="widget-title">Horario</h5>
+                        <dl className="space-y-2">
+                          {schedule.map(([key, value], index) => (
+                            <div
+                              key={index}
+                              className="border-b border-gray-200 flex justify-between py-2 text-sm"
+                            >
+                              <dt className="text-muted-foreground font-medium capitalize">
+                                {key}
+                              </dt>
+                              {value.open || value.twentyFour ? (
+                                <>
+                                  {value.open && (
+                                    <dd className="text-muted-foreground">
+                                      {value.open} - {value.close}
+                                    </dd>
+                                  )}
+                                  {value.twentyFour && (
+                                    <dd className="text-muted-foreground">24 horas</dd>
+                                  )}
+                                </>
+                              ) : (
+                                <dd className="text-muted-foreground">Cerrado</dd>
+                              )}
+                            </div>
+                          ))}
+                        </dl>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              </ClientOnly>
             </div>
           </div>
 
