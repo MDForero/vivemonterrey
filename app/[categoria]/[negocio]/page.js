@@ -29,7 +29,9 @@ export default async function page(props) {
 
   const schedule = data?.schedule ? Object.entries(JSON.parse(data.schedule)) : []
   const categories = data?.categories?.map(category => category.name)
-
+  const rooms = data?.rooms || []
+  const products = data?.products || []
+  
   if (!data) {
     redirect('/explora/')
   }
@@ -60,22 +62,23 @@ export default async function page(props) {
         <HeaderArea data={data} />
       </ClientOnly>
     </section>
-    <ClientOnly >
-      <SearchFilter />
-    </ClientOnly>
+    {(categories.includes('Alojamientos') && data.rooms.length !== 0 ) && <ClientOnly >
+      <SearchFilter rooms={data.rooms} phone={data.phone}/>
+    </ClientOnly>}
     <section className="tour-details-page pb-100 order-2 lg:order-3">
       <div className="container">
         <div className="row">
           <div className="col-lg-8">
             <ClientOnly>
-              <div
-                className="widget widget-booking lg:hidden"
-                data-aos="fade-up"
-                data-aos-duration={1500}
-                data-aos-offset={50}
-              >
-                <h5 className="widget-title">Menú</h5>
-                {categories?.includes('Restaurantes') && (
+              {(categories?.includes('Restaurantes') && data.products.length !== 0) &&
+                <div
+                  className="widget widget-booking lg:hidden"
+                  data-aos="fade-up"
+                  data-aos-duration={1500}
+                  data-aos-offset={50}
+                >
+                  <h5 className="widget-title">Menú</h5>
+
                   <Link
                     href="menu"
                     className="w-full max-w-sm mx-auto flex items-center justify-center gap-3 p-4 rounded-2xl border border-muted shadow-sm transition hover:shadow-md hover:bg-muted/40 bg-background text-foreground"
@@ -97,8 +100,9 @@ export default async function page(props) {
                       />
                     </svg>
                     <span className="text-lg font-semibold">Ver Menú</span>
-                  </Link>)}
-              </div>
+                  </Link>
+                </div>
+              }
             </ClientOnly>
             <div className="tour-details-content">
               {/* <h3>Explore Tours</h3> */}
@@ -562,14 +566,14 @@ export default async function page(props) {
               <ClientOnly>
 
 
-                <div
-                  className="widget widget-booking lg:block hidden"
-                  data-aos="fade-up"
-                  data-aos-duration={1500}
-                  data-aos-offset={50}
-                >
-                  <h5 className="widget-title">Menú</h5>
-                  {categories?.includes('Restaurantes') && (
+                {(categories?.includes('Restaurantes') && data.products.length !== 0) &&
+                  <div
+                    className="widget widget-booking lg:block hidden"
+                    data-aos="fade-up"
+                    data-aos-duration={1500}
+                    data-aos-offset={50}
+                  >
+                    <h5 className="widget-title">Menú</h5>
                     <Link
                       href="menu"
                       className="w-full max-w-sm mx-auto flex items-center justify-center gap-3 p-4 rounded-2xl border border-muted shadow-sm transition hover:shadow-md hover:bg-muted/40 bg-background text-foreground"
@@ -592,8 +596,8 @@ export default async function page(props) {
                       </svg>
                       <span className="text-lg font-semibold">Ver Menú</span>
                     </Link>
-                  )}
-                </div>
+                  </div>
+                }
               </ClientOnly>
               <ClientOnly>
                 <div
