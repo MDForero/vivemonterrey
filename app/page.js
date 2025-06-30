@@ -12,6 +12,9 @@ import CardHotel from "@/components/index/CardHotel";
 import CardRestaurant from "@/components/index/CardRestaurant";
 import CardActivities from "@/components/index/CardActivities";
 import Image from "next/image";
+import { LazyComponentWrapper } from "@/components/LazyWrapper"; 
+import { Suspense } from "react";
+import { Skeleton } from "@/components/ui/skeleton";
 
 export const metadata = {
   title: "Vive Monterrey",
@@ -241,32 +244,50 @@ export default async function Home() {
         {/* Popular Visiting Place end */}
         {/* Popular Activity Area start */}
         <ClientOnly>
-          <section className="popular-activity-area bgc-lighter br-10 pt-100 pb-70 rel z-1">
-            <div className="container">
-              <div className="row justify-content-center">
-                <div className="col-lg-12">
-                  <div
-                    className="section-title text-center counter-text-wrap mb-45"
-                    data-aos="fade-up"
-                    data-aos-duration={1500}
-                    data-aos-offset={50}
-                  >
-                    <h2>Descubre las Mejores Experiencias de Monterrey</h2>
-                    <p>
-                      Más de{" "}
-                      <span
-                        className="count-text plus"
-                        data-speed={3000}
-                        data-stop={90}
-                      >
-                        <Counter end={50} />
-                      </span>{" "}
-                      actividades para vivir el Llano
-                    </p>
+          <LazyComponentWrapper 
+            fallback={
+              <section className="popular-activity-area bgc-lighter br-10 pt-100 pb-70 rel z-1">
+                <div className="container">
+                  <div className="row justify-content-center">
+                    <div className="col-lg-12">
+                      <Skeleton className="h-16 w-3/4 mx-auto mb-8" />
+                      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        {[...Array(9)].map((_, i) => (
+                          <Skeleton key={i} className="h-48 w-full rounded-lg" />
+                        ))}
+                      </div>
+                    </div>
                   </div>
                 </div>
-              </div>
-              <div className="row justify-content-center">
+              </section>
+            }
+          >
+            <section className="popular-activity-area bgc-lighter br-10 pt-100 pb-70 rel z-1">
+              <div className="container">
+                <div className="row justify-content-center">
+                  <div className="col-lg-12">
+                    <div
+                      className="section-title text-center counter-text-wrap mb-45"
+                      data-aos="fade-up"
+                      data-aos-duration={1500}
+                      data-aos-offset={50}
+                    >
+                      <h2>Descubre las Mejores Experiencias de Monterrey</h2>
+                      <p>
+                        Más de{" "}
+                        <span
+                          className="count-text plus"
+                          data-speed={3000}
+                          data-stop={90}
+                        >
+                          <Counter end={50} />
+                        </span>{" "}
+                        actividades para vivir el Llano
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div className="row justify-content-center">
                 {[
                   {
                     title: "Miradores Naturales",
@@ -314,14 +335,33 @@ export default async function Home() {
                     image: "/assets/images/activities/activity9.png",
                   },
                 ].map(item => <CardActivities data={item} key={item.title}/>)}
+                </div>
               </div>
-            </div>
-          </section>
+            </section>
+          </LazyComponentWrapper>
         </ClientOnly>
         {/* Popular Activity Area end */}
         {/* Destinations Area start */}
         <ClientOnly>
-        <section className="featured-restaurants-area pt-100 pb-70 rel z-1">
+          <LazyComponentWrapper
+            fallback={
+              <section className="featured-restaurants-area pt-100 pb-70 rel z-1">
+                <div className="container">
+                  <div className="row justify-content-center">
+                    <div className="col-lg-12">
+                      <Skeleton className="h-16 w-3/4 mx-auto mb-8" />
+                      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                        {[...Array(4)].map((_, i) => (
+                          <Skeleton key={i} className="h-64 w-full rounded-lg" />
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </section>
+            }
+          >
+            <section className="featured-restaurants-area pt-100 pb-70 rel z-1">
   <div className="container">
     <div className="row justify-content-center">
       <div className="col-lg-12">
@@ -349,16 +389,33 @@ export default async function Home() {
         .map((restaurant) => (
           <CardRestaurant key={restaurant.id} data={restaurant} />
         ))}
+      </div>
     </div>
-  </div>
-</section>
-
+            </section>
+          </LazyComponentWrapper>
         </ClientOnly>
         {/* Destinations Area end */}
         {/* CTA Area start */}
         <ClientOnly>
-          <section
-            className="cta-area-two overlay rel z-1"
+          <LazyComponentWrapper
+            fallback={
+              <section className="cta-area-two overlay rel z-1 bg-gray-200">
+                <div className="container">
+                  <div className="row">
+                    <div className="col-lg-6">
+                      <Skeleton className="h-32 w-full mb-4" />
+                      <Skeleton className="h-12 w-3/4" />
+                    </div>
+                    <div className="col-lg-6">
+                      <Skeleton className="h-48 w-full" />
+                    </div>
+                  </div>
+                </div>
+              </section>
+            }
+          >
+            <section
+              className="cta-area-two overlay rel z-1"
             style={{
               backgroundImage: "url(/assets/images/backgrounds/cta-two.jpg)",
               backgroundRepeat: 'no-repeat',
@@ -405,8 +462,8 @@ export default async function Home() {
                 </div>
               </div>
             </div>
-          </section>
-
+            </section>
+          </LazyComponentWrapper>
         </ClientOnly>
         {/* CTA Area end */}
         {/* Features Area start */}
@@ -607,7 +664,25 @@ export default async function Home() {
         {/* Team Area end */}
         {/* City Tours Area start */}
         <ClientOnly>
-          <section className="highlighted-hotels-area pt-100 pb-70 rel z-1">
+          <LazyComponentWrapper
+            fallback={
+              <section className="highlighted-hotels-area pt-100 pb-70 rel z-1">
+                <div className="container">
+                  <div className="row justify-content-center">
+                    <div className="col-lg-12">
+                      <Skeleton className="h-16 w-3/4 mx-auto mb-8" />
+                      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                        {[...Array(4)].map((_, i) => (
+                          <Skeleton key={i} className="h-64 w-full rounded-lg" />
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </section>
+            }
+          >
+            <section className="highlighted-hotels-area pt-100 pb-70 rel z-1">
             <div className="container">
               <div className="row justify-content-center">
                 <div className="col-lg-12">
@@ -633,8 +708,9 @@ export default async function Home() {
                   <CardHotel data={hotel} key={hotel.id} />
                 ))}
               </div>
-            </div>
-          </section>
+              </div>
+            </section>
+          </LazyComponentWrapper>
         </ClientOnly>
         {/* City Tours Area end */}
         {/* Newsletter Area start */}

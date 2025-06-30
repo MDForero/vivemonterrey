@@ -22,7 +22,16 @@ export default function PaginationBusinesses() {
             setCount(count)
             console.log(data)
         }
+        const smoothBegin = () => {
+            const element = document.getElementById('businesses');
+            if (element) {
+                element.scrollIntoView({ behavior: 'smooth' });
+            }
+        } 
+        smoothBegin()
+        
         fetchBusinesses()
+        
     }, [page])
     const totalPages = Math.ceil(count / 9)
     const pages = Array.from({ length: totalPages }, (_, i) => i + 1)

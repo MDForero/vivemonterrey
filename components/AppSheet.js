@@ -13,6 +13,7 @@ import Image from "next/image"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area"
 import { Sheet, SheetContent, SheetDescription, SheetFooter, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet"
+import { LazyAppSheetWrapper } from "@/components/LazyWrapper"
 
 
 export default function Menu({ params }) {
@@ -74,7 +75,9 @@ export default function Menu({ params }) {
                     </TabsContent>)}
                 </Tabs>}
             </div>
-            <AppSheet />
+            <LazyAppSheetWrapper>
+                <AppSheet />
+            </LazyAppSheetWrapper>
 
         </>
     }

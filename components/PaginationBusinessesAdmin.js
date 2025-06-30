@@ -2,8 +2,12 @@
 import CardBusinesses from "@/components/layouts/dashboard/CardBusinesses"
 import { Pagination, PaginationContent, PaginationEllipsis, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious } from "@/components/ui/pagination"
 import { createClient } from "@/utils/supabase/client"
-import { useEffect, useState } from 'react'
+import { useEffect, useState, lazy, Suspense } from 'react'
 import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from "./ui/table"
+import { Skeleton } from "./ui/skeleton"
+
+// Lazy load the card component for better performance
+const LazyCardBusinesses = lazy(() => import("@/components/layouts/dashboard/CardBusinesses"))
 
 export default function PaginationBusinessesAdmin() {
     const supabase = createClient()
@@ -43,7 +47,23 @@ export default function PaginationBusinessesAdmin() {
                     </TableRow>
                 </TableHeader>
                 <TableBody>
-                    {data.map((business) => <CardBusinesses key={business.id} business={business} />)}
+                    {data.map((business) => (
+                        <Suspense 
+                            key={business.id} 
+                            fallback={
+                                <TableRow>
+                                    <TableCell><Skeleton className="h-12 w-12 rounded" /></TableCell>
+                                    <TableCell><Skeleton className="h-4 w-32" /></TableCell>
+                                    <TableCell><Skeleton className="h-4 w-24" /></TableCell>
+                                    <TableCell><Skeleton className="h-4 w-20" /></TableCell>
+                                    <TableCell><Skeleton className="h-8 w-16" /></TableCell>
+                                    <TableCell><Skeleton className="h-8 w-16" /></TableCell>
+                                </TableRow>
+                            }
+                        >
+                            <LazyCardBusinesses business={business} />
+                        </Suspense>
+                    ))}
                 </TableBody>
 
             </Table>
