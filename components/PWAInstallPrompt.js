@@ -5,6 +5,7 @@ export default function PWAInstallPrompt() {
   const [showInstallPrompt, setShowInstallPrompt] = useState(false)
   const [deferredPrompt, setDeferredPrompt] = useState(null)
   const [isInstalled, setIsInstalled] = useState(false)
+  const [debugInfo, setDebugInfo] = useState('')
 
   useEffect(() => {
     // Detectar si ya está instalada la PWA
@@ -18,32 +19,70 @@ export default function PWAInstallPrompt() {
       // Método 3: Verificar user agent para apps instaladas
       const isAndroidApp = window.navigator?.userAgent?.includes('wv')
       
+      console.log('PWA Debug:', { isStandalone, isIOSStandalone, isAndroidApp })
+      
       return isStandalone || isIOSStandalone || isAndroidApp
     }
 
     const installed = checkIfInstalled()
     setIsInstalled(installed)
+    console.log('PWA ya instalada:', installed)
 
     // Si no está instalada, configurar el prompt
     if (!installed) {
+      // Verificar si ya fue rechazado recientemente
+      const dismissed = localStorage.getItem('pwa-install-dismissed')
+      const now = Date.now()
+      const oneDayAgo = now - (24 * 60 * 60 * 1000) // 24 horas
+      
+      if (dismissed && parseInt(dismissed) > oneDayAgo) {
+        console.log('PWA prompt ya fue rechazado recientemente')
+        setDebugInfo('Prompt rechazado recientemente')
+        return
+      }
+
       // Escuchar el evento beforeinstallprompt
       const handleBeforeInstallPrompt = (e) => {
+        console.log('beforeinstallprompt event triggered', e)
         e.preventDefault()
         setDeferredPrompt(e)
+        setDebugInfo('Evento beforeinstallprompt detectado')
         
         // Esperar un poco antes de mostrar el prompt para mejor UX
         setTimeout(() => {
+          console.log('Mostrando prompt PWA')
           setShowInstallPrompt(true)
         }, 3000)
       }
 
-      // Verificar si el dispositivo soporta PWA
-      if ('serviceWorker' in navigator && 'beforeinstallprompt' in window) {
-        window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt)
-      }
+      // Debug info
+      const hasServiceWorker = 'serviceWorker' in navigator
+      const hasBeforeInstallPrompt = 'beforeinstallprompt' in window
+      const userAgent = navigator.userAgent
+      
+      console.log('PWA Capabilities:', {
+        hasServiceWorker,
+        hasBeforeInstallPrompt,
+        userAgent: userAgent.substring(0, 50) + '...'
+      })
+      
+      setDebugInfo(`SW: ${hasServiceWorker}, BIP: ${hasBeforeInstallPrompt}`)
+
+      // Agregar listener para el evento
+      window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt)
+      
+      // También mostrar prompt manual después de 5 segundos si no hay evento automático
+      const fallbackTimer = setTimeout(() => {
+        if (!deferredPrompt && hasServiceWorker) {
+          console.log('Mostrando prompt manual (fallback)')
+          setDebugInfo('Usando fallback - no se detectó evento automático')
+          setShowInstallPrompt(true)
+        }
+      }, 5000)
 
       return () => {
         window.removeEventListener('beforeinstallprompt', handleBeforeInstallPrompt)
+        clearTimeout(fallbackTimer)
       }
     }
   }, [])
@@ -73,17 +112,50 @@ export default function PWAInstallPrompt() {
   }
 
   const handleDismiss = () => {
-    setShowInstallPrompt(false)
-    // Opcional: guardar en localStorage que el usuario rechazó para no mostrar de nuevo
+    setShowInstallPrompt(true)
+    // Guardar en localStorage que el usuario rechazó para no mostrar de nuevo
     localStorage.setItem('pwa-install-dismissed', Date.now().toString())
   }
 
-  // No mostrar nada si ya está instalada o no hay prompt disponible
-  if (isInstalled || !showInstallPrompt) {
+  const handleManualInstall = () => {
+    // Para navegadores que no soportan el evento automático
+    if (deferredPrompt) {
+      handleInstallClick()
+    } else {
+      // Instrucciones manuales
+      const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent)
+      const isAndroid = /Android/.test(navigator.userAgent)
+      
+      let instructions = ''
+      if (isIOS) {
+        instructions = 'En Safari: toca el botón "Compartir" y luego "Añadir a pantalla de inicio"'
+      } else if (isAndroid) {
+        instructions = 'En Chrome: toca el menú (⋮) y selecciona "Instalar app" o "Añadir a pantalla de inicio"'
+      } else {
+        instructions = 'En tu navegador: busca la opción "Instalar" o "Añadir a pantalla de inicio" en el menú'
+      }
+      
+      alert(`Para instalar la app:\n\n${instructions}`)
+    }
+  }
+
+  // Mostrar información de debug en desarrollo
+  const isDev = process.env.NODE_ENV === 'development'
+
+  // No mostrar nada si ya está instalada
+  if (isInstalled) {
     return null
   }
 
-  return (
+  // Mostrar prompt si está disponible O como fallback
+  if (!showInstallPrompt && !isDev) {
+    return null
+  }
+
+  if(showInstallPrompt){
+    return null
+  } else
+  {  return (
     <div className="fixed bottom-4 left-4 right-4 z-50 md:left-auto md:max-w-sm">
       <div className="bg-white rounded-lg shadow-lg border border-gray-200 p-4">
         <div className="flex items-start space-x-3">
@@ -105,7 +177,7 @@ export default function PWAInstallPrompt() {
             
             <div className="flex space-x-2 mt-3">
               <button
-                onClick={handleInstallClick}
+                onClick={handleManualInstall}
                 className="bg-green-600 hover:bg-green-700 text-white text-xs font-medium px-3 py-1.5 rounded transition-colors"
               >
                 Instalar
@@ -117,6 +189,11 @@ export default function PWAInstallPrompt() {
                 Ahora no
               </button>
             </div>
+            {isDev && (
+              <div className="mt-2 text-xs text-gray-500">
+                Debug: {debugInfo}
+              </div>
+            )}
           </div>
           
           <button
@@ -130,5 +207,5 @@ export default function PWAInstallPrompt() {
         </div>
       </div>
     </div>
-  )
+  )}
 }
