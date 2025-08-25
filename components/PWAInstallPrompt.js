@@ -6,6 +6,7 @@ export default function PWAInstallPrompt() {
   const [deferredPrompt, setDeferredPrompt] = useState(null)
   const [isInstalled, setIsInstalled] = useState(false)
   const [debugInfo, setDebugInfo] = useState('')
+  const [show, setShow] = useState(true)
 
   useEffect(() => {
     // Detectar si ya está instalada la PWA
@@ -112,7 +113,9 @@ export default function PWAInstallPrompt() {
   }
 
   const handleDismiss = () => {
+    setShow(false)
     setShowInstallPrompt(true)
+
     // Guardar en localStorage que el usuario rechazó para no mostrar de nuevo
     localStorage.setItem('pwa-install-dismissed', Date.now().toString())
   }
@@ -149,11 +152,11 @@ export default function PWAInstallPrompt() {
   }
 
   // Mostrar prompt si está disponible O como fallback
-  if (!showInstallPrompt && !isDev) {
-    return null
-  }
+    if (!showInstallPrompt && !isDev) {
+      return null
+    }
 
-  if(showInstallPrompt){
+  if(!show){
     return null
   } else
   {  return (
