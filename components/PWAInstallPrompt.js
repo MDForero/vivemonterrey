@@ -141,6 +141,7 @@ export default function PWAInstallPrompt() {
 
   // Mostrar información de debug en desarrollo
   const isDev = process.env.NODE_ENV === 'development'
+  console.log(isDev, 'isDev', showInstallPrompt, 'showInstallPrompt', isInstalled, 'isInstalled') 
 
   // No mostrar nada si ya está instalada
   if (isInstalled) {
