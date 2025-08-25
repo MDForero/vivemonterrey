@@ -10,6 +10,7 @@ import "@css/style.css";
 import Script from "next/script";
 import ReveloLayout from "@/components/layouts/ReveloLayout";
 import ScriptManager from "@/components/ScriptManager";
+import PWAInstallPrompt from "@/components/PWAInstallPrompt";
 
 export const metadata = {
   title: 'Vive Monterrey - Turismo en Casanare',
@@ -60,6 +61,7 @@ export default function RootLayout({ children }) {
           gtag('config', 'G-M2MJPJS6N6');
         `}</Script>
         <ScriptManager />
+        <PWAInstallPrompt />
         <ReveloLayout>
           {children}
         </ReveloLayout>
