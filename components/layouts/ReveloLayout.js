@@ -6,7 +6,11 @@ import { useEffect } from "react";
 import niceSelect from "react-nice-select";
 import FooterRevelo from "./FooterRovelo";
 import NavbarRovelo from "./Navbar-Rovelo";
+import { usePathname } from "next/navigation";
+
 const ReveloLayout = ({ children, header, footer, insta, sideBar }) => {
+  const pathname = usePathname();
+
   useEffect(() => {
     roveloUtility.animation();
     roveloUtility.fixedHeader();
@@ -17,7 +21,12 @@ const ReveloLayout = ({ children, header, footer, insta, sideBar }) => {
       niceSelect();
     };
   }, []);
-
+  if (pathname.includes("team")) {
+    console.log("Estás en la página del equipo");
+    return <div>
+      {children}
+    </div>
+  }
   return (
     <div className={`page-wrapper  for-sidebar-menu `}>
       <EmbedPopup />
