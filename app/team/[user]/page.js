@@ -11,7 +11,7 @@ export function generateMetadata({ params }) {
 }
 
 export async function generateStaticParams(){
-    const data = await fetch("https://www.vivemonterrey.com.co/team.json").then(res => res.json()).catch(err => console.log(err)).finally(() => console.log("Fetch finalizado"));
+    const data = await fetch("https://vivemonterrey.com.co/team.json").then(res => res.json()).catch(err => console.log(err)).finally(() => console.log("Fetch finalizado"));
     return data?.map(user => ({
         user: user.name.replace(" ", "-").toLowerCase()
     })) || [];
@@ -20,7 +20,7 @@ export async function generateStaticParams(){
 
 export default async function Page({ params }) {
     const { user } = params
-    const data = await fetch("https://www.vivemonterrey.com.co/team.json").then(res => res.json()).catch(err => console.log(err)).finally(() => console.log("Fetch finalizado"));
+    const data = await fetch("https://vivemonterrey.com.co/team.json").then(res => res.json()).catch(err => console.log(err)).finally(() => console.log("Fetch finalizado"));
 
     
     if (data) {
