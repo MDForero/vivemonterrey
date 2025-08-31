@@ -124,7 +124,6 @@ export async function GET(request, { params }) {
       .from('qr_scans')
       .insert(scanData)
 
-    const {error: addNewScanError } =  await supabase.from('qr_codes').update({ scan_count: supabase.raw('scan_count + 1') }).eq('id', qrCode.id)
 
     if (scanError ) {
       console.error('Error inserting scan:', scanError)
