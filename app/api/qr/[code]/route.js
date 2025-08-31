@@ -129,9 +129,6 @@ export async function GET(request, { params }) {
       console.error('Error inserting scan:', scanError)
       // Continuar con la redirección aunque falle el tracking
     }
-    if (addNewScanError) {
-      console.error('Error updating scan count:', addNewScanError)
-    }
 
     // Construir URL de destino con parámetros UTM si existen
     let targetUrl = qrCode.target_url
