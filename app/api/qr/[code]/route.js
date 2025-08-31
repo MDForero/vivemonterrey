@@ -124,9 +124,14 @@ export async function GET(request, { params }) {
       .from('qr_scans')
       .insert(scanData)
 
-    if (scanError) {
+    const {error: addNewScanError } =  await supabase.from('qr_codes').update({ scan_count: supabase.raw('scan_count + 1') }).eq('id', qrCode.id)
+
+    if (scanError ) {
       console.error('Error inserting scan:', scanError)
       // Continuar con la redirección aunque falle el tracking
+    }
+    if (addNewScanError) {
+      console.error('Error updating scan count:', addNewScanError)
     }
 
     // Construir URL de destino con parámetros UTM si existen
