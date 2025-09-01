@@ -21,7 +21,7 @@ const ReveloLayout = ({ children, header, footer, insta, sideBar }) => {
       niceSelect();
     };
   }, []);
-  if (pathname.includes("team")) {
+  if (pathname.includes("team") || pathname.includes("dashboard")) {
     console.log("Estás en la página del equipo");
     return <div>
       {children}

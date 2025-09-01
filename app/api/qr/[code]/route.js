@@ -124,6 +124,13 @@ export async function GET(request, { params }) {
       .from('qr_scans')
       .insert(scanData)
 
+    // Incrementar contador en la tabla qr_scan_counts
+    try {
+      await supabase.rpc('increment_qr_scan_count', { qr_id: qrCode.id })
+    } catch (error) {
+      console.error('Error incrementing scan count:', error)
+      // Continuar aunque falle el contador
+    }
 
     if (scanError ) {
       console.error('Error inserting scan:', scanError)
