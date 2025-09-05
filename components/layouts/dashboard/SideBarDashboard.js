@@ -1,5 +1,11 @@
 'use client'
 import { createClient } from "@/utils/supabase/client"
+import { 
+  getCurrentUserClient, 
+  hasPermission, 
+  PERMISSIONS,
+  ROLES 
+} from '@/utils/auth/permissions-client'
 import {
   AudioWaveform,
   BadgeCheck,
@@ -22,6 +28,8 @@ import {
   Sparkles,
   SquareTerminal,
   Trash2,
+  Users,
+  Shield,
 } from "lucide-react"
 
 import {
@@ -66,6 +74,17 @@ import Link from "next/link"
 const SideBarDashboard = () => {
   const { user, data: dataBusiness } = useUserCurrent()
   const { businesses, properties } = dataBusiness ?? { businesses: [], properties: [] }
+  const [userRole, setUserRole] = useState(null)
+
+  useEffect(() => {
+    const fetchUserRole = async () => {
+      const { role } = await getCurrentUserClient()
+      setUserRole(role)
+    }
+    if (user) {
+      fetchUserRole()
+    }
+  }, [user])
 
   return (
     <Sidebar collapsible="offcanvas" variant='floating' className='sticky '>
@@ -146,9 +165,16 @@ const SideBarDashboard = () => {
                   </DropdownMenuItem>
                 </DropdownMenuGroup>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem>
+                <DropdownMenuItem 
+                  onClick={async () => {
+                    const supabase = createClient()
+                    await supabase.auth.signOut()
+                    window.location.href = '/login'
+                  }}
+                  className="cursor-pointer"
+                >
                   <LogOut />
-                  Log out
+                  Cerrar Sesión
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
@@ -192,10 +218,20 @@ const SideBarDashboard = () => {
               <SidebarMenuButton className="text-sidebar-foreground/70">
                 <MoreHorizontal className="text-sidebar-foreground/70" />
                 <Link href="/dashboard/negocios">
-                  <span>Mas ...</span>
+                  <span>Ver todos</span>
                 </Link>
               </SidebarMenuButton>
             </SidebarMenuItem>
+            
+            {hasPermission(userRole, PERMISSIONS.BUSINESSES_CREATE) && (
+              <SidebarMenuItem>
+                <SidebarMenuButton className="text-green-600 border border-green-200">
+                  <Link href="/dashboard/negocios/registrar-negocio" className="flex items-center gap-2">
+                    <span>+ Nuevo Negocio</span>
+                  </Link>
+                </SidebarMenuButton>
+              </SidebarMenuItem>
+            )}
           </SidebarMenu>
         </SidebarGroup>
         <SidebarGroup className="group-data-[collapsible=icon]:hidden">
@@ -234,9 +270,79 @@ const SideBarDashboard = () => {
             <SidebarMenuItem>
               <SidebarMenuButton className="text-sidebar-foreground/70">
                 <MoreHorizontal className="text-sidebar-foreground/70" />
-                <span>Mas ...</span>
+                <Link href="/dashboard/propiedades">
+                  <span>Ver todos</span>
+                </Link>
               </SidebarMenuButton>
             </SidebarMenuItem>
+            
+            {hasPermission(userRole, PERMISSIONS.PROPERTIES_CREATE) && (
+              <SidebarMenuItem>
+                <SidebarMenuButton className="text-green-600 border border-green-200">
+                  <Link href="/dashboard/registrar-propiedad" className="flex items-center gap-2">
+                    <span>+ Nueva Propiedad</span>
+                  </Link>
+                </SidebarMenuButton>
+              </SidebarMenuItem>
+            )}
+          </SidebarMenu>
+        </SidebarGroup>
+        
+        {/* Sección de Administración - Solo para Admins */}
+        {userRole === ROLES.ADMIN && (
+          <SidebarGroup className="group-data-[collapsible=icon]:hidden">
+            <SidebarGroupLabel>Administración</SidebarGroupLabel>
+            <SidebarMenu>
+              {hasPermission(userRole, PERMISSIONS.USERS_READ) && (
+                <SidebarMenuItem>
+                  <SidebarMenuButton asChild>
+                    <Link href="/dashboard/usuarios" className="flex items-center gap-2">
+                      <Users className="h-4 w-4" />
+                      <span>Gestión de Usuarios</span>
+                    </Link>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
+              )}
+              
+              {hasPermission(userRole, PERMISSIONS.BUSINESSES_READ) && (
+                <SidebarMenuItem>
+                  <SidebarMenuButton asChild>
+                    <Link href="/dashboard/analytics" className="flex items-center gap-2">
+                      <PieChart className="h-4 w-4" />
+                      <span>Analytics</span>
+                    </Link>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
+              )}
+            </SidebarMenu>
+          </SidebarGroup>
+        )}
+
+        {/* Sección de Herramientas */}
+        <SidebarGroup className="group-data-[collapsible=icon]:hidden">
+          <SidebarGroupLabel>Herramientas</SidebarGroupLabel>
+          <SidebarMenu>
+            {hasPermission(userRole, PERMISSIONS.BUSINESSES_READ) && (
+              <SidebarMenuItem>
+                <SidebarMenuButton asChild>
+                  <Link href="/dashboard/qr" className="flex items-center gap-2">
+                    <SquareTerminal className="h-4 w-4" />
+                    <span>Códigos QR</span>
+                  </Link>
+                </SidebarMenuButton>
+              </SidebarMenuItem>
+            )}
+            
+            {hasPermission(userRole, PERMISSIONS.EVENTS_READ) && (
+              <SidebarMenuItem>
+                <SidebarMenuButton asChild>
+                  <Link href="/dashboard/eventos" className="flex items-center gap-2">
+                    <Sparkles className="h-4 w-4" />
+                    <span>Eventos</span>
+                  </Link>
+                </SidebarMenuButton>
+              </SidebarMenuItem>
+            )}
           </SidebarMenu>
         </SidebarGroup>
       </SidebarContent>
