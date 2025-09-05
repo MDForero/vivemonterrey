@@ -8,63 +8,107 @@ export const ROLES = {
 }
 
 export const PERMISSIONS = {
-  // Permisos generales
-  ACCESS_DASHBOARD: 'access_dashboard',
-  VIEW_ALL_BUSINESSES: 'view_all_businesses',
-  CREATE_BUSINESS: 'create_business',
+  // Permisos de negocios (coinciden con DB)
+  BUSINESSES_CREATE: 'businesses.create',
+  BUSINESSES_READ: 'businesses.read',
+  BUSINESSES_UPDATE: 'businesses.update',
+  BUSINESSES_DELETE: 'businesses.delete',
   
-  // Permisos específicos de negocio
-  VIEW_BUSINESS: 'view_business',
-  EDIT_BUSINESS: 'edit_business',
-  DELETE_BUSINESS: 'delete_business',
+  // Permisos de usuarios
+  USERS_CREATE: 'users.create',
+  USERS_READ: 'users.read',
+  USERS_UPDATE: 'users.update',
+  USERS_DELETE: 'users.delete',
   
-  // Permisos de productos/habitaciones
-  VIEW_PRODUCTS: 'view_products',
-  CREATE_PRODUCTS: 'create_products',
-  EDIT_PRODUCTS: 'edit_products',
-  DELETE_PRODUCTS: 'delete_products',
+  // Permisos de productos
+  PRODUCTS_CREATE: 'products.create',
+  PRODUCTS_READ: 'products.read',
+  PRODUCTS_UPDATE: 'products.update',
+  PRODUCTS_DELETE: 'products.delete',
   
-  // Permisos de códigos QR
-  VIEW_QR_CODES: 'view_qr_codes',
-  GENERATE_QR_CODES: 'generate_qr_codes',
-  EDIT_QR_CODES: 'edit_qr_codes',
+  // Permisos de habitaciones
+  ROOMS_CREATE: 'rooms.create',
+  ROOMS_READ: 'rooms.read',
+  ROOMS_UPDATE: 'rooms.update',
+  ROOMS_DELETE: 'rooms.delete',
   
-  // Permisos de gestión de usuarios
-  MANAGE_USERS: 'manage_users'
+  // Permisos de propiedades
+  PROPERTIES_CREATE: 'properties.create',
+  PROPERTIES_READ: 'properties.read',
+  PROPERTIES_UPDATE: 'properties.update',
+  PROPERTIES_DELETE: 'properties.delete',
+  
+  // Permisos de eventos
+  EVENTS_CREATE: 'events.create',
+  EVENTS_READ: 'events.read',
+  EVENTS_UPDATE: 'events.update',
+  EVENTS_DELETE: 'events.delete'
 }
 
-// Definición de permisos por rol
+// Definición de permisos por rol (coincide con DB)
 export const ROLE_PERMISSIONS = {
   [ROLES.ADMIN]: [
-    PERMISSIONS.ACCESS_DASHBOARD,
-    PERMISSIONS.VIEW_ALL_BUSINESSES,
-    PERMISSIONS.CREATE_BUSINESS,
-    PERMISSIONS.VIEW_BUSINESS,
-    PERMISSIONS.EDIT_BUSINESS,
-    PERMISSIONS.DELETE_BUSINESS,
-    PERMISSIONS.VIEW_PRODUCTS,
-    PERMISSIONS.CREATE_PRODUCTS,
-    PERMISSIONS.EDIT_PRODUCTS,
-    PERMISSIONS.DELETE_PRODUCTS,
-    PERMISSIONS.VIEW_QR_CODES,
-    PERMISSIONS.GENERATE_QR_CODES,
-    PERMISSIONS.EDIT_QR_CODES,
-    PERMISSIONS.MANAGE_USERS
+    // Negocios
+    PERMISSIONS.BUSINESSES_CREATE,
+    PERMISSIONS.BUSINESSES_READ,
+    PERMISSIONS.BUSINESSES_UPDATE,
+    PERMISSIONS.BUSINESSES_DELETE,
+    // Usuarios
+    PERMISSIONS.USERS_CREATE,
+    PERMISSIONS.USERS_READ,
+    PERMISSIONS.USERS_UPDATE,
+    PERMISSIONS.USERS_DELETE,
+    // Productos
+    PERMISSIONS.PRODUCTS_CREATE,
+    PERMISSIONS.PRODUCTS_READ,
+    PERMISSIONS.PRODUCTS_UPDATE,
+    PERMISSIONS.PRODUCTS_DELETE,
+    // Habitaciones
+    PERMISSIONS.ROOMS_CREATE,
+    PERMISSIONS.ROOMS_READ,
+    PERMISSIONS.ROOMS_UPDATE,
+    PERMISSIONS.ROOMS_DELETE,
+    // Propiedades
+    PERMISSIONS.PROPERTIES_CREATE,
+    PERMISSIONS.PROPERTIES_READ,
+    PERMISSIONS.PROPERTIES_UPDATE,
+    PERMISSIONS.PROPERTIES_DELETE,
+    // Eventos
+    PERMISSIONS.EVENTS_CREATE,
+    PERMISSIONS.EVENTS_READ,
+    PERMISSIONS.EVENTS_UPDATE,
+    PERMISSIONS.EVENTS_DELETE
   ],
   [ROLES.CLIENT]: [
-    PERMISSIONS.ACCESS_DASHBOARD,
-    PERMISSIONS.VIEW_BUSINESS,
-    PERMISSIONS.EDIT_BUSINESS,
-    PERMISSIONS.VIEW_PRODUCTS,
-    PERMISSIONS.CREATE_PRODUCTS,
-    PERMISSIONS.EDIT_PRODUCTS,
-    PERMISSIONS.DELETE_PRODUCTS,
-    PERMISSIONS.VIEW_QR_CODES,
-    PERMISSIONS.GENERATE_QR_CODES,
-    PERMISSIONS.EDIT_QR_CODES
+    // Negocios (solo leer y actualizar)
+    PERMISSIONS.BUSINESSES_READ,
+    PERMISSIONS.BUSINESSES_UPDATE,
+    // Productos
+    PERMISSIONS.PRODUCTS_CREATE,
+    PERMISSIONS.PRODUCTS_READ,
+    PERMISSIONS.PRODUCTS_UPDATE,
+    PERMISSIONS.PRODUCTS_DELETE,
+    // Habitaciones
+    PERMISSIONS.ROOMS_CREATE,
+    PERMISSIONS.ROOMS_READ,
+    PERMISSIONS.ROOMS_UPDATE,
+    PERMISSIONS.ROOMS_DELETE,
+    // Propiedades (solo leer y actualizar)
+    PERMISSIONS.PROPERTIES_READ,
+    PERMISSIONS.PROPERTIES_UPDATE,
+    // Eventos
+    PERMISSIONS.EVENTS_CREATE,
+    PERMISSIONS.EVENTS_READ,
+    PERMISSIONS.EVENTS_UPDATE,
+    PERMISSIONS.EVENTS_DELETE
   ],
   [ROLES.USER]: [
-    // Permisos básicos para usuarios regulares (futura implementación)
+    // Solo permisos de lectura
+    PERMISSIONS.BUSINESSES_READ,
+    PERMISSIONS.PRODUCTS_READ,
+    PERMISSIONS.ROOMS_READ,
+    PERMISSIONS.PROPERTIES_READ,
+    PERMISSIONS.EVENTS_READ
   ]
 }
 
@@ -107,19 +151,11 @@ export async function getCurrentUserClient() {
       }
     }
 
-    // Determinar el rol del usuario desde el JWT
-    let userRole = ROLES.CLIENT // Valor por defecto
+    let userRole
 
-    // Si tienes el rol en el JWT
     try {
       const jwt = jwtDecode(session.access_token)
-      if (jwt.user_role === 'admin') {
-        userRole = ROLES.ADMIN
-      } else if (jwt.user_role === 'businessman' || jwt.user_role === 'client') {
-        userRole = ROLES.CLIENT
-      } else {
-        userRole = ROLES.USER
-      }
+      userRole = jwt.user_role || ROLES.USER
     } catch (jwtError) {
       console.warn('Could not decode JWT, using default role')
     }
@@ -144,6 +180,29 @@ export function hasPermission(userRole, permission) {
   
   const rolePermissions = ROLE_PERMISSIONS[userRole] || []
   return rolePermissions.includes(permission)
+}
+
+/**
+ * Verifica si un usuario tiene un permiso específico usando BD
+ */
+export async function hasPermissionDB(permission) {
+  const supabase = createClient()
+  
+  try {
+    const { data, error } = await supabase.rpc('authorize', {
+      requested_permission: permission
+    })
+    
+    if (error) {
+      console.error('Error checking permission:', error)
+      return false
+    }
+    
+    return data === true
+  } catch (error) {
+    console.error('Error in hasPermissionDB:', error)
+    return false
+  }
 }
 
 /**
