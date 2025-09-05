@@ -4,7 +4,7 @@ import PaginationBusinesses from "@/components/PaginationBusinesses"
 import Link from "next/link"
 
 export const metadata = {
-    title: "¿Qué hacer en Monterrey Casanare?",
+    title: "Explora Monterrey",
     description: "Encuentra todo lo que Monterrey Casaanre tiene para ofrecerte. En Vive Monterrey podras encontrar toda la información necesaria para disfrutar de Monterrey Casanare, desde los mejores restaurantes, hoteles, sitios turisticos y mucho más",
     keywords: "Monterrey, Casanare, Vive Monterrey, Llanos Orientales, Colombia, Turismo, Naturaleza, Aventura, Cultura Llanera, Gastronomía, Tradición, Ríos, Cascadas, Lagunas, Piscinas Naturales, Paratrike, Vuelos, Ecuestres, Miradores, Experiencias Agrarias, Senderos, Muestras Culturales, Biodiversidad, Llanuras, Llanero, ViveMonterrey, Vive Monterrey, ViveMonterrey.com, Vive Monterrey.com, ViveMonterrey.co, Vive Monterrey.co",
 }

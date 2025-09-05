@@ -2,18 +2,15 @@
 import CardCategory from "@/components/index/CardCategory";
 import ClientOnly from "@/components/ClientOnly";
 import Counter from "@/components/Counter";
-import ImageSupabase from "@/components/ImageSupabase";
 import SectionTitle from "@/components/SectionTitle";
 import { createClient } from "@/utils/supabase/server";
 import Link from "next/link";
-import FormContact from "@/components/index/FormContact";
 import CardBenefits from "@/components/index/CardBenefits";
 import CardHotel from "@/components/index/CardHotel";
 import CardRestaurant from "@/components/index/CardRestaurant";
 import CardActivities from "@/components/index/CardActivities";
 import Image from "next/image";
-import { LazyComponentWrapper } from "@/components/LazyWrapper"; 
-import { Suspense } from "react";
+import { LazyComponentWrapper } from "@/components/LazyWrapper";
 import { Skeleton } from "@/components/ui/skeleton";
 
 export const metadata = {
@@ -244,7 +241,7 @@ export default async function Home() {
         {/* Popular Visiting Place end */}
         {/* Popular Activity Area start */}
         <ClientOnly>
-          <LazyComponentWrapper 
+          <LazyComponentWrapper
             fallback={
               <section className="popular-activity-area bgc-lighter br-10 pt-100 pb-70 rel z-1">
                 <div className="container">
@@ -288,53 +285,53 @@ export default async function Home() {
                   </div>
                 </div>
                 <div className="row justify-content-center">
-                {[
-                  {
-                    title: "Miradores Naturales",
-                    tours: "12 lugares",
-                    image: "/assets/images/activities/activity2.png",
-                  },
-                  {
-                    title: "Rutas Ecoturísticas",
-                    tours: "9 rutas únicas",
-                    image: "/assets/images/activities/activity3.png",
-                  },
-                  {
-                    title: "Pozos y Cascadas",
-                    tours: "7 lugares naturales",
-                    image: "/assets/images/activities/activity6.png",
-                  },
-                  {
-                    title: "Vive el Día Llanero",
-                    tours: "4 experiencias",
-                    image: "/assets/images/activities/activity1.png",
-                  },
-                  {
-                    title: "Cacao y Chocolate",
-                    tours: "Transforma tu sabor",
-                    image: "/assets/images/activities/activity4.png",
-                  },
-                  {
-                    title: "Cabalgatas y Show Equino",
-                    tours: "Experiencia tradicional",
-                    image: "/assets/images/activities/activity7.png",
-                  },
-                  {
-                    title: "Ríos, Lagunas y Camping",
-                    tours: "5 destinos acuáticos",
-                    image: "/assets/images/activities/activity8.png",
-                  },
-                  {
-                    title: "Amaneceres y Atardeceres",
-                    tours: "Puntos con mejor vista",
-                    image: "/assets/images/activities/activity5.png",
-                  },
-                  {
-                    title: "Aventura Aérea en Paratrike",
-                    tours: "Coronando el cielo",
-                    image: "/assets/images/activities/activity9.png",
-                  },
-                ].map(item => <CardActivities data={item} key={item.title}/>)}
+                  {[
+                    {
+                      title: "Miradores Naturales",
+                      tours: "12 lugares",
+                      image: "/assets/images/activities/activity2.png",
+                    },
+                    {
+                      title: "Rutas Ecoturísticas",
+                      tours: "9 rutas únicas",
+                      image: "/assets/images/activities/activity3.png",
+                    },
+                    {
+                      title: "Pozos y Cascadas",
+                      tours: "7 lugares naturales",
+                      image: "/assets/images/activities/activity6.png",
+                    },
+                    {
+                      title: "Vive el Día Llanero",
+                      tours: "4 experiencias",
+                      image: "/assets/images/activities/activity1.png",
+                    },
+                    {
+                      title: "Cacao y Chocolate",
+                      tours: "Transforma tu sabor",
+                      image: "/assets/images/activities/activity4.png",
+                    },
+                    {
+                      title: "Cabalgatas y Show Equino",
+                      tours: "Experiencia tradicional",
+                      image: "/assets/images/activities/activity7.png",
+                    },
+                    {
+                      title: "Ríos, Lagunas y Camping",
+                      tours: "5 destinos acuáticos",
+                      image: "/assets/images/activities/activity8.png",
+                    },
+                    {
+                      title: "Amaneceres y Atardeceres",
+                      tours: "Puntos con mejor vista",
+                      image: "/assets/images/activities/activity5.png",
+                    },
+                    {
+                      title: "Aventura Aérea en Paratrike",
+                      tours: "Coronando el cielo",
+                      image: "/assets/images/activities/activity9.png",
+                    },
+                  ].map(item => <CardActivities data={item} key={item.title} />)}
                 </div>
               </div>
             </section>
@@ -361,36 +358,41 @@ export default async function Home() {
               </section>
             }
           >
-            <section className="featured-restaurants-area pt-100 pb-70 rel z-1">
-  <div className="container">
-    <div className="row justify-content-center">
-      <div className="col-lg-12">
-        <div
-          className="section-title text-center counter-text-wrap mb-70"
-          data-aos="fade-up"
-          data-aos-duration={1500}
-          data-aos-offset={50}
-        >
-          <SectionTitle
-            title="Sabores que conquistan en Monterrey"
-            subtitle1="Gastronomía local, nacional e internacional"
-            subtitle2="Sabores para todos los gustos en Monterrey"
-            countValue={count}
-            bg="bgc-primary"
-          />
-        </div>
-      </div>
-    </div>
 
-    <div className="row justify-content-center">
-      {restaurants?.businesses
-        .sort((a, b) => a.name.localeCompare(b.name))
-        .slice(0, 4)
-        .map((restaurant) => (
-          <CardRestaurant key={restaurant.id} data={restaurant} />
-        ))}
-      </div>
-    </div>
+            <section className="featured-restaurants-area pt-100 pb-70 rel z-1">
+              <div className="container">
+                <div className="row justify-content-center">
+                  <div className="col-lg-12">
+                    <div
+                      className="section-title text-center counter-text-wrap mb-70"
+                      data-aos="fade-up"
+                      data-aos-duration={1500}
+                      data-aos-offset={50}
+                    >
+                      <SectionTitle
+                        title="Sabores que conquistan en Monterrey"
+                        subtitle1="Gastronomía local, nacional e internacional"
+                        subtitle2="Sabores para todos los gustos en Monterrey"
+                        countValue={count}
+                        bg="bgc-primary"
+                      />
+                    </div>
+                  </div>
+                </div>
+                {/* <Script id="kommo-script">
+                  {`
+      (function(a,m,o,c,r,m){a[m]={id:"1035903",hash:"cb04e816b91dcce78f3d3e4970d3b4165a95994b80b0ac4d9304772a6a471b58",locale:"es",setMeta:function(p){this.params=(this.params||[]).concat([p])}};a[o]=a[o]||function(){(a[o].q=a[o].q||[]).push(arguments)};var d=a.document,s=d.createElement('script');s.async=true;s.id=m+'_script';s.src='https://gso.kommo.com/js/button.js';d.head&&d.head.appendChild(s)}(window,0,'crmPlugin',0,0,'crm_plugin'));
+          `}
+                </Script> */}
+                <div className="row justify-content-center">
+                  {restaurants?.businesses
+                    .sort((a, b) => a.name.localeCompare(b.name))
+                    .slice(0, 4)
+                    .map((restaurant) => (
+                      <CardRestaurant key={restaurant.id} data={restaurant} />
+                    ))}
+                </div>
+              </div>
             </section>
           </LazyComponentWrapper>
         </ClientOnly>
@@ -416,52 +418,52 @@ export default async function Home() {
           >
             <section
               className="cta-area-two overlay rel z-1"
-            style={{
-              backgroundImage: "url(/assets/images/backgrounds/cta-two.jpg)",
-              backgroundRepeat: 'no-repeat',
-              backgroundSize: 'cover '
-            }}
-          >
-            <div className="container">
-              <div className="row">
-                <div
-                  className="col-lg-6 align-self-center"
-                  data-aos="fade-left"
-                  data-aos-duration={1500}
-                  data-aos-offset={50}
-                >
-                  <div className="cta-content-part text-white py-50 rpt-100 rpb-15">
-                    <div className="section-title mb-25">
-                      <h2>
-                        Vive Monterrey con hasta <span><Counter end={10} />%</span> de descuento
-                      </h2>
+              style={{
+                backgroundImage: "url(/assets/images/backgrounds/cta-two.jpg)",
+                backgroundRepeat: 'no-repeat',
+                backgroundSize: 'cover '
+              }}
+            >
+              <div className="container">
+                <div className="row">
+                  <div
+                    className="col-lg-6 align-self-center"
+                    data-aos="fade-left"
+                    data-aos-duration={1500}
+                    data-aos-offset={50}
+                  >
+                    <div className="cta-content-part text-white py-50 rpt-100 rpb-15">
+                      <div className="section-title mb-25">
+                        <h2>
+                          Vive Monterrey con hasta <span><Counter end={10} />%</span> de descuento
+                        </h2>
+                      </div>
+                      <p>
+                        Ahorra en alojamientos y actividades si reservas con anticipación antes del <strong>20 de julio de 2024</strong>.
+                      </p>
+                      <Link
+                        href="/categorias/alojamientos"
+                        className="theme-btn style-two bgc-secondary mt-20"
+                      >
+                        <span data-hover="Planifica tu escapada llanera">
+                          Planifica tu escapada llanera
+                        </span>
+                        <i className="fal fa-arrow-right" />
+                      </Link>
                     </div>
-                    <p>
-                      Ahorra en alojamientos y actividades si reservas con anticipación antes del <strong>20 de julio de 2024</strong>.
-                    </p>
-                    <Link
-                      href="/categorias/alojamientos"
-                      className="theme-btn style-two bgc-secondary mt-20"
-                    >
-                      <span data-hover="Planifica tu escapada llanera">
-                        Planifica tu escapada llanera
-                      </span>
-                      <i className="fal fa-arrow-right" />
-                    </Link>
                   </div>
-                </div>
-                <div
-                  className="col-lg-6 align-self-end"
-                  data-aos="zoom-in-up"
-                  data-aos-duration={1500}
-                  data-aos-offset={50}
-                >
-                  <div className="cta-image-part mt-40">
-                    <Image loading='lazy' src="/assets/images/cta/cta-two.png" alt="Vive Monterrey Promo" className="w-full" width={0} height={0} />
+                  <div
+                    className="col-lg-6 align-self-end"
+                    data-aos="zoom-in-up"
+                    data-aos-duration={1500}
+                    data-aos-offset={50}
+                  >
+                    <div className="cta-image-part mt-40">
+                      <Image loading='lazy' src="/assets/images/cta/cta-two.png" alt="Vive Monterrey Promo" className="w-full" width={0} height={0} />
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
             </section>
           </LazyComponentWrapper>
         </ClientOnly>
@@ -683,31 +685,31 @@ export default async function Home() {
             }
           >
             <section className="highlighted-hotels-area pt-100 pb-70 rel z-1">
-            <div className="container">
-              <div className="row justify-content-center">
-                <div className="col-lg-12">
-                  <div
-                    className="section-title text-center counter-text-wrap mb-70"
-                    data-aos="fade-up"
-                    data-aos-duration={1500}
-                    data-aos-offset={50}
-                  >
-                    <SectionTitle
-                      title="Alojamientos destacados en Monterrey"
-                      subtitle1="Alojamientos en Monterrey"
-                      subtitle2="Espacios seleccionados por su experiencia, ubicación y encanto"
-                      bg="bgc-primary"
-                      countValue={count}
-                    />
+              <div className="container">
+                <div className="row justify-content-center">
+                  <div className="col-lg-12">
+                    <div
+                      className="section-title text-center counter-text-wrap mb-70"
+                      data-aos="fade-up"
+                      data-aos-duration={1500}
+                      data-aos-offset={50}
+                    >
+                      <SectionTitle
+                        title="Alojamientos destacados en Monterrey"
+                        subtitle1="Alojamientos en Monterrey"
+                        subtitle2="Espacios seleccionados por su experiencia, ubicación y encanto"
+                        bg="bgc-primary"
+                        countValue={count}
+                      />
+                    </div>
                   </div>
                 </div>
-              </div>
 
-              <div className="row justify-content-center">
-                {hotels?.businesses?.slice(0, 4).map((hotel) => (
-                  <CardHotel data={hotel} key={hotel.id} />
-                ))}
-              </div>
+                <div className="row justify-content-center">
+                  {hotels?.businesses?.slice(0, 4).map((hotel) => (
+                    <CardHotel data={hotel} key={hotel.id} />
+                  ))}
+                </div>
               </div>
             </section>
           </LazyComponentWrapper>
